@@ -1,0 +1,13 @@
+{
+  "name": "GreenComp Trails",
+  "short_name": "GC Trails",
+  "description": "Twelve GreenComp competences you do, not read. Cards, a board for the room, a solo walk.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#edf1ea",
+  "theme_color": "#15201a",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
