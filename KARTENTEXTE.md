@@ -1717,18 +1717,39 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
 - `ui.wTalkT`
   - DE: Reden
   - EN: Talk
-- `ui.askerFirst`
-  - DE: Wer fragt, antwortet zuerst.
-  - EN: Whoever asks answers first.
-- `ui.wTalkSay`
-  - DE: Dann die anderen, eine Person nach der anderen. Niemand muss.
-  - EN: Then the others, one after another. Nobody has to.
-- `ui.asks`
-  - DE: {name} fragt.
-  - EN: {name} asks.
+- `ui.talkSayName`
+  - DE: Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss.
+  - EN: What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.
+- `ui.talkSayNoName`
+  - DE: Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss.
+  - EN: What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.
+- `ui.otherQuestion`
+  - DE: Andere Frage
+  - EN: Other question
 - `ui.talkHint`
   - DE: Handy hinlegen. Ein Vogel sagt euch, wann die Zeit um ist.
   - EN: Phone down. A bird tells you when the time is over.
+
+### Von Station zu Station
+
+- `ui.phStationOf`
+  - DE: Station {n} von {m}
+  - EN: Station {n} of {m}
+- `ui.cardOfThree`
+  - DE: An einer Station liegen die drei Karten ihres Bereichs. Ihr spielt eine davon, die anderen bleiben fürs nächste Mal.
+  - EN: A station has the three cards of its area. You play one of them; the others stay for next time.
+- `ui.toStation`
+  - DE: Weiter zu Station {n}
+  - EN: On to station {n}
+- `ui.goToStation1`
+  - DE: Geht zur ersten Station: {area}. Ein Bierdeckel in dieser Farbe markiert sie.
+  - EN: Go to the first station: {area}. A coaster in this colour marks it.
+- `ui.goToStation`
+  - DE: Geht jetzt zur Station {n}: {area}. Ein Bierdeckel in dieser Farbe markiert sie. Bereichskarte und Fundstück kommen mit.
+  - EN: Go to station {n} now: {area}. A coaster in this colour marks it. Bring the area card and your find.
+- `ui.toDebrief`
+  - DE: Zur Nachbesprechung
+  - EN: To the debrief
 
 ### Schritt: Schätzen (ohne Punkte; mit Punkten nur, wenn eingeschaltet)
 
@@ -2120,8 +2141,8 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
   - DE: Zählt bis drei. Alle zeigen gleichzeitig auf eine Fähigkeit.
   - EN: Count to three. Everyone points at one skill at the same time.
 - `ui.tfChoose3`
-  - DE: Die meisten Punkte gewinnen. Bei Gleichstand eine Minute reden.
-  - EN: Most points wins. If it is a tie, talk for one minute.
+  - DE: Gewählt ist die Fähigkeit, auf die die meisten Finger zeigen. Bei Gleichstand eine Minute reden.
+  - EN: The skill most fingers point at is chosen. If it is a tie, talk for one minute.
 - `ui.tfChoicesHint`
   - DE: Die gewählte Karte wird an der Station ihres Bereichs gespielt.
   - EN: The chosen card is played at the station of its area.
@@ -2131,6 +2152,9 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
 - `ui.tfJoker`
   - DE: Joker: Einmal pro Spiel darf eine Gruppe stattdessen eine eigene Karte schreiben.
   - EN: Joker: once per game a group may write its own card instead.
+- `ui.cardsHereHint`
+  - DE: Jede Gruppe spielt eine dieser drei Karten, gezogen oder gewählt. Die anderen zwei bleiben fürs nächste Spiel.
+  - EN: Each group plays one of these three cards, drawn or chosen. The other two stay for the next game.
 - `ui.tfDebriefLead`
   - DE: Drei Fragen, zusammen acht Minuten. Jede Gruppe redet für sich, dann erzählen zwei Gruppen dem ganzen Raum. Die Fundstücke liegen nebeneinander.
   - EN: Three questions, eight minutes together. Every group talks for itself, then two groups share with the room. The finds lie side by side.
@@ -2186,11 +2210,23 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
 ### Überall
 
 - `ui.earlyNext`
-  - DE: Früher fertig? Einfach «Weiter».
-  - EN: Done earlier? Just tap «Next».
+  - DE: Früher fertig? Tippt «Überspringen».
+  - EN: Done earlier? Tap «Skip».
 - `ui.timeUp`
   - DE: Schluss. Auch mitten im Satz.
   - EN: Time. Even mid-sentence.
+- `ui.skipTime`
+  - DE: Überspringen
+  - EN: Skip
+- `ui.skipped`
+  - DE: Übersprungen.
+  - EN: Skipped.
+- `ui.readOut`
+  - DE: Vorlesen
+  - EN: Read out
+- `ui.stopReading`
+  - DE: Stopp
+  - EN: Stop
 
 ### Liste «Vor dem Tag»
 

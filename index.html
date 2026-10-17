@@ -851,6 +851,7 @@ td.num, th.num { text-align: right; }
 
 .est-card { border-left: 6px solid var(--area); display: grid; gap: 6px; }
 .talk-row { align-items: center; gap: 18px 24px; }
+.station-go { border-left: 6px solid; }
 .talk-slot { width: clamp(220px, 32vw, 300px); flex: none; }
 .talk-slot .mini { width: 100%; }
 @media (max-width: 560px) { .talk-slot { width: min(290px, 80vw); margin-inline: auto; } }
@@ -938,6 +939,11 @@ button.pick-add:active { transform: scale(.98); }
 .pick-tile.is-chosen .pick-add { border-color: var(--area); background: color-mix(in srgb, var(--area) 14%, var(--paper)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--area) 35%, transparent); }
 .pick-minus { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; font-weight: 700; line-height: 1; }
 .pick-grid--static .pick-add { cursor: default; }
+/* on the board the twelve skills sit in the narrower left column: two areas side by side, never four squeezed */
+.pick-grid--static { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 520px) { .pick-grid--static { grid-template-columns: 1fr; } }
+.pick-add b, .pick-add span, .pick-area-name { hyphens: auto; overflow-wrap: anywhere; }
+.pick-grid--static .pick-add b { padding-right: 0; }
 .chosen-panel { display: grid; gap: 4px; padding: 16px 18px; border-radius: 18px; border-left: 6px solid var(--area); background: color-mix(in srgb, var(--area) 10%, var(--paper)); }
 .chosen-panel h3 { font-family: var(--f-sign); font-size: 1.6rem; }
 .chosen-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }

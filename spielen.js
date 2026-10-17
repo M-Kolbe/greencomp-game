@@ -12,7 +12,7 @@
   var COLORS = ["--a-values", "--a-complex", "--a-futures", "--a-acting", "--blaze", "--sign"];
   var PACE = { calm: 1.25, normal: 1, brisk: 0.8 };
   var COMMUNITY = "https://education-for-climate.ec.europa.eu/community/GreenCompGame";
-  var S = null, runs = [];
+  var S = null, runs = [], skipHandler = null;
 
   function fresh() { return { v: 2, i: 0, who: null, len: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
   function save() { store.set("game", S); }
@@ -203,6 +203,7 @@
     var clock = h("p", { class: "clock" }, G.mmss(sec));
     var phase = h("p", { class: "lead", "aria-live": "polite" }, opts.label || "");
     var btn = h("button", { type: "button", class: "btn btn--sign btn--big" }, opts.start || T("startTime", { t: G.mmss(sec) }));
+    var skip = h("button", { type: "button", class: "btn btn--ghost" }, "⏭ " + T("skipTime"));
     var tl = null, raf = 0;
     function loop() { if (tl) { if (hg) hg.set(tl.elapsed / sec); clock.textContent = G.mmss(sec - tl.elapsed); } raf = requestAnimationFrame(loop); }
     function stop() { if (tl) tl.stop(); cancelAnimationFrame(raf); G.Wake.off(); }
@@ -218,9 +219,13 @@
       } });
       tl.play(); btn.textContent = T("pause"); cancelAnimationFrame(raf); loop();
     });
+    skip.addEventListener("click", function () {
+      stop(); btn.hidden = true; skip.hidden = true; phase.textContent = T("skipped");
+      if (opts.onSkip) opts.onSkip(); else if (skipHandler) skipHandler();
+    });
     runs.push(stop);
     return h("div", { class: "timer-grid" + (hg ? "" : " timer-grid--plain") }, hg ? hg.el : (opts.art || h("div", { class: "breath", "aria-hidden": "true" })),
-      h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, btn), h("p", { class: "muted small" }, opts.hint || T("earlyNext"))));
+      h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, btn, skip), h("p", { class: "muted small" }, opts.hint || T("earlyNext"))));
   }
   function roleList(k) {
     var r = roleOf(k);
@@ -534,6 +539,7 @@
       var swap = h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { S.place = inside ? "out" : "in"; save(); ctl.repaint(); } }, inside ? "🌳 " + T("placeAreOut") : "🏠 " + T("placeAreIn"));
       return { icon: "sound", kicker: phLabel(step.ph), title: L(a.name), say: inside ? T("wSoundSayIn") : T("wSoundSay"),
         body: [pickArea ? h("p", { class: "small muted" }, T("chooseArea")) : null, pickArea,
+          S.len === "exp" ? h("p", { class: "note station-go", style: { borderColor: G.areaVar(a) } }, G.areaSym(a, "eyebrow-sym"), T(k ? "goToStation" : "goToStation1", { n: k + 1, area: L(a.name) })) : null,
           h("p", { class: "lead" }, "«" + L(a.teaser) + "»"),
           inside ? G.soundPanel(a) : timer(dur("sound"), { glass: true, start: T("listen20"), hint: T("listenHint") }),
           h("div", { class: "row" }, swap),
@@ -550,7 +556,7 @@
         put(slot, card);
         put(note, st.joker ? h("p", { class: "note" }, "🃏 " + T("jokerPlayed")) : S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null);
         put(tools,
-          h("button", { type: "button", class: "btn btn--small", onclick: function () { A.ensure(); Voice.set(true); Voice.speak(st.joker ? st.joker.q : L(c.question), "narrator"); } }, "🔊 " + T("readQuestion")),
+          G.speakButton(function () { return st.joker ? st.joker.q : L(c.question); }, T("readQuestion")),
           st.joker ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.joker = null; save(); showCard(true); paintJoker(); } }, "↺ " + T("jokerUndo"))
             : h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { draw(); } }, "↻ " + T("drawAgain")));
         ctl.refresh();
@@ -585,7 +591,7 @@
       paintJoker();
       var paper = h("details", { class: "panel" }, h("summary", null, T("paperCard")),
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
-      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay"),
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
         read: function () { return st.joker ? st.joker.q : st.comp ? L(G.COMP[st.comp].question) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
@@ -694,13 +700,14 @@
     talk: function (step, st) {
       var c = G.COMP[st.comp], slot = h("div", { class: "talk-slot" });
       if (st.talk == null) { st.talk = Math.random() * 2 | 0; save(); }
-      var asker = S.names.length ? Math.random() * S.names.length | 0 : -1;
+      /* Who asks is drawn once per station; the question on the round card is what you talk about. */
+      if (st.asker == null && S.names.length) { st.asker = Math.random() * S.names.length | 0; save(); }
+      var asker = S.names.length ? st.asker : -1;
       function paint() { put(slot, G.zoomOne(G.talkMini(c, st.talk), G.talkMini(c, st.talk, true))); }
       paint();
-      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: T("askerFirst") + " " + T("wTalkSay"),
+      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
         body: [h("div", { class: "row talk-row" }, slot,
           h("div", { class: "stack", style: { flex: "1", minWidth: "220px" } },
-            asker >= 0 ? h("p", { class: "lead" }, T("asks", { name: nm(asker) })) : null,
             h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))),
           timer(dur("talk", st), { hint: T("talkHint") })],
         read: function () { return L(c.talk[st.talk]); } };
@@ -781,8 +788,12 @@
       if (!five) {
         findBtn = h("button", { type: "button", class: "btn", "aria-pressed": String(!!st.find), onclick: function () { st.find = !st.find; save(); findBtn.setAttribute("aria-pressed", String(st.find)); findBtn.textContent = (st.find ? "✓ " : "🍂 ") + T("findDone"); } }, (st.find ? "✓ " : "🍂 ") + T("findDone"));
       }
+      /* The way to the next station is part of the game: the button names it. */
+      var P = plan(), nx = P[P.findIndex(function (p) { return p.id === "sentence" && p.k === step.k; }) + 1] || {};
+      var nextLabel = nx.id === "sound" ? T("toStation", { n: nx.k + 1 }) : nx.id === "what" || nx.id === "debrief" ? T("toDebrief") : null;
       return { icon: "leaf", kicker: phLabel(step.ph), title: !five ? T("wSentT") : solo() ? T("wSentTSolo") : T("phSentence"), say: solo() ? T("wSentSaySolo") : five ? T("oneSentence") : T("wSentSay"),
-        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null] };
+        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null],
+        nextLabel: function () { return nextLabel; } };
     },
     /* Debrief, after Rolfe: What? So what? Now what? */
     what: function (step) {
@@ -944,7 +955,8 @@
       relabel: function () { if (nextBtn && def) nextBtn.textContent = ((def.nextLabel && def.nextLabel()) || def.next || T("next")) + " →"; },
       hint: function (t) { if (hintEl) hintEl.textContent = t; }
     };
-    function speakStep() { A.ensure(); var r = def.read ? def.read() : ""; Voice.speak([def.title, def.say, r].filter(Boolean).join(". "), "narrator"); }
+    function stepText() { var r = def.read ? def.read() : ""; return [def.title, def.say, r].filter(Boolean).join(". "); }
+    var readBtn = null;
     function paint(moved) {
       stopRuns();
       var P = plan();
@@ -979,12 +991,13 @@
       /* Every step with a clock says how long it takes, right under its name. */
       var secs = TIMED[step.id] && (step.id !== "brief" || stations()) ? dur(step.id, st) : 0;
       var kicker = (def.kicker || phLabel(step.ph)) + (secs ? " · " + durLabel(secs) : "");
+      if (S.len === "exp" && step.k != null) kicker = kicker.replace(phLabel(step.ph), T("phStationOf", { n: step.k + 1, m: 4 }));
       var area = st && st.comp ? G.AREA[G.COMP[st.comp].area] : st && st.area ? G.AREA[st.area] : null;
       var card = h("article", { class: "play-step" + (moved && !G.reduced ? " in" : ""), style: area ? { "--area": G.areaVar(area) } : null },
         h("header", { class: "play-head" },
           h("span", { class: "play-num", "aria-hidden": "true" }, known ? String(S.i + 1) : G.icon(def.icon)),
           h("div", { class: "stack", style: { gap: "4px" } }, h("p", { class: "eyebrow" }, kicker), title),
-          Voice.ok ? h("button", { type: "button", class: "btn btn--small btn--ghost play-read", onclick: speakStep, "aria-label": T("readOut") }, "🔊", h("span", null, T("readOut"))) : null),
+          readBtn = Voice.ok ? G.speakButton(stepText, T("readOut"), "btn btn--small btn--ghost play-read") : null),
         def.say ? h("p", { class: "play-say" }, def.say) : null,
         h("div", { class: "play-body stack" }, def.body));
       hintEl = h("p", { class: "play-hint", role: "status" });
@@ -999,7 +1012,9 @@
       put(root, top, card, nav);
       ctl.refresh();
       if (moved) { window.scrollTo(0, 0); title.focus({ preventScroll: true }); }
-      if (moved && store.get("autoRead", false) && Voice.on) setTimeout(function () { if (title.isConnected) speakStep(); }, 350);
+      if (moved && store.get("autoRead", false) && Voice.on && readBtn) setTimeout(function () { if (title.isConnected) readBtn.speak(); }, 350);
+      /* «Skip» next to a clock: on to the next screen, unless this step still needs something. */
+      skipHandler = function () { var need = def.need && def.need(); if (need) { hintEl.textContent = need; return; } ctl.go(1); };
     }
     paint(false);
   };

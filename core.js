@@ -111,18 +111,46 @@
     speak: function (text, who) {
       if (!this.ok || !this.on || !text) return;
       try {
-        var u = new SpeechSynthesisUtterance(text), v = this.pick(), p = PROFILES[who] || PROFILES.narrator;
+        var u = new SpeechSynthesisUtterance(text), v = this.pick(), p = PROFILES[who] || PROFILES.narrator, self = this;
         if (v) u.voice = v;
         u.lang = v ? v.lang : (G.lang === "de" ? "de-DE" : "en-GB");
         u.pitch = p[0]; u.rate = p[1];
+        u.onstart = u.onend = u.onerror = function () { self.notify(); };
         window.speechSynthesis.speak(u);
+        this.notify();
       } catch (e) {}
     },
-    cancel: function () { if (this.ok) try { window.speechSynthesis.cancel(); } catch (e) {} },
+    cancel: function () { if (this.ok) try { window.speechSynthesis.cancel(); } catch (e) {} this.notify(); },
+    /* Is something being read out right now? Read buttons show «Stop» while it is. */
+    speaking: function () { try { return this.ok && (window.speechSynthesis.speaking || window.speechSynthesis.pending); } catch (e) { return false; } },
+    subs: [],
+    notify: function () {
+      var self = this;
+      setTimeout(function () { self.subs = self.subs.filter(function (f) { return f(); }); }, 30);
+    },
     set: function (on) { this.on = on; store.set("voice", on); if (!on) this.cancel(); }
   };
   if (Voice.ok) { try { window.speechSynthesis.getVoices(); } catch (e) {} }
   G.est = function (text) { var w = String(text).split(/\s+/).length; return Math.max(2.2, w / (G.lang === "de" ? 2.1 : 2.4) + 0.6); };
+  /* A read-out button that is also its stop button: «🔊 Read out» while quiet, «■ Stop» while anything is being read.
+   * text: function returning what to read. The returned button has .speak() for reading without a tap (auto-read). */
+  G.speakButton = function (text, label, cls) {
+    var ico = h("span", { "aria-hidden": "true" }), lbl = h("span");
+    var b = h("button", { type: "button", class: cls || "btn btn--small" }, ico, lbl);
+    function paint() {
+      var on = Voice.speaking();
+      ico.textContent = on ? "■ " : "🔊 "; lbl.textContent = on ? T("stopReading") : label;
+      b.setAttribute("aria-label", on ? T("stopReading") : label);
+      return b.isConnected;
+    }
+    b.speak = function () { G.A && G.A.ensure && G.A.ensure(); Voice.speak(text(), "narrator"); };
+    b.addEventListener("click", function () {
+      if (Voice.speaking()) { Voice.cancel(); return; }
+      Voice.set(true); b.speak();
+    });
+    paint(); Voice.subs.push(paint);
+    return b;
+  };
   G.voiceToggle = function () {
     var b = h("button", { type: "button", class: "btn btn--small", "aria-pressed": String(Voice.on), hidden: !Voice.ok });
     function paint() { b.setAttribute("aria-pressed", String(Voice.on)); b.textContent = Voice.on ? T("voiceOn") : T("voiceOff"); }

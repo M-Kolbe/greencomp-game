@@ -230,7 +230,7 @@
       h("div", { class: "panel" }, h("h3", null, T("phaseTimer")), h("div", { class: "row", style: { justifyContent: "space-between" } }, clockEl, h("div", { class: "row" }, clockBtn,
         h("button", { type: "button", class: "btn btn--small", onclick: function () { stopClock(); clock.phase = (clock.phase + 1) % PHASES.length; clock.remain = PHASES[clock.phase][1]; paintClock(); } }, T("nextPhase")))), phaseList),
       h("div", { class: "panel" }, h("h3", null, T("groupTrack")), h("p", { class: "small muted" }, T("sparkReminder")), trackBox),
-      h("div", { class: "panel" }, h("h3", null, T("cardsHere")), comps.map(function (c) { return h("a", { class: "sign", href: "#k-" + c.id }, h("span", null, L(c.name))); }),
+      h("div", { class: "panel" }, h("h3", null, T("cardsHere")), h("p", { class: "small muted" }, T("cardsHereHint")), comps.map(function (c) { return h("a", { class: "sign", href: "#k-" + c.id }, h("span", null, L(c.name))); }),
         h("p", { class: "small muted" }, "🃏 " + T("tfJoker"))));
 
     var estBox = h("div", { class: "panel", style: { "--area": G.areaVar(a) } });

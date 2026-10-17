@@ -106,7 +106,10 @@
       var hg = hourglass(), clock = h("p", { class: "clock" }, "5:00");
       var phase = h("p", { class: "lead", "aria-live": "polite" }, T("doTask"));
       var startBtn = h("button", { type: "button", class: "btn btn--sign btn--big" }, T("startSand"));
-      put(stepBox, trailPanel(), h("div", { class: "timer-grid" }, hg.el, h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, startBtn), h("p", { class: "muted small" }, T("sandHint")))));
+      var skipBtn = h("button", { type: "button", class: "btn btn--ghost", onclick: function () {
+        if (tl) tl.stop(); cancelAnimationFrame(raf); G.Wake.off(); Voice.cancel(); var r = G.$(".resting"); if (r) r.remove(); stepEnd();
+      } }, "⏭ " + T("skipTime"));
+      put(stepBox, trailPanel(), h("div", { class: "timer-grid" }, hg.el, h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, startBtn, skipBtn), h("p", { class: "muted small" }, T("sandHint")))));
       var DUR = 300;
       function loop() { if (tl) { hg.set(tl.elapsed / DUR); clock.textContent = G.mmss(DUR - tl.elapsed); } raf = requestAnimationFrame(loop); }
       startBtn.addEventListener("click", function () {

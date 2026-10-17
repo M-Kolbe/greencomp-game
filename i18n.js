@@ -1025,3 +1025,29 @@
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+/* v0.8: stop reading, skip a clock */
+(function () {
+  var add = {
+    stopReading: { en: "Stop", de: "Stopp" },
+    skipTime: { en: "Skip", de: "Überspringen" },
+    skipped: { en: "Skipped.", de: "Übersprungen." },
+    earlyNext: { en: "Done earlier? Tap «Skip».", de: "Früher fertig? Tippt «Überspringen»." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+/* v0.8: the way from station to station, what to talk about, one card of three */
+(function () {
+  var add = {
+    phStationOf: { en: "Station {n} of {m}", de: "Station {n} von {m}" },
+    toStation: { en: "On to station {n}", de: "Weiter zu Station {n}" },
+    toDebrief: { en: "To the debrief", de: "Zur Nachbesprechung" },
+    goToStation: { en: "Go to station {n} now: {area}. A coaster in this colour marks it. Bring the area card and your find.", de: "Geht jetzt zur Station {n}: {area}. Ein Bierdeckel in dieser Farbe markiert sie. Bereichskarte und Fundstück kommen mit." },
+    goToStation1: { en: "Go to the first station: {area}. A coaster in this colour marks it.", de: "Geht zur ersten Station: {area}. Ein Bierdeckel in dieser Farbe markiert sie." },
+    cardOfThree: { en: "A station has the three cards of its area. You play one of them; the others stay for next time.", de: "An einer Station liegen die drei Karten ihres Bereichs. Ihr spielt eine davon, die anderen bleiben fürs nächste Mal." },
+    cardsHereHint: { en: "Each group plays one of these three cards, drawn or chosen. The other two stay for the next game.", de: "Jede Gruppe spielt eine dieser drei Karten, gezogen oder gewählt. Die anderen zwei bleiben fürs nächste Spiel." },
+    tfChoose3: { en: "The skill most fingers point at is chosen. If it is a tie, talk for one minute.", de: "Gewählt ist die Fähigkeit, auf die die meisten Finger zeigen. Bei Gleichstand eine Minute reden." },
+    talkSayName: { en: "What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." },
+    talkSayNoName: { en: "What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();

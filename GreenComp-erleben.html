@@ -850,6 +850,7 @@ td.num, th.num { text-align: right; }
 
 .est-card { border-left: 6px solid var(--area); display: grid; gap: 6px; }
 .talk-row { align-items: center; gap: 18px 24px; }
+.station-go { border-left: 6px solid; }
 .talk-slot { width: clamp(220px, 32vw, 300px); flex: none; }
 .talk-slot .mini { width: 100%; }
 @media (max-width: 560px) { .talk-slot { width: min(290px, 80vw); margin-inline: auto; } }
@@ -937,6 +938,11 @@ button.pick-add:active { transform: scale(.98); }
 .pick-tile.is-chosen .pick-add { border-color: var(--area); background: color-mix(in srgb, var(--area) 14%, var(--paper)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--area) 35%, transparent); }
 .pick-minus { position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; font-weight: 700; line-height: 1; }
 .pick-grid--static .pick-add { cursor: default; }
+/* on the board the twelve skills sit in the narrower left column: two areas side by side, never four squeezed */
+.pick-grid--static { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 520px) { .pick-grid--static { grid-template-columns: 1fr; } }
+.pick-add b, .pick-add span, .pick-area-name { hyphens: auto; overflow-wrap: anywhere; }
+.pick-grid--static .pick-add b { padding-right: 0; }
 .chosen-panel { display: grid; gap: 4px; padding: 16px 18px; border-radius: 18px; border-left: 6px solid var(--area); background: color-mix(in srgb, var(--area) 10%, var(--paper)); }
 .chosen-panel h3 { font-family: var(--f-sign); font-size: 1.6rem; }
 .chosen-line { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
@@ -5661,6 +5667,32 @@ window.GCT_DATA.competences.forEach(function (c) {
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+/* v0.8: stop reading, skip a clock */
+(function () {
+  var add = {
+    stopReading: { en: "Stop", de: "Stopp" },
+    skipTime: { en: "Skip", de: "Überspringen" },
+    skipped: { en: "Skipped.", de: "Übersprungen." },
+    earlyNext: { en: "Done earlier? Tap «Skip».", de: "Früher fertig? Tippt «Überspringen»." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+/* v0.8: the way from station to station, what to talk about, one card of three */
+(function () {
+  var add = {
+    phStationOf: { en: "Station {n} of {m}", de: "Station {n} von {m}" },
+    toStation: { en: "On to station {n}", de: "Weiter zu Station {n}" },
+    toDebrief: { en: "To the debrief", de: "Zur Nachbesprechung" },
+    goToStation: { en: "Go to station {n} now: {area}. A coaster in this colour marks it. Bring the area card and your find.", de: "Geht jetzt zur Station {n}: {area}. Ein Bierdeckel in dieser Farbe markiert sie. Bereichskarte und Fundstück kommen mit." },
+    goToStation1: { en: "Go to the first station: {area}. A coaster in this colour marks it.", de: "Geht zur ersten Station: {area}. Ein Bierdeckel in dieser Farbe markiert sie." },
+    cardOfThree: { en: "A station has the three cards of its area. You play one of them; the others stay for next time.", de: "An einer Station liegen die drei Karten ihres Bereichs. Ihr spielt eine davon, die anderen bleiben fürs nächste Mal." },
+    cardsHereHint: { en: "Each group plays one of these three cards, drawn or chosen. The other two stay for the next game.", de: "Jede Gruppe spielt eine dieser drei Karten, gezogen oder gewählt. Die anderen zwei bleiben fürs nächste Spiel." },
+    tfChoose3: { en: "The skill most fingers point at is chosen. If it is a tie, talk for one minute.", de: "Gewählt ist die Fähigkeit, auf die die meisten Finger zeigen. Bei Gleichstand eine Minute reden." },
+    talkSayName: { en: "What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." },
+    talkSayNoName: { en: "What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
 
 </script>
 <script>/* audio.js */
@@ -6283,18 +6315,46 @@ window.GCT_DATA.competences.forEach(function (c) {
     speak: function (text, who) {
       if (!this.ok || !this.on || !text) return;
       try {
-        var u = new SpeechSynthesisUtterance(text), v = this.pick(), p = PROFILES[who] || PROFILES.narrator;
+        var u = new SpeechSynthesisUtterance(text), v = this.pick(), p = PROFILES[who] || PROFILES.narrator, self = this;
         if (v) u.voice = v;
         u.lang = v ? v.lang : (G.lang === "de" ? "de-DE" : "en-GB");
         u.pitch = p[0]; u.rate = p[1];
+        u.onstart = u.onend = u.onerror = function () { self.notify(); };
         window.speechSynthesis.speak(u);
+        this.notify();
       } catch (e) {}
     },
-    cancel: function () { if (this.ok) try { window.speechSynthesis.cancel(); } catch (e) {} },
+    cancel: function () { if (this.ok) try { window.speechSynthesis.cancel(); } catch (e) {} this.notify(); },
+    /* Is something being read out right now? Read buttons show «Stop» while it is. */
+    speaking: function () { try { return this.ok && (window.speechSynthesis.speaking || window.speechSynthesis.pending); } catch (e) { return false; } },
+    subs: [],
+    notify: function () {
+      var self = this;
+      setTimeout(function () { self.subs = self.subs.filter(function (f) { return f(); }); }, 30);
+    },
     set: function (on) { this.on = on; store.set("voice", on); if (!on) this.cancel(); }
   };
   if (Voice.ok) { try { window.speechSynthesis.getVoices(); } catch (e) {} }
   G.est = function (text) { var w = String(text).split(/\s+/).length; return Math.max(2.2, w / (G.lang === "de" ? 2.1 : 2.4) + 0.6); };
+  /* A read-out button that is also its stop button: «🔊 Read out» while quiet, «■ Stop» while anything is being read.
+   * text: function returning what to read. The returned button has .speak() for reading without a tap (auto-read). */
+  G.speakButton = function (text, label, cls) {
+    var ico = h("span", { "aria-hidden": "true" }), lbl = h("span");
+    var b = h("button", { type: "button", class: cls || "btn btn--small" }, ico, lbl);
+    function paint() {
+      var on = Voice.speaking();
+      ico.textContent = on ? "■ " : "🔊 "; lbl.textContent = on ? T("stopReading") : label;
+      b.setAttribute("aria-label", on ? T("stopReading") : label);
+      return b.isConnected;
+    }
+    b.speak = function () { G.A && G.A.ensure && G.A.ensure(); Voice.speak(text(), "narrator"); };
+    b.addEventListener("click", function () {
+      if (Voice.speaking()) { Voice.cancel(); return; }
+      Voice.set(true); b.speak();
+    });
+    paint(); Voice.subs.push(paint);
+    return b;
+  };
   G.voiceToggle = function () {
     var b = h("button", { type: "button", class: "btn btn--small", "aria-pressed": String(Voice.on), hidden: !Voice.ok });
     function paint() { b.setAttribute("aria-pressed", String(Voice.on)); b.textContent = Voice.on ? T("voiceOn") : T("voiceOff"); }
@@ -7975,7 +8035,10 @@ window.GCT_DATA.competences.forEach(function (c) {
       var hg = hourglass(), clock = h("p", { class: "clock" }, "5:00");
       var phase = h("p", { class: "lead", "aria-live": "polite" }, T("doTask"));
       var startBtn = h("button", { type: "button", class: "btn btn--sign btn--big" }, T("startSand"));
-      put(stepBox, trailPanel(), h("div", { class: "timer-grid" }, hg.el, h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, startBtn), h("p", { class: "muted small" }, T("sandHint")))));
+      var skipBtn = h("button", { type: "button", class: "btn btn--ghost", onclick: function () {
+        if (tl) tl.stop(); cancelAnimationFrame(raf); G.Wake.off(); Voice.cancel(); var r = G.$(".resting"); if (r) r.remove(); stepEnd();
+      } }, "⏭ " + T("skipTime"));
+      put(stepBox, trailPanel(), h("div", { class: "timer-grid" }, hg.el, h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, startBtn, skipBtn), h("p", { class: "muted small" }, T("sandHint")))));
       var DUR = 300;
       function loop() { if (tl) { hg.set(tl.elapsed / DUR); clock.textContent = G.mmss(DUR - tl.elapsed); } raf = requestAnimationFrame(loop); }
       startBtn.addEventListener("click", function () {
@@ -8429,7 +8492,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       h("div", { class: "panel" }, h("h3", null, T("phaseTimer")), h("div", { class: "row", style: { justifyContent: "space-between" } }, clockEl, h("div", { class: "row" }, clockBtn,
         h("button", { type: "button", class: "btn btn--small", onclick: function () { stopClock(); clock.phase = (clock.phase + 1) % PHASES.length; clock.remain = PHASES[clock.phase][1]; paintClock(); } }, T("nextPhase")))), phaseList),
       h("div", { class: "panel" }, h("h3", null, T("groupTrack")), h("p", { class: "small muted" }, T("sparkReminder")), trackBox),
-      h("div", { class: "panel" }, h("h3", null, T("cardsHere")), comps.map(function (c) { return h("a", { class: "sign", href: "#k-" + c.id }, h("span", null, L(c.name))); }),
+      h("div", { class: "panel" }, h("h3", null, T("cardsHere")), h("p", { class: "small muted" }, T("cardsHereHint")), comps.map(function (c) { return h("a", { class: "sign", href: "#k-" + c.id }, h("span", null, L(c.name))); }),
         h("p", { class: "small muted" }, "🃏 " + T("tfJoker"))));
 
     var estBox = h("div", { class: "panel", style: { "--area": G.areaVar(a) } });
@@ -8660,7 +8723,7 @@ window.GCT_DATA.competences.forEach(function (c) {
   var COLORS = ["--a-values", "--a-complex", "--a-futures", "--a-acting", "--blaze", "--sign"];
   var PACE = { calm: 1.25, normal: 1, brisk: 0.8 };
   var COMMUNITY = "https://education-for-climate.ec.europa.eu/community/GreenCompGame";
-  var S = null, runs = [];
+  var S = null, runs = [], skipHandler = null;
 
   function fresh() { return { v: 2, i: 0, who: null, len: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
   function save() { store.set("game", S); }
@@ -8851,6 +8914,7 @@ window.GCT_DATA.competences.forEach(function (c) {
     var clock = h("p", { class: "clock" }, G.mmss(sec));
     var phase = h("p", { class: "lead", "aria-live": "polite" }, opts.label || "");
     var btn = h("button", { type: "button", class: "btn btn--sign btn--big" }, opts.start || T("startTime", { t: G.mmss(sec) }));
+    var skip = h("button", { type: "button", class: "btn btn--ghost" }, "⏭ " + T("skipTime"));
     var tl = null, raf = 0;
     function loop() { if (tl) { if (hg) hg.set(tl.elapsed / sec); clock.textContent = G.mmss(sec - tl.elapsed); } raf = requestAnimationFrame(loop); }
     function stop() { if (tl) tl.stop(); cancelAnimationFrame(raf); G.Wake.off(); }
@@ -8866,9 +8930,13 @@ window.GCT_DATA.competences.forEach(function (c) {
       } });
       tl.play(); btn.textContent = T("pause"); cancelAnimationFrame(raf); loop();
     });
+    skip.addEventListener("click", function () {
+      stop(); btn.hidden = true; skip.hidden = true; phase.textContent = T("skipped");
+      if (opts.onSkip) opts.onSkip(); else if (skipHandler) skipHandler();
+    });
     runs.push(stop);
     return h("div", { class: "timer-grid" + (hg ? "" : " timer-grid--plain") }, hg ? hg.el : (opts.art || h("div", { class: "breath", "aria-hidden": "true" })),
-      h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, btn), h("p", { class: "muted small" }, opts.hint || T("earlyNext"))));
+      h("div", { class: "stack" }, clock, phase, h("div", { class: "row" }, btn, skip), h("p", { class: "muted small" }, opts.hint || T("earlyNext"))));
   }
   function roleList(k) {
     var r = roleOf(k);
@@ -9182,6 +9250,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       var swap = h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { S.place = inside ? "out" : "in"; save(); ctl.repaint(); } }, inside ? "🌳 " + T("placeAreOut") : "🏠 " + T("placeAreIn"));
       return { icon: "sound", kicker: phLabel(step.ph), title: L(a.name), say: inside ? T("wSoundSayIn") : T("wSoundSay"),
         body: [pickArea ? h("p", { class: "small muted" }, T("chooseArea")) : null, pickArea,
+          S.len === "exp" ? h("p", { class: "note station-go", style: { borderColor: G.areaVar(a) } }, G.areaSym(a, "eyebrow-sym"), T(k ? "goToStation" : "goToStation1", { n: k + 1, area: L(a.name) })) : null,
           h("p", { class: "lead" }, "«" + L(a.teaser) + "»"),
           inside ? G.soundPanel(a) : timer(dur("sound"), { glass: true, start: T("listen20"), hint: T("listenHint") }),
           h("div", { class: "row" }, swap),
@@ -9198,7 +9267,7 @@ window.GCT_DATA.competences.forEach(function (c) {
         put(slot, card);
         put(note, st.joker ? h("p", { class: "note" }, "🃏 " + T("jokerPlayed")) : S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null);
         put(tools,
-          h("button", { type: "button", class: "btn btn--small", onclick: function () { A.ensure(); Voice.set(true); Voice.speak(st.joker ? st.joker.q : L(c.question), "narrator"); } }, "🔊 " + T("readQuestion")),
+          G.speakButton(function () { return st.joker ? st.joker.q : L(c.question); }, T("readQuestion")),
           st.joker ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.joker = null; save(); showCard(true); paintJoker(); } }, "↺ " + T("jokerUndo"))
             : h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { draw(); } }, "↻ " + T("drawAgain")));
         ctl.refresh();
@@ -9233,7 +9302,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       paintJoker();
       var paper = h("details", { class: "panel" }, h("summary", null, T("paperCard")),
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
-      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay"),
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
         read: function () { return st.joker ? st.joker.q : st.comp ? L(G.COMP[st.comp].question) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
@@ -9342,13 +9411,14 @@ window.GCT_DATA.competences.forEach(function (c) {
     talk: function (step, st) {
       var c = G.COMP[st.comp], slot = h("div", { class: "talk-slot" });
       if (st.talk == null) { st.talk = Math.random() * 2 | 0; save(); }
-      var asker = S.names.length ? Math.random() * S.names.length | 0 : -1;
+      /* Who asks is drawn once per station; the question on the round card is what you talk about. */
+      if (st.asker == null && S.names.length) { st.asker = Math.random() * S.names.length | 0; save(); }
+      var asker = S.names.length ? st.asker : -1;
       function paint() { put(slot, G.zoomOne(G.talkMini(c, st.talk), G.talkMini(c, st.talk, true))); }
       paint();
-      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: T("askerFirst") + " " + T("wTalkSay"),
+      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
         body: [h("div", { class: "row talk-row" }, slot,
           h("div", { class: "stack", style: { flex: "1", minWidth: "220px" } },
-            asker >= 0 ? h("p", { class: "lead" }, T("asks", { name: nm(asker) })) : null,
             h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))),
           timer(dur("talk", st), { hint: T("talkHint") })],
         read: function () { return L(c.talk[st.talk]); } };
@@ -9429,8 +9499,12 @@ window.GCT_DATA.competences.forEach(function (c) {
       if (!five) {
         findBtn = h("button", { type: "button", class: "btn", "aria-pressed": String(!!st.find), onclick: function () { st.find = !st.find; save(); findBtn.setAttribute("aria-pressed", String(st.find)); findBtn.textContent = (st.find ? "✓ " : "🍂 ") + T("findDone"); } }, (st.find ? "✓ " : "🍂 ") + T("findDone"));
       }
+      /* The way to the next station is part of the game: the button names it. */
+      var P = plan(), nx = P[P.findIndex(function (p) { return p.id === "sentence" && p.k === step.k; }) + 1] || {};
+      var nextLabel = nx.id === "sound" ? T("toStation", { n: nx.k + 1 }) : nx.id === "what" || nx.id === "debrief" ? T("toDebrief") : null;
       return { icon: "leaf", kicker: phLabel(step.ph), title: !five ? T("wSentT") : solo() ? T("wSentTSolo") : T("phSentence"), say: solo() ? T("wSentSaySolo") : five ? T("oneSentence") : T("wSentSay"),
-        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null] };
+        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null],
+        nextLabel: function () { return nextLabel; } };
     },
     /* Debrief, after Rolfe: What? So what? Now what? */
     what: function (step) {
@@ -9592,7 +9666,8 @@ window.GCT_DATA.competences.forEach(function (c) {
       relabel: function () { if (nextBtn && def) nextBtn.textContent = ((def.nextLabel && def.nextLabel()) || def.next || T("next")) + " →"; },
       hint: function (t) { if (hintEl) hintEl.textContent = t; }
     };
-    function speakStep() { A.ensure(); var r = def.read ? def.read() : ""; Voice.speak([def.title, def.say, r].filter(Boolean).join(". "), "narrator"); }
+    function stepText() { var r = def.read ? def.read() : ""; return [def.title, def.say, r].filter(Boolean).join(". "); }
+    var readBtn = null;
     function paint(moved) {
       stopRuns();
       var P = plan();
@@ -9627,12 +9702,13 @@ window.GCT_DATA.competences.forEach(function (c) {
       /* Every step with a clock says how long it takes, right under its name. */
       var secs = TIMED[step.id] && (step.id !== "brief" || stations()) ? dur(step.id, st) : 0;
       var kicker = (def.kicker || phLabel(step.ph)) + (secs ? " · " + durLabel(secs) : "");
+      if (S.len === "exp" && step.k != null) kicker = kicker.replace(phLabel(step.ph), T("phStationOf", { n: step.k + 1, m: 4 }));
       var area = st && st.comp ? G.AREA[G.COMP[st.comp].area] : st && st.area ? G.AREA[st.area] : null;
       var card = h("article", { class: "play-step" + (moved && !G.reduced ? " in" : ""), style: area ? { "--area": G.areaVar(area) } : null },
         h("header", { class: "play-head" },
           h("span", { class: "play-num", "aria-hidden": "true" }, known ? String(S.i + 1) : G.icon(def.icon)),
           h("div", { class: "stack", style: { gap: "4px" } }, h("p", { class: "eyebrow" }, kicker), title),
-          Voice.ok ? h("button", { type: "button", class: "btn btn--small btn--ghost play-read", onclick: speakStep, "aria-label": T("readOut") }, "🔊", h("span", null, T("readOut"))) : null),
+          readBtn = Voice.ok ? G.speakButton(stepText, T("readOut"), "btn btn--small btn--ghost play-read") : null),
         def.say ? h("p", { class: "play-say" }, def.say) : null,
         h("div", { class: "play-body stack" }, def.body));
       hintEl = h("p", { class: "play-hint", role: "status" });
@@ -9647,7 +9723,9 @@ window.GCT_DATA.competences.forEach(function (c) {
       put(root, top, card, nav);
       ctl.refresh();
       if (moved) { window.scrollTo(0, 0); title.focus({ preventScroll: true }); }
-      if (moved && store.get("autoRead", false) && Voice.on) setTimeout(function () { if (title.isConnected) speakStep(); }, 350);
+      if (moved && store.get("autoRead", false) && Voice.on && readBtn) setTimeout(function () { if (title.isConnected) readBtn.speak(); }, 350);
+      /* «Skip» next to a clock: on to the next screen, unless this step still needs something. */
+      skipHandler = function () { var need = def.need && def.need(); if (need) { hintEl.textContent = need; return; } ctl.go(1); };
     }
     paint(false);
   };

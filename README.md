@@ -79,6 +79,14 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - Stille-Karten passen drinnen und draussen. Funke «Doppelt»: Widersprechen sich die Spurkarten, gilt die zweite.
   Der Spaziergang dauert knapp 11 statt gut 13 Minuten (Stille 2 Minuten).
 - **Zum Weitergeben**: `GreenComp-erleben.html`, die ganze App in einer Datei (siehe «Starten»).
+- **Vorlesen lässt sich stoppen**: Der Knopf zeigt «■ Stopp», solange gesprochen wird. **Jede Uhr hat «Überspringen»**:
+  Die Zeit endet, und es geht zum nächsten Bildschirm (bei der Aufgabe direkt zum Gespräch). Auch im 5-Minuten-Spiel.
+- **Von Station zu Station**: Jeder Schritt zeigt «Station 2 von 4». Der letzte Schritt einer Station heisst «Weiter zu Station 2»,
+  und an der neuen Station steht, wohin es geht («Ein Bierdeckel in dieser Farbe markiert sie»). Klar gesagt: An einer Station liegen
+  die drei Karten eines Bereichs, jede Gruppe spielt eine davon. Beim Reden steht, dass die Frage auf der runden Karte das Thema ist
+  und wer sie vorliest.
+- **Tafel**: Die zwölf Fähigkeiten beim Wählen stehen in zwei Spalten statt vier gequetschten; der Überlappungs-Test prüft jetzt alle
+  Ansichten der Tafel.
 
 ## Neu in v0.7 (17. Oktober 2026)
 
