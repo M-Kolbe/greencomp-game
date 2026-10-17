@@ -1047,6 +1047,7 @@
     cardsHereHint: { en: "Each group plays one of these three cards, drawn or chosen. The other two stay for the next game.", de: "Jede Gruppe spielt eine dieser drei Karten, gezogen oder gewählt. Die anderen zwei bleiben fürs nächste Spiel." },
     tfChoose3: { en: "The skill most fingers point at is chosen. If it is a tie, talk for one minute.", de: "Gewählt ist die Fähigkeit, auf die die meisten Finger zeigen. Bei Gleichstand eine Minute reden." },
     talkSayName: { en: "What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." },
+    trailIsSolo: { en: "Your trail", de: "Deine Spur" },
     talkSayNoName: { en: "What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." }
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });

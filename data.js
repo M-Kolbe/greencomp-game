@@ -409,6 +409,8 @@ window.GCT_DATA = {
         { en: "When did you last ask for something, not just wish for it?", de: "Wann hast du zuletzt etwas gefordert, nicht nur gewünscht?" },
         { en: "Which rule did nobody decide, yet everyone follows?", de: "Welche Regel hat bei euch niemand beschlossen, und alle halten sich daran?" }
       ],
+      /* Alone (the walk): the same questions without a group. null keeps the group question. */
+      talkSolo: [null, { en: "Which rule around you did nobody decide, yet everyone follows?", de: "Welche Regel hat in deiner Umgebung niemand beschlossen, und alle halten sich daran?" }],
       photo: { en: "An empty council chamber", de: "Ein leerer Sitzungssaal" },
       definition: "To navigate the political system, identify political responsibility and accountability for unsustainable behaviour, and demand effective policies for sustainability.",
       win: {
@@ -425,6 +427,7 @@ window.GCT_DATA = {
       id: "collective-action", area: "acting", no: "4.2",
       name: { en: "Collective action", de: "Kollektives Handeln" },
       question: { en: "What can you only do together?", de: "Was schafft ihr nur gemeinsam?" },
+      questionSolo: { en: "What can you only do together with others?", de: "Was schaffst du nur mit anderen zusammen?" },
       plain: { en: "making change together", de: "gemeinsam etwas bewegen" },
       steps: [
         { en: "Stand in a circle and look at the ground.", de: "Stellt euch in einen Kreis und schaut auf den Boden." },
@@ -443,6 +446,7 @@ window.GCT_DATA = {
         { en: "What did you manage with others that you could never have done alone?", de: "Was ist dir mit anderen gelungen, das du allein nie geschafft hättest?" },
         { en: "Who in this group would you ask if you started something next week?", de: "Wen aus dieser Gruppe würdest du fragen, wenn du nächste Woche etwas anfängst?" }
       ],
+      talkSolo: [null, { en: "Whom would you ask if you started something next week?", de: "Wen würdest du fragen, wenn du nächste Woche etwas anfängst?" }],
       photo: { en: "Many hands on a rope", de: "Viele Hände an einem Seil" },
       definition: "To act for change in collaboration with others.",
       win: {
@@ -494,15 +498,20 @@ window.GCT_DATA = {
 
   trails: [
     { id: "senses", name: { en: "Senses", de: "Sinne" }, motto: { en: "Notice it.", de: "Nimm es wahr." },
-      change: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Macht die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." } },
+      change: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Macht die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." },
+      changeSolo: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Mach die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." } },
     { id: "emotion", name: { en: "Emotion", de: "Gefühl" }, motto: { en: "Say what it does to you.", de: "Sag, was es mit dir macht." },
-      change: { en: "Before you start, everyone names a feeling. One word only.", de: "Bevor ihr anfangt, nennt jede Person ein Gefühl. Nur ein Wort." } },
+      change: { en: "Before you start, everyone names a feeling. One word only.", de: "Bevor ihr anfangt, nennt jede Person ein Gefühl. Nur ein Wort." },
+      changeSolo: { en: "Before you start, name one feeling. One word only.", de: "Bevor du anfängst, nenn ein Gefühl. Nur ein Wort." } },
     { id: "beauty", name: { en: "Beauty", de: "Schönheit" }, motto: { en: "Find the beautiful.", de: "Finde das Schöne." },
-      change: { en: "Before you start, everyone shows the group something beautiful here.", de: "Bevor ihr anfangt, zeigt jede Person der Gruppe etwas Schönes an diesem Ort." } },
+      change: { en: "Before you start, everyone shows the group something beautiful here.", de: "Bevor ihr anfangt, zeigt jede Person der Gruppe etwas Schönes an diesem Ort." },
+      changeSolo: { en: "Before you start, find something beautiful here and look at it for a minute.", de: "Bevor du anfängst, such dir hier etwas Schönes und schau es eine Minute lang an." } },
     { id: "meaning", name: { en: "Meaning", de: "Bedeutung" }, motto: { en: "What does it mean to you?", de: "Was heisst das für dich?" },
-      change: { en: "During the task, everyone tells a short story from their own life that fits.", de: "Bei der Aufgabe erzählt jede Person eine kurze Geschichte aus ihrem Leben, die dazu passt." } },
+      change: { en: "During the task, everyone tells a short story from their own life that fits.", de: "Bei der Aufgabe erzählt jede Person eine kurze Geschichte aus ihrem Leben, die dazu passt." },
+      changeSolo: { en: "During the task, think of a story from your own life that fits.", de: "Denk bei der Aufgabe an eine Geschichte aus deinem Leben, die dazu passt." } },
     { id: "care", name: { en: "Care", de: "Fürsorge" }, motto: { en: "Do something for it.", de: "Tu etwas dafür." },
-      change: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tut am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." } }
+      change: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tut am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." },
+      changeSolo: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tu am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." } }
   ],
 
   sparks: [

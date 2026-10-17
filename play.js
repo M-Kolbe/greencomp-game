@@ -158,7 +158,7 @@
     var talkIdx = store.get("walkTalk", 0) % 2;
     var segs = D.walk.filter(function (sg) { return sg.id !== "estimate" || e; });
     function fill(str) {
-      return str.replace("{q}", L(c.question)).replace("{task}", L(c.solo)).replace("{talk}", L(c.talk[talkIdx]))
+      return str.replace("{q}", G.compQ(c, true)).replace("{task}", L(c.solo)).replace("{talk}", G.compTalk(c, talkIdx, true))
         .replace("{eq}", e ? L(e.q) : "").replace("{ed}", e ? L(e.detail) : "");
     }
     var total = segs.reduce(function (n, sg) { return n + sg.dur; }, 0);
@@ -251,7 +251,7 @@
     paintSig();
     ov.body.append(h("div", { class: "walk-step" },
       G.icon("walk", "walk-ico"),
-      h("h2", { tabindex: "-1" }, L(c.question)),
+      h("h2", { tabindex: "-1" }, G.compQ(c, true)),
       h("p", { class: "say" }, T("walkIntro")),
       h("p", { class: "muted" }, T("walkLen", { m: Math.round(total / 60) })),
       h("div", { class: "panel walk-settings" },

@@ -87,6 +87,10 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
   und wer sie vorliest.
 - **Tafel**: Die zwölf Fähigkeiten beim Wählen stehen in zwei Spalten statt vier gequetschten; der Überlappungs-Test prüft jetzt alle
   Ansichten der Tafel.
+- **Allein heisst allein**: Im Einzelspiel zeigt die gezogene Karte vorne die Allein-Form statt der drei Gruppenschritte, die
+  Spurkarte hat eine Du-Form («Deine Spur: Mach die Aufgabe mit nur einem Sinn …»), Karte 4.2 fragt «Was schaffst du nur mit anderen
+  zusammen?», und auf dem Spaziergang gibt es keine Frage nach «dieser Gruppe» mehr. «So geht es auch» (die Gruppenform zum Sitzen)
+  fällt allein weg. Ein Test spielt alle Wege allein durch und sucht auf jedem Bildschirm nach «ihr», «euch», «Jede Person», «Gruppe».
 
 ## Neu in v0.7 (17. Oktober 2026)
 

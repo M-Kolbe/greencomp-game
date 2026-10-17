@@ -20,12 +20,13 @@
   G.taskBlock = function (c, solo) {
     return h("div", { class: "card-task" }, h("span", { class: "label" }, solo ? T("soloForm") : G.taskLabel(c)), G.taskSteps(c, solo));
   };
-  function compFront(c) {
+  /* solo: the card as one person plays it, with the solo form instead of the three group steps. */
+  function compFront(c, solo) {
     return [
       typeRow(c.no + " " + L(c.name), "edge-circle", c.area),
       h("p", { class: "card-plain" }, L(c.plain)),
-      h("p", { class: "card-q" }, L(c.question)),
-      G.taskBlock(c, false)
+      h("p", { class: "card-q" }, G.compQ(c, solo)),
+      G.taskBlock(c, !!solo)
     ];
   }
   function compBack(c, mini) {
@@ -45,7 +46,7 @@
     var back = !!opts.back;
     var el = h("article", { class: "card" + (opts.big ? " card--big" : "") + (opts.mini ? " mini" : ""), style: { "--area": G.areaVar(G.AREA[c.area]) }, "aria-label": T("tComp") + ": " + L(c.name) });
     var body = h("div", { class: "card-body" });
-    function paint() { put(body, back ? compBack(c, opts.mini) : compFront(c)); body.classList.toggle("cb-back", back); }
+    function paint() { put(body, back ? compBack(c, opts.mini) : compFront(c, opts.solo)); body.classList.toggle("cb-back", back); }
     paint(); el.appendChild(body);
     if (opts.flippable) {
       var b = h("button", { class: "btn btn--small card-flip", type: "button", "aria-pressed": "false" }, "↻ " + T("turnOver"));
@@ -58,10 +59,14 @@
     return el;
   };
   var mini = G.mini = function (cls, area, kids) { return h("article", { class: "card mini " + cls, style: area ? { "--area": area } : null }, add(h("div", { class: "card-body" }), kids)); };
-  G.trailMini = function (t, faceDown) {
+  /* What a trail changes, for a group or for one person alone. */
+  G.compQ = function (c, solo) { return L(solo && c.questionSolo ? c.questionSolo : c.question); };
+  G.compTalk = function (c, k, solo) { return L(solo && c.talkSolo && c.talkSolo[k] || c.talk[k]); };
+  G.trailChange = function (t, solo) { return L(solo && t.changeSolo ? t.changeSolo : t.change); };
+  G.trailMini = function (t, faceDown, solo) {
     return mini("is-trail", "var(--sign-ink)", faceDown
       ? [typeRow(T("tTrail"), "edge-arrow"), h("div", { class: "back-pattern" })]
-      : [typeRow(T("tTrail"), "edge-arrow"), h("p", { class: "big" }, L(t.name)), h("p", { class: "card-q" }, L(t.motto)), h("p", null, L(t.change))]);
+      : [typeRow(T("tTrail"), "edge-arrow"), h("p", { class: "big" }, L(t.name)), h("p", { class: "card-q" }, L(t.motto)), h("p", null, G.trailChange(t, solo))]);
   };
   G.trailBack = function () { return mini("is-trail", "var(--sign-ink)", [typeRow(T("tTrail"), "edge-arrow"), h("p", null, T("trailBack")), h("div", { class: "back-pattern" })]); };
   G.sparkMini = function (sp) { return mini("is-spark", "var(--blaze)", [typeRow(T("tSpark"), "edge-tri"), h("p", { class: "big" }, L(sp.name)), h("p", null, L(sp.text))]); };

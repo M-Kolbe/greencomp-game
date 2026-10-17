@@ -242,10 +242,10 @@
       (j.done || "").trim() ? h("p", { class: "task-done" }, "✓ " + j.done) : null) : G.taskBlock(c, solo());
     return h("div", { class: "panel five-card", style: { "--area": G.areaVar(G.AREA[c.area]) } },
       h("p", { class: "eyebrow" }, G.areaSym(c.area, "eyebrow-sym"), j ? T("tJoker") + " · " + G.jokerName(j) : c.no + " " + L(c.name)),
-      h("p", { class: "card-q" }, j ? j.q : L(c.question)),
+      h("p", { class: "card-q" }, j ? j.q : G.compQ(c, solo())),
       task,
-      !bare && t ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t.name) + ": "), L(t.change)) : null,
-      !bare && t2 ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t2.name) + ": "), L(t2.change)) : null,
+      !bare && t ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t.name) + ": "), G.trailChange(t, solo())) : null,
+      !bare && t2 ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t2.name) + ": "), G.trailChange(t2, solo())) : null,
       !bare && sp ? h("p", { class: "spark-line" }, G.icon("spark"), h("b", null, L(sp.name) + ": "), L(sp.text)) : null);
   }
   /* The five innovation areas of EducationForClimate, as in round 2 of the JRC game. Offered only with the goal «as in the original». */
@@ -551,12 +551,12 @@
       /* The joker: once per game, a group may write its own card instead of the one it drew. */
       var jokerOk = !solo() && S.len !== "walk";
       function showCard(anim) {
-        var c = G.COMP[st.comp], card = st.joker ? G.jokerCard(st.joker, { big: true }) : G.compCard(c, { big: true, flippable: true });
+        var c = G.COMP[st.comp], card = st.joker ? G.jokerCard(st.joker, { big: true }) : G.compCard(c, { big: true, flippable: true, solo: solo() });
         if (anim && !G.reduced) card.classList.add("dealt");
         put(slot, card);
         put(note, st.joker ? h("p", { class: "note" }, "🃏 " + T("jokerPlayed")) : S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null);
         put(tools,
-          G.speakButton(function () { return st.joker ? st.joker.q : L(c.question); }, T("readQuestion")),
+          G.speakButton(function () { return st.joker ? st.joker.q : G.compQ(c, solo()); }, T("readQuestion")),
           st.joker ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.joker = null; save(); showCard(true); paintJoker(); } }, "↺ " + T("jokerUndo"))
             : h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { draw(); } }, "↻ " + T("drawAgain")));
         ctl.refresh();
@@ -565,7 +565,7 @@
         var list = pool(st, k).filter(function (c) { return c.id !== st.comp; });
         st.comp = id || G.pick(list.length ? list : D.competences).id; st.est = estFor(st, k); st.trail = null; st.trail2 = null; st.spark = null; st.pts = null; st.guess = null; st.revealed = false; st.joker = null;
         save(); showCard(true); paintJoker();
-        if (store.get("autoRead", false)) Voice.speak(L(G.COMP[st.comp].question), "narrator");
+        if (store.get("autoRead", false)) Voice.speak(G.compQ(G.COMP[st.comp], solo()), "narrator");
       }
       function playJoker(j) {
         st.joker = { comp: j.comp, own: j.own || "", q: (j.q || "").trim(), steps: j.steps.map(function (x) { return (x || "").trim(); }), done: (j.done || "").trim(), at: j.at };
@@ -593,18 +593,18 @@
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
       return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
-        read: function () { return st.joker ? st.joker.q : st.comp ? L(G.COMP[st.comp].question) : ""; },
+        read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
     },
     trail: function (step, st, ctl) {
       var box = h("div", { class: "stack" });
       function result(t) {
-        put(box, cardRow(G.trailMini(t, false), G.trailBack(), [h("p", { class: "eyebrow" }, T("trailIs")), h("p", { class: "lead" }, L(t.change)),
+        put(box, cardRow(G.trailMini(t, false, solo()), G.trailBack(), [h("p", { class: "eyebrow" }, solo() ? T("trailIsSolo") : T("trailIs")), h("p", { class: "lead" }, G.trailChange(t, solo())),
           h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.trail = null; save(); fan(); ctl.refresh(); } }, "↻ " + T("drawAgain"))]));
         ctl.refresh();
       }
       function fan() {
-        var f = h("div", { class: "trail-fan" }, D.trails.map(function (t) { return h("div", { class: "flip3d" }, h("div", { class: "flip3d-inner" }, h("div", { class: "flip3d-face" }, G.trailMini(t, true)), h("div", { class: "flip3d-face flip3d-back" }, G.trailMini(t, false)))); }));
+        var f = h("div", { class: "trail-fan" }, D.trails.map(function (t) { return h("div", { class: "flip3d" }, h("div", { class: "flip3d-inner" }, h("div", { class: "flip3d-face" }, G.trailMini(t, true)), h("div", { class: "flip3d-face flip3d-back" }, G.trailMini(t, false, solo())))); }));
         var drawBtn = h("button", { type: "button", class: "btn btn--sign btn--big", onclick: function () {
           drawBtn.disabled = true;
           var k = Math.random() * D.trails.length | 0, cards = f.children;
@@ -614,7 +614,7 @@
             Array.prototype.forEach.call(cards, function (el, i) { el.classList.toggle("dim", i !== k); });
             cards[k].classList.add("flipped");
             st.trail = D.trails[k].id; save();
-            if (store.get("autoRead", false)) Voice.speak(L(D.trails[k].name) + ". " + L(D.trails[k].change), "narrator");
+            if (store.get("autoRead", false)) Voice.speak(L(D.trails[k].name) + ". " + G.trailChange(D.trails[k], solo()), "narrator");
             setTimeout(function () { if (box.isConnected) result(D.trails[k]); }, G.reduced ? 200 : 1500);
           }, G.reduced ? 0 : 1000);
         } }, "✦ " + T("drawTrail"));
@@ -624,7 +624,7 @@
       }
       if (st.trail) result(trailById(st.trail)); else fan();
       return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay"), body: [compSummary(st, false, true), box],
-        read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + L(t.change) : ""; },
+        read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + G.trailChange(t, solo()) : ""; },
         need: function () { return st.trail ? null : T("needTrail"); } };
     },
     spark: function (step, st, ctl) {
@@ -633,7 +633,7 @@
       /* Two sparks change the cards themselves: «Double» adds a trail card, «Swap» exchanges the competence card. */
       function sparkAction(sp) {
         if (sp.id === "double") {
-          if (st.trail2) { var t2 = trailById(st.trail2); return cardRow(G.trailMini(t2, false), G.trailBack(), [h("p", { class: "eyebrow" }, T("secondTrailIs")), h("p", { class: "lead" }, L(t2.change))]); }
+          if (st.trail2) { var t2 = trailById(st.trail2); return cardRow(G.trailMini(t2, false, solo()), G.trailBack(), [h("p", { class: "eyebrow" }, T("secondTrailIs")), h("p", { class: "lead" }, G.trailChange(t2, solo()))]); }
           return h("button", { type: "button", class: "btn btn--sign", onclick: function () { var rest = D.trails.filter(function (t) { return t.id !== st.trail; }); st.trail2 = G.pick(rest).id; save(); result(); } }, "✦ " + T("secondTrail"));
         }
         if (sp.id === "swap") {
@@ -690,7 +690,7 @@
       return { icon: "hand", title: T("wTaskT"), say: solo() ? T("wTaskSaySolo") : T("wTaskSay"),
         body: [box, compSummary(st, false),
           timer(dur("task", st), { glass: true, hint: T("sandHint") }),
-          h("details", { class: "panel" }, h("summary", null, T("accessForm")), h("p", null, L(c.access))),
+          solo() ? null : h("details", { class: "panel" }, h("summary", null, T("accessForm")), h("p", null, L(c.access))),
           !solo() && S.names.length > 2 ? h("p", { class: "note" }, T("trackerCheck", { name: nm(r.tracker) })) : null],
         nextLabel: function () { return n && st.sub < n - 1 ? T("nextStep") : null; },
         onNext: function () { if (n && st.sub < n - 1) { st.sub++; save(); paintSub(); return true; } return false; },

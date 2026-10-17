@@ -3847,6 +3847,8 @@ window.GCT_DATA = {
         { en: "When did you last ask for something, not just wish for it?", de: "Wann hast du zuletzt etwas gefordert, nicht nur gewünscht?" },
         { en: "Which rule did nobody decide, yet everyone follows?", de: "Welche Regel hat bei euch niemand beschlossen, und alle halten sich daran?" }
       ],
+      /* Alone (the walk): the same questions without a group. null keeps the group question. */
+      talkSolo: [null, { en: "Which rule around you did nobody decide, yet everyone follows?", de: "Welche Regel hat in deiner Umgebung niemand beschlossen, und alle halten sich daran?" }],
       photo: { en: "An empty council chamber", de: "Ein leerer Sitzungssaal" },
       definition: "To navigate the political system, identify political responsibility and accountability for unsustainable behaviour, and demand effective policies for sustainability.",
       win: {
@@ -3863,6 +3865,7 @@ window.GCT_DATA = {
       id: "collective-action", area: "acting", no: "4.2",
       name: { en: "Collective action", de: "Kollektives Handeln" },
       question: { en: "What can you only do together?", de: "Was schafft ihr nur gemeinsam?" },
+      questionSolo: { en: "What can you only do together with others?", de: "Was schaffst du nur mit anderen zusammen?" },
       plain: { en: "making change together", de: "gemeinsam etwas bewegen" },
       steps: [
         { en: "Stand in a circle and look at the ground.", de: "Stellt euch in einen Kreis und schaut auf den Boden." },
@@ -3881,6 +3884,7 @@ window.GCT_DATA = {
         { en: "What did you manage with others that you could never have done alone?", de: "Was ist dir mit anderen gelungen, das du allein nie geschafft hättest?" },
         { en: "Who in this group would you ask if you started something next week?", de: "Wen aus dieser Gruppe würdest du fragen, wenn du nächste Woche etwas anfängst?" }
       ],
+      talkSolo: [null, { en: "Whom would you ask if you started something next week?", de: "Wen würdest du fragen, wenn du nächste Woche etwas anfängst?" }],
       photo: { en: "Many hands on a rope", de: "Viele Hände an einem Seil" },
       definition: "To act for change in collaboration with others.",
       win: {
@@ -3932,15 +3936,20 @@ window.GCT_DATA = {
 
   trails: [
     { id: "senses", name: { en: "Senses", de: "Sinne" }, motto: { en: "Notice it.", de: "Nimm es wahr." },
-      change: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Macht die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." } },
+      change: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Macht die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." },
+      changeSolo: { en: "Do the task with one sense only: eyes closed, touch only, or listen only.", de: "Mach die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören." } },
     { id: "emotion", name: { en: "Emotion", de: "Gefühl" }, motto: { en: "Say what it does to you.", de: "Sag, was es mit dir macht." },
-      change: { en: "Before you start, everyone names a feeling. One word only.", de: "Bevor ihr anfangt, nennt jede Person ein Gefühl. Nur ein Wort." } },
+      change: { en: "Before you start, everyone names a feeling. One word only.", de: "Bevor ihr anfangt, nennt jede Person ein Gefühl. Nur ein Wort." },
+      changeSolo: { en: "Before you start, name one feeling. One word only.", de: "Bevor du anfängst, nenn ein Gefühl. Nur ein Wort." } },
     { id: "beauty", name: { en: "Beauty", de: "Schönheit" }, motto: { en: "Find the beautiful.", de: "Finde das Schöne." },
-      change: { en: "Before you start, everyone shows the group something beautiful here.", de: "Bevor ihr anfangt, zeigt jede Person der Gruppe etwas Schönes an diesem Ort." } },
+      change: { en: "Before you start, everyone shows the group something beautiful here.", de: "Bevor ihr anfangt, zeigt jede Person der Gruppe etwas Schönes an diesem Ort." },
+      changeSolo: { en: "Before you start, find something beautiful here and look at it for a minute.", de: "Bevor du anfängst, such dir hier etwas Schönes und schau es eine Minute lang an." } },
     { id: "meaning", name: { en: "Meaning", de: "Bedeutung" }, motto: { en: "What does it mean to you?", de: "Was heisst das für dich?" },
-      change: { en: "During the task, everyone tells a short story from their own life that fits.", de: "Bei der Aufgabe erzählt jede Person eine kurze Geschichte aus ihrem Leben, die dazu passt." } },
+      change: { en: "During the task, everyone tells a short story from their own life that fits.", de: "Bei der Aufgabe erzählt jede Person eine kurze Geschichte aus ihrem Leben, die dazu passt." },
+      changeSolo: { en: "During the task, think of a story from your own life that fits.", de: "Denk bei der Aufgabe an eine Geschichte aus deinem Leben, die dazu passt." } },
     { id: "care", name: { en: "Care", de: "Fürsorge" }, motto: { en: "Do something for it.", de: "Tu etwas dafür." },
-      change: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tut am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." } }
+      change: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tut am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." },
+      changeSolo: { en: "At the end, do something good for the place: pick up litter, water a plant.", de: "Tu am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen." } }
   ],
 
   sparks: [
@@ -5689,6 +5698,7 @@ window.GCT_DATA.competences.forEach(function (c) {
     cardsHereHint: { en: "Each group plays one of these three cards, drawn or chosen. The other two stay for the next game.", de: "Jede Gruppe spielt eine dieser drei Karten, gezogen oder gewählt. Die anderen zwei bleiben fürs nächste Spiel." },
     tfChoose3: { en: "The skill most fingers point at is chosen. If it is a tie, talk for one minute.", de: "Gewählt ist die Fähigkeit, auf die die meisten Finger zeigen. Bei Gleichstand eine Minute reden." },
     talkSayName: { en: "What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." },
+    trailIsSolo: { en: "Your trail", de: "Deine Spur" },
     talkSayNoName: { en: "What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." }
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
@@ -6611,12 +6621,13 @@ window.GCT_DATA.competences.forEach(function (c) {
   G.taskBlock = function (c, solo) {
     return h("div", { class: "card-task" }, h("span", { class: "label" }, solo ? T("soloForm") : G.taskLabel(c)), G.taskSteps(c, solo));
   };
-  function compFront(c) {
+  /* solo: the card as one person plays it, with the solo form instead of the three group steps. */
+  function compFront(c, solo) {
     return [
       typeRow(c.no + " " + L(c.name), "edge-circle", c.area),
       h("p", { class: "card-plain" }, L(c.plain)),
-      h("p", { class: "card-q" }, L(c.question)),
-      G.taskBlock(c, false)
+      h("p", { class: "card-q" }, G.compQ(c, solo)),
+      G.taskBlock(c, !!solo)
     ];
   }
   function compBack(c, mini) {
@@ -6636,7 +6647,7 @@ window.GCT_DATA.competences.forEach(function (c) {
     var back = !!opts.back;
     var el = h("article", { class: "card" + (opts.big ? " card--big" : "") + (opts.mini ? " mini" : ""), style: { "--area": G.areaVar(G.AREA[c.area]) }, "aria-label": T("tComp") + ": " + L(c.name) });
     var body = h("div", { class: "card-body" });
-    function paint() { put(body, back ? compBack(c, opts.mini) : compFront(c)); body.classList.toggle("cb-back", back); }
+    function paint() { put(body, back ? compBack(c, opts.mini) : compFront(c, opts.solo)); body.classList.toggle("cb-back", back); }
     paint(); el.appendChild(body);
     if (opts.flippable) {
       var b = h("button", { class: "btn btn--small card-flip", type: "button", "aria-pressed": "false" }, "↻ " + T("turnOver"));
@@ -6649,10 +6660,14 @@ window.GCT_DATA.competences.forEach(function (c) {
     return el;
   };
   var mini = G.mini = function (cls, area, kids) { return h("article", { class: "card mini " + cls, style: area ? { "--area": area } : null }, add(h("div", { class: "card-body" }), kids)); };
-  G.trailMini = function (t, faceDown) {
+  /* What a trail changes, for a group or for one person alone. */
+  G.compQ = function (c, solo) { return L(solo && c.questionSolo ? c.questionSolo : c.question); };
+  G.compTalk = function (c, k, solo) { return L(solo && c.talkSolo && c.talkSolo[k] || c.talk[k]); };
+  G.trailChange = function (t, solo) { return L(solo && t.changeSolo ? t.changeSolo : t.change); };
+  G.trailMini = function (t, faceDown, solo) {
     return mini("is-trail", "var(--sign-ink)", faceDown
       ? [typeRow(T("tTrail"), "edge-arrow"), h("div", { class: "back-pattern" })]
-      : [typeRow(T("tTrail"), "edge-arrow"), h("p", { class: "big" }, L(t.name)), h("p", { class: "card-q" }, L(t.motto)), h("p", null, L(t.change))]);
+      : [typeRow(T("tTrail"), "edge-arrow"), h("p", { class: "big" }, L(t.name)), h("p", { class: "card-q" }, L(t.motto)), h("p", null, G.trailChange(t, solo))]);
   };
   G.trailBack = function () { return mini("is-trail", "var(--sign-ink)", [typeRow(T("tTrail"), "edge-arrow"), h("p", null, T("trailBack")), h("div", { class: "back-pattern" })]); };
   G.sparkMini = function (sp) { return mini("is-spark", "var(--blaze)", [typeRow(T("tSpark"), "edge-tri"), h("p", { class: "big" }, L(sp.name)), h("p", null, L(sp.text))]); };
@@ -8087,7 +8102,7 @@ window.GCT_DATA.competences.forEach(function (c) {
     var talkIdx = store.get("walkTalk", 0) % 2;
     var segs = D.walk.filter(function (sg) { return sg.id !== "estimate" || e; });
     function fill(str) {
-      return str.replace("{q}", L(c.question)).replace("{task}", L(c.solo)).replace("{talk}", L(c.talk[talkIdx]))
+      return str.replace("{q}", G.compQ(c, true)).replace("{task}", L(c.solo)).replace("{talk}", G.compTalk(c, talkIdx, true))
         .replace("{eq}", e ? L(e.q) : "").replace("{ed}", e ? L(e.detail) : "");
     }
     var total = segs.reduce(function (n, sg) { return n + sg.dur; }, 0);
@@ -8180,7 +8195,7 @@ window.GCT_DATA.competences.forEach(function (c) {
     paintSig();
     ov.body.append(h("div", { class: "walk-step" },
       G.icon("walk", "walk-ico"),
-      h("h2", { tabindex: "-1" }, L(c.question)),
+      h("h2", { tabindex: "-1" }, G.compQ(c, true)),
       h("p", { class: "say" }, T("walkIntro")),
       h("p", { class: "muted" }, T("walkLen", { m: Math.round(total / 60) })),
       h("div", { class: "panel walk-settings" },
@@ -8953,10 +8968,10 @@ window.GCT_DATA.competences.forEach(function (c) {
       (j.done || "").trim() ? h("p", { class: "task-done" }, "✓ " + j.done) : null) : G.taskBlock(c, solo());
     return h("div", { class: "panel five-card", style: { "--area": G.areaVar(G.AREA[c.area]) } },
       h("p", { class: "eyebrow" }, G.areaSym(c.area, "eyebrow-sym"), j ? T("tJoker") + " · " + G.jokerName(j) : c.no + " " + L(c.name)),
-      h("p", { class: "card-q" }, j ? j.q : L(c.question)),
+      h("p", { class: "card-q" }, j ? j.q : G.compQ(c, solo())),
       task,
-      !bare && t ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t.name) + ": "), L(t.change)) : null,
-      !bare && t2 ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t2.name) + ": "), L(t2.change)) : null,
+      !bare && t ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t.name) + ": "), G.trailChange(t, solo())) : null,
+      !bare && t2 ? h("p", { class: "spark-line" }, G.icon("fork"), h("b", null, L(t2.name) + ": "), G.trailChange(t2, solo())) : null,
       !bare && sp ? h("p", { class: "spark-line" }, G.icon("spark"), h("b", null, L(sp.name) + ": "), L(sp.text)) : null);
   }
   /* The five innovation areas of EducationForClimate, as in round 2 of the JRC game. Offered only with the goal «as in the original». */
@@ -9262,12 +9277,12 @@ window.GCT_DATA.competences.forEach(function (c) {
       /* The joker: once per game, a group may write its own card instead of the one it drew. */
       var jokerOk = !solo() && S.len !== "walk";
       function showCard(anim) {
-        var c = G.COMP[st.comp], card = st.joker ? G.jokerCard(st.joker, { big: true }) : G.compCard(c, { big: true, flippable: true });
+        var c = G.COMP[st.comp], card = st.joker ? G.jokerCard(st.joker, { big: true }) : G.compCard(c, { big: true, flippable: true, solo: solo() });
         if (anim && !G.reduced) card.classList.add("dealt");
         put(slot, card);
         put(note, st.joker ? h("p", { class: "note" }, "🃏 " + T("jokerPlayed")) : S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null);
         put(tools,
-          G.speakButton(function () { return st.joker ? st.joker.q : L(c.question); }, T("readQuestion")),
+          G.speakButton(function () { return st.joker ? st.joker.q : G.compQ(c, solo()); }, T("readQuestion")),
           st.joker ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.joker = null; save(); showCard(true); paintJoker(); } }, "↺ " + T("jokerUndo"))
             : h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { draw(); } }, "↻ " + T("drawAgain")));
         ctl.refresh();
@@ -9276,7 +9291,7 @@ window.GCT_DATA.competences.forEach(function (c) {
         var list = pool(st, k).filter(function (c) { return c.id !== st.comp; });
         st.comp = id || G.pick(list.length ? list : D.competences).id; st.est = estFor(st, k); st.trail = null; st.trail2 = null; st.spark = null; st.pts = null; st.guess = null; st.revealed = false; st.joker = null;
         save(); showCard(true); paintJoker();
-        if (store.get("autoRead", false)) Voice.speak(L(G.COMP[st.comp].question), "narrator");
+        if (store.get("autoRead", false)) Voice.speak(G.compQ(G.COMP[st.comp], solo()), "narrator");
       }
       function playJoker(j) {
         st.joker = { comp: j.comp, own: j.own || "", q: (j.q || "").trim(), steps: j.steps.map(function (x) { return (x || "").trim(); }), done: (j.done || "").trim(), at: j.at };
@@ -9304,18 +9319,18 @@ window.GCT_DATA.competences.forEach(function (c) {
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
       return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
-        read: function () { return st.joker ? st.joker.q : st.comp ? L(G.COMP[st.comp].question) : ""; },
+        read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
     },
     trail: function (step, st, ctl) {
       var box = h("div", { class: "stack" });
       function result(t) {
-        put(box, cardRow(G.trailMini(t, false), G.trailBack(), [h("p", { class: "eyebrow" }, T("trailIs")), h("p", { class: "lead" }, L(t.change)),
+        put(box, cardRow(G.trailMini(t, false, solo()), G.trailBack(), [h("p", { class: "eyebrow" }, solo() ? T("trailIsSolo") : T("trailIs")), h("p", { class: "lead" }, G.trailChange(t, solo())),
           h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.trail = null; save(); fan(); ctl.refresh(); } }, "↻ " + T("drawAgain"))]));
         ctl.refresh();
       }
       function fan() {
-        var f = h("div", { class: "trail-fan" }, D.trails.map(function (t) { return h("div", { class: "flip3d" }, h("div", { class: "flip3d-inner" }, h("div", { class: "flip3d-face" }, G.trailMini(t, true)), h("div", { class: "flip3d-face flip3d-back" }, G.trailMini(t, false)))); }));
+        var f = h("div", { class: "trail-fan" }, D.trails.map(function (t) { return h("div", { class: "flip3d" }, h("div", { class: "flip3d-inner" }, h("div", { class: "flip3d-face" }, G.trailMini(t, true)), h("div", { class: "flip3d-face flip3d-back" }, G.trailMini(t, false, solo())))); }));
         var drawBtn = h("button", { type: "button", class: "btn btn--sign btn--big", onclick: function () {
           drawBtn.disabled = true;
           var k = Math.random() * D.trails.length | 0, cards = f.children;
@@ -9325,7 +9340,7 @@ window.GCT_DATA.competences.forEach(function (c) {
             Array.prototype.forEach.call(cards, function (el, i) { el.classList.toggle("dim", i !== k); });
             cards[k].classList.add("flipped");
             st.trail = D.trails[k].id; save();
-            if (store.get("autoRead", false)) Voice.speak(L(D.trails[k].name) + ". " + L(D.trails[k].change), "narrator");
+            if (store.get("autoRead", false)) Voice.speak(L(D.trails[k].name) + ". " + G.trailChange(D.trails[k], solo()), "narrator");
             setTimeout(function () { if (box.isConnected) result(D.trails[k]); }, G.reduced ? 200 : 1500);
           }, G.reduced ? 0 : 1000);
         } }, "✦ " + T("drawTrail"));
@@ -9335,7 +9350,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       }
       if (st.trail) result(trailById(st.trail)); else fan();
       return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay"), body: [compSummary(st, false, true), box],
-        read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + L(t.change) : ""; },
+        read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + G.trailChange(t, solo()) : ""; },
         need: function () { return st.trail ? null : T("needTrail"); } };
     },
     spark: function (step, st, ctl) {
@@ -9344,7 +9359,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       /* Two sparks change the cards themselves: «Double» adds a trail card, «Swap» exchanges the competence card. */
       function sparkAction(sp) {
         if (sp.id === "double") {
-          if (st.trail2) { var t2 = trailById(st.trail2); return cardRow(G.trailMini(t2, false), G.trailBack(), [h("p", { class: "eyebrow" }, T("secondTrailIs")), h("p", { class: "lead" }, L(t2.change))]); }
+          if (st.trail2) { var t2 = trailById(st.trail2); return cardRow(G.trailMini(t2, false, solo()), G.trailBack(), [h("p", { class: "eyebrow" }, T("secondTrailIs")), h("p", { class: "lead" }, G.trailChange(t2, solo()))]); }
           return h("button", { type: "button", class: "btn btn--sign", onclick: function () { var rest = D.trails.filter(function (t) { return t.id !== st.trail; }); st.trail2 = G.pick(rest).id; save(); result(); } }, "✦ " + T("secondTrail"));
         }
         if (sp.id === "swap") {
@@ -9401,7 +9416,7 @@ window.GCT_DATA.competences.forEach(function (c) {
       return { icon: "hand", title: T("wTaskT"), say: solo() ? T("wTaskSaySolo") : T("wTaskSay"),
         body: [box, compSummary(st, false),
           timer(dur("task", st), { glass: true, hint: T("sandHint") }),
-          h("details", { class: "panel" }, h("summary", null, T("accessForm")), h("p", null, L(c.access))),
+          solo() ? null : h("details", { class: "panel" }, h("summary", null, T("accessForm")), h("p", null, L(c.access))),
           !solo() && S.names.length > 2 ? h("p", { class: "note" }, T("trackerCheck", { name: nm(r.tracker) })) : null],
         nextLabel: function () { return n && st.sub < n - 1 ? T("nextStep") : null; },
         onNext: function () { if (n && st.sub < n - 1) { st.sub++; save(); paintSub(); return true; } return false; },

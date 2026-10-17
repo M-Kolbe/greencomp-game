@@ -686,6 +686,10 @@ Fenster-Stück auf der Karte: Bild
 - DE: Welche Regel hat bei euch niemand beschlossen, und alle halten sich daran?
 - EN: Which rule did nobody decide, yet everyone follows?
 
+**Gesprächsfrage 2 allein (Spaziergang)** · `comp.political-agency.talkSolo2`
+- DE: Welche Regel hat in deiner Umgebung niemand beschlossen, und alle halten sich daran?
+- EN: Which rule around you did nobody decide, yet everyone follows?
+
 **Fenster: was es zeigt** · `comp.political-agency.window`
 - DE: 60 Sekunden: Wie ein Antrag an eine Gemeinde entsteht, in drei Schritten.
 - EN: Sixty seconds: how a request to a municipality comes about, in three steps.
@@ -712,6 +716,10 @@ Fenster-Stück auf der Karte: Bild
 **Neugier-Frage** · `comp.collective-action.question`
 - DE: Was schafft ihr nur gemeinsam?
 - EN: What can you only do together?
+
+**Neugier-Frage allein** · `comp.collective-action.questionSolo`
+- DE: Was schaffst du nur mit anderen zusammen?
+- EN: What can you only do together with others?
 
 **Mach es echt · Schritt 1** · `comp.collective-action.step1`
 - DE: Stellt euch in einen Kreis und schaut auf den Boden.
@@ -744,6 +752,10 @@ Fenster-Stück auf der Karte: Bild
 **Gesprächsfrage 2** · `comp.collective-action.talk2`
 - DE: Wen aus dieser Gruppe würdest du fragen, wenn du nächste Woche etwas anfängst?
 - EN: Who in this group would you ask if you started something next week?
+
+**Gesprächsfrage 2 allein (Spaziergang)** · `comp.collective-action.talkSolo2`
+- DE: Wen würdest du fragen, wenn du nächste Woche etwas anfängst?
+- EN: Whom would you ask if you started something next week?
 
 **Fenster: was es zeigt** · `comp.collective-action.window`
 - DE: 45 Sekunden: Eine Dorf-Initiative, von 3 auf 300 Menschen.
@@ -819,7 +831,7 @@ Fenster-Stück auf der Karte: Stimme
 
 ## 3. Spurkarten
 
-Die Spur bestimmt, wie die Aufgabe gemacht wird.
+Die Spur bestimmt, wie die Aufgabe gemacht wird. Allein gespielt zeigt die App die Du-Form.
 
 ### Sinne · `trail.senses`
 
@@ -833,6 +845,10 @@ Die Spur bestimmt, wie die Aufgabe gemacht wird.
 
 **Was sich an der Aufgabe ändert**
 - DE: Macht die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören.
+- EN: Do the task with one sense only: eyes closed, touch only, or listen only.
+
+**Allein gespielt**
+- DE: Mach die Aufgabe mit nur einem Sinn: Augen zu, nur tasten oder nur hören.
 - EN: Do the task with one sense only: eyes closed, touch only, or listen only.
 
 ### Gefühl · `trail.emotion`
@@ -849,6 +865,10 @@ Die Spur bestimmt, wie die Aufgabe gemacht wird.
 - DE: Bevor ihr anfangt, nennt jede Person ein Gefühl. Nur ein Wort.
 - EN: Before you start, everyone names a feeling. One word only.
 
+**Allein gespielt**
+- DE: Bevor du anfängst, nenn ein Gefühl. Nur ein Wort.
+- EN: Before you start, name one feeling. One word only.
+
 ### Schönheit · `trail.beauty`
 
 **Name**
@@ -862,6 +882,10 @@ Die Spur bestimmt, wie die Aufgabe gemacht wird.
 **Was sich an der Aufgabe ändert**
 - DE: Bevor ihr anfangt, zeigt jede Person der Gruppe etwas Schönes an diesem Ort.
 - EN: Before you start, everyone shows the group something beautiful here.
+
+**Allein gespielt**
+- DE: Bevor du anfängst, such dir hier etwas Schönes und schau es eine Minute lang an.
+- EN: Before you start, find something beautiful here and look at it for a minute.
 
 ### Bedeutung · `trail.meaning`
 
@@ -877,6 +901,10 @@ Die Spur bestimmt, wie die Aufgabe gemacht wird.
 - DE: Bei der Aufgabe erzählt jede Person eine kurze Geschichte aus ihrem Leben, die dazu passt.
 - EN: During the task, everyone tells a short story from their own life that fits.
 
+**Allein gespielt**
+- DE: Denk bei der Aufgabe an eine Geschichte aus deinem Leben, die dazu passt.
+- EN: During the task, think of a story from your own life that fits.
+
 ### Fürsorge · `trail.care`
 
 **Name**
@@ -889,6 +917,10 @@ Die Spur bestimmt, wie die Aufgabe gemacht wird.
 
 **Was sich an der Aufgabe ändert**
 - DE: Tut am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen.
+- EN: At the end, do something good for the place: pick up litter, water a plant.
+
+**Allein gespielt**
+- DE: Tu am Schluss etwas Gutes für den Ort: Abfall aufheben, eine Pflanze giessen.
 - EN: At the end, do something good for the place: pick up litter, water a plant.
 
 ## 4. Funkenkarten
@@ -1656,6 +1688,9 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
   - EN: Flicked a coaster? Whoever caught it chooses:
 - `ui.trailIs`
   - DE: Eure Spur
+  - EN: Your trail
+- `ui.trailIsSolo`
+  - DE: Deine Spur
   - EN: Your trail
 
 ### Schritt: Funke
