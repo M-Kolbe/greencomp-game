@@ -75,6 +75,9 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
   zeigt es), Schätzen dauert 1 Minute statt 2. Das Gespräch bleibt gleich lang, eine Station dauert weiter 11 Minuten.
   Auf der Tafel: Aufgabe 5, Gespräch 3, Schätzen 1, ein Satz 1:40. Das kurze Spiel heisst jetzt «7 Minuten · eine Karte»
   (die Zahl rechnet die App aus). Der Spaziergang bleibt, wie er ist (Schätzen war dort schon 1 Minute).
+- **Neue Fassungen erscheinen sofort**: Der Service Worker holt die App-Dateien zuerst aus dem Netz und nimmt den Speicher nur
+  ohne Netz. Wer noch eine alte Fassung gespeichert hat, sieht nach einmal Neuladen die neue. Offline läuft alles weiter.
+- **Fakten offen auf der Startseite**: ein Fakt mit «Noch einer» und «Alle Fakten» direkt unter «Worum geht es?», nicht eingeklappt.
 - **Vorläufiger Name «Spuren»**, darunter «Ein Kartenspiel zu GreenComp». Die Einzeldatei heisst jetzt `Spuren.html`.
 - **Vogelgezwitscher zum Start**: ein kurzer Vogelchor (etwa 7 Sekunden). Browser erlauben Ton erst nach dem ersten Antippen,
   darum singen die Vögel beim ersten Tippen auf der Seite. Abschalten auf der Startseite («Vögel zum Start: an/aus»).

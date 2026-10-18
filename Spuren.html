@@ -10078,7 +10078,7 @@ window.GCT_DATA.facts = [
     var src = h("p", { class: "small muted" }, L(D.about.source) + " ", h("a", { href: greencompUrl(), target: "_blank", rel: "noopener" }, T("aboutMore")));
     if (accordion) return h("div", { class: "stack about about-acc" },
       D.about.items.map(function (x) { return h("details", { class: "panel about-item" }, h("summary", null, h("span", { class: "tile-ico" }, G.icon(x.icon)), h("b", null, L(x.t))), h("p", null, L(x.d))); }),
-      D.facts && D.facts.length ? G.factItem() : null, src);
+      src);
     return h("div", { class: "stack about" },
       h("div", { class: "icon-grid" }, D.about.items.map(function (x) { return h("div", { class: "icon-tile" }, h("span", { class: "tile-ico" }, G.icon(x.icon)), h("h4", null, L(x.t)), h("p", null, L(x.d))); })),
       h("p", { class: "small muted" }, L(D.about.source) + " ", h("a", { href: greencompUrl(), target: "_blank", rel: "noopener" }, T("aboutMore"))));
@@ -10195,7 +10195,9 @@ window.GCT_DATA.facts = [
             playBox),
           h("div", { class: "coaster-wrap" }, coaster, flick, flickMsg))),
       h("section", { class: "wrap", style: { paddingBlock: "28px 8px" } },
-        h("div", { class: "section-head" }, h("h2", null, T("aboutT"))), G.aboutTiles(true)),
+        h("div", { class: "section-head" }, h("h2", null, T("aboutT"))), G.aboutTiles(true),
+        /* a fact in plain sight, not folded away */
+        (D.facts || []).length ? h("div", { style: { marginTop: "18px" } }, G.factItem(null, true)) : null),
       h("section", { class: "wrap", style: { paddingBlock: "20px 44px" } },
         h("div", { class: "bento" },
           tile("tile--hero tile--facts", "#fakten", "spark", T("tileFactsT"), T("tileFactsP", { n: (D.facts || []).length }), h("span", { class: "tile-tags" }, h("i", null, T("factWow")), h("i", null, T("factThink")), h("i", null, T("factSource")))),
