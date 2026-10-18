@@ -5,7 +5,12 @@
 
   /* What GreenComp is, what the game wants, what you take home, who it is for. */
   function greencompUrl() { return "https://joint-research-centre.ec.europa.eu/greencomp-european-sustainability-competence-framework_" + (G.lang === "de" ? "de" : "en"); }
-  G.aboutTiles = function () {
+  /* accordion: one row per question, opened by a tap (the start page); otherwise four tiles (the guide). */
+  G.aboutTiles = function (accordion) {
+    var src = h("p", { class: "small muted" }, L(D.about.source) + " ", h("a", { href: greencompUrl(), target: "_blank", rel: "noopener" }, T("aboutMore")));
+    if (accordion) return h("div", { class: "stack about about-acc" },
+      D.about.items.map(function (x) { return h("details", { class: "panel about-item" }, h("summary", null, h("span", { class: "tile-ico" }, G.icon(x.icon)), h("b", null, L(x.t))), h("p", null, L(x.d))); }),
+      D.facts && D.facts.length ? G.factItem() : null, src);
     return h("div", { class: "stack about" },
       h("div", { class: "icon-grid" }, D.about.items.map(function (x) { return h("div", { class: "icon-tile" }, h("span", { class: "tile-ico" }, G.icon(x.icon)), h("h4", null, L(x.t)), h("p", null, L(x.d))); })),
       h("p", { class: "small muted" }, L(D.about.source) + " ", h("a", { href: greencompUrl(), target: "_blank", rel: "noopener" }, T("aboutMore"))));
@@ -70,6 +75,14 @@
   /* ================= home ================= */
   G.drawnId = G.pick(D.competences).id;
   var coasterId = "promoting-nature";
+  /* Birds at the start (see app.js): on or off, remembered on this device. */
+  function birdsToggle() {
+    var b = h("button", { type: "button", class: "birds-toggle", title: T("birdsHint") });
+    function paint() { var on = store.get("birdsStart", true); b.setAttribute("aria-pressed", String(on)); put(b, (on ? "🔊 " : "🔈 ") + T(on ? "birdsOn" : "birdsOff")); }
+    b.addEventListener("click", function () { var on = !store.get("birdsStart", true); store.set("birdsStart", on); if (!on && window.GCTAudio) window.GCTAudio.stopAll(); paint(); });
+    paint();
+    return b;
+  }
   G.pages.home = function (app) {
     var cc = G.COMP[coasterId], going = G.gameInProgress();
     function quick(who, icon, title, sub) {
@@ -85,7 +98,7 @@
         quick("room", "board", T("whoRoom"), T("whoRoomSub"))),
       h("div", { class: "hero-more" },
         h("a", { class: "hero-go", href: "#los" }, G.icon("compass", "quick-ico"), h("b", null, T("goOne", { n: G.gameMinutes("one") })), h("span", null, T("goOneSub")))),
-      h("p", { class: "small hero-play-hint" }, T("heroPlayHint"), " · ", h("a", { href: "#anleitung" }, T("howToPlay"))));
+      h("p", { class: "small hero-play-hint" }, T("heroPlayHint"), " · ", h("a", { href: "#anleitung" }, T("howToPlay")), " · ", birdsToggle()));
 
     /* the same coaster that lies on the tables: front with the question, back with the signpost and the code */
     var flipC = G.coasterFlip(cc, false), coaster = flipC.el;
@@ -114,17 +127,16 @@
             playBox),
           h("div", { class: "coaster-wrap" }, coaster, flick, flickMsg))),
       h("section", { class: "wrap", style: { paddingBlock: "28px 8px" } },
-        h("div", { class: "section-head" }, h("h2", null, T("aboutT"))), G.aboutTiles()),
+        h("div", { class: "section-head" }, h("h2", null, T("aboutT"))), G.aboutTiles(true)),
       h("section", { class: "wrap", style: { paddingBlock: "20px 44px" } },
         h("div", { class: "bento" },
-          tile("tile--hero", "#tafel", "board", T("tileExpT") + " · 60 min", T("tileExpP"), h("span", { class: "tile-tags" }, h("i", null, "3–5"), h("i", null, "4 × 10 min"), h("i", null, T("phDebrief")))),
+          tile("tile--hero tile--facts", "#fakten", "spark", T("tileFactsT"), T("tileFactsP", { n: (D.facts || []).length }), h("span", { class: "tile-tags" }, h("i", null, T("factWow")), h("i", null, T("factThink")), h("i", null, T("factSource")))),
           tile("tile--way", "#spuren", "way", T("tileWayT"), T("tileWayP", { n: walks }), ring),
           tile("", "#anleitung", "guide", T("tileGuideT"), T("tileGuideP")),
-          tile("", "#vorbereiten", "check", T("tilePrepT"), T("tilePrepP")),
           tile("", "#schaetzen", "target", T("tileTrainT"), T("tileTrainP")),
           tile("", "#set", "set", T("tileSetT", { n: G.setCount() }), T("tileSetP")),
           tile("tile--joker", "#joker", "joker", T("tileJokerT"), T("tileJokerP")),
-          (function () { var t = tile("tile--wide", "#spielen", "globe", T("tileR0T"), T("tileR0P")); t.addEventListener("click", function (ev) { ev.preventDefault(); G.newOriginal(); }); return t; })(),
+          (function () { var t = tile("tile--wide tile--wide3", "#spielen", "globe", T("tileR0T"), T("tileR0P")); t.addEventListener("click", function (ev) { ev.preventDefault(); G.newOriginal(); }); return t; })(),
           tile("tile--finds", "#spuren", "crown", T("tileFindsT"), T("findsCount", { n: nFinds, m: D.badges.length }),
             h("span", { class: "mini-finds" }, D.badges.slice(0, 8).map(function (b) { return h("i", { class: have[b.id] ? "got" : "", style: { "--fc": "var(" + b.color + ")" } }); }))))),
       h("section", { class: "band" }, h("div", { class: "wrap" },
@@ -170,6 +182,15 @@
             door("", "board", T("doorBoard"), T("doorBoardSub"), null, "#tafel"),
             door("", "text", T("doorText"), T("doorTextSub"), openText)),
           h("button", { type: "button", class: "big-choice big-choice--sign", onclick: function () { G.openFive(id); } }, G.icon("table"), h("b", null, T("fiveTable")), h("span", null, T("fiveTableSub"))),
+          G.factsFor(id).length ? (function () {
+            /* three to start with, the rest one tap away */
+            var mine = G.factsFor(id).slice().sort(function () { return Math.random() - 0.5; });
+            return h("div", { class: "panel fact-panel" }, h("h3", null, G.icon("spark", "fact-ico"), T("factsForCard")),
+              mine.slice(0, 3).map(function (f) { return G.factBox(f, { actions: true }); }),
+              h("div", { class: "row" },
+                mine.length > 3 ? h("a", { class: "btn btn--small", href: "#fakten-" + id }, T("factsCard", { n: mine.length }) + " →") : null,
+                h("a", { class: "btn btn--small btn--ghost", href: "#fakten" }, T("factsAll", { n: D.facts.length }) + " →")));
+          })() : null,
           h("div", { class: "pager" }, h("a", { class: "btn btn--small", href: "#k-" + prev.id }, "← " + L(prev.name)), h("a", { class: "btn btn--small", href: "#k-" + next.id }, L(next.name) + " →")))),
       textSec);
   };
@@ -202,7 +223,55 @@
       h("section", { class: "wrap page-head", style: { "--area": G.areaVar(a) } }, h("p", { class: "eyebrow area-eyebrow" }, G.areaSym(a, "eyebrow-sym"), T("tArea")), h("h1", null, L(a.name)), h("p", { class: "lead" }, L(a.teaser))),
       h("section", { class: "wrap cols", style: { paddingBottom: "40px" } },
         h("div", { class: "panel" }, h("h3", null, T("stationSound")), G.soundPanel(a)),
+        (D.facts || []).length ? G.factItem(G.pick(comps).id, true) : null,
         h("div", { class: "panel" }, h("h3", null, T("cardsHere")), h("div", { class: "post", style: { "--area": G.areaVar(a) } }, comps.map(function (c) { return h("a", { class: "sign", href: "#k-" + c.id }, h("span", null, L(c.name))); })))));
+  };
+
+  /* ================= facts to marvel at and think about: #fakten, #fakten-<skill>, #fakt-<id> =================
+   * Open on their own, for people who scan a code and want to be inspired without playing. */
+  G.pages.fakten = function (app, sel) {
+    sel = sel || {};
+    var all = D.facts || [], kind = "all", area = "all", comp = sel.comp || null;
+    var featured = (sel.fact && all.find(function (f) { return f.id === sel.fact; })) || G.pick(comp ? G.factsFor(comp) : all);
+    function shown() { return all.filter(function (f) { var c = G.COMP[f.comp]; return (kind === "all" || f.kind === kind) && (area === "all" || c.area === area) && (!comp || f.comp === comp); }); }
+    var feat = h("div", { class: "fact-feature", "aria-live": "polite" }), list = h("div", { class: "fact-list" }), count = h("p", { class: "small muted" }), filters = h("div", { class: "stack" });
+    function paintFeat() { put(feat, G.factBox(featured, { big: true, actions: true, read: true, card: true })); }
+    function another() {
+      var pool = shown().filter(function (f) { return f.id !== featured.id; });
+      if (!pool.length) pool = all.filter(function (f) { return f.id !== featured.id; });
+      featured = G.pick(pool); paintFeat();
+    }
+    function chip(on, label, fn, style) { return h("button", { type: "button", class: "chip", "aria-pressed": String(on), style: style || null, onclick: fn }, label); }
+    function paintFilters() {
+      put(filters,
+        h("div", { class: "chips", role: "group", "aria-label": T("factsKindLabel") },
+          [["all", T("factsKindAll")], ["wow", "✦ " + T("factWow")], ["think", "✦ " + T("factThink")]].map(function (k) { return chip(kind === k[0], k[1], function () { kind = k[0]; paintAll(); }); })),
+        h("div", { class: "chips", role: "group", "aria-label": T("factsAreaLabel") },
+          chip(area === "all" && !comp, T("factsAreaAll"), function () { area = "all"; comp = null; paintAll(); }),
+          D.areas.map(function (a) { return chip(area === a.id && !comp, L(a.name), function () { area = a.id; comp = null; paintAll(); }, { borderColor: G.areaVar(a) }); }),
+          comp ? chip(true, G.COMP[comp].no + " " + L(G.COMP[comp].name) + " ✕", function () { comp = null; paintAll(); }) : null));
+    }
+    function paintList() {
+      var fs = shown();
+      count.textContent = T("factsShown", { n: fs.length, m: all.length });
+      put(list, D.competences.map(function (c) {
+        var mine = fs.filter(function (f) { return f.comp === c.id; });
+        if (!mine.length) return null;
+        return h("section", { class: "fact-sec", style: { "--area": G.areaVar(G.AREA[c.area]) } },
+          h("h2", null, G.areaSym(c.area, "eyebrow-sym"), c.no + " " + L(c.name)),
+          h("div", { class: "fact-grid" }, mine.map(function (f) { return G.factBox(f, { actions: true, anchor: true }); })),
+          h("a", { class: "btn btn--small btn--ghost", href: "#k-" + c.id }, T("factToCard") + ": " + L(c.name) + " →"));
+      }));
+    }
+    function paintAll() { paintFilters(); paintList(); }
+    paintFeat(); paintAll();
+    app.append(
+      h("section", { class: "wrap page-head" }, h("p", { class: "eyebrow" }, T("factsEyebrow")), h("h1", null, T("factsT")), h("p", { class: "lead" }, T("factsLead", { n: all.length }))),
+      h("section", { class: "wrap stack", style: { paddingBottom: "24px" } }, feat,
+        h("div", { class: "row" }, h("button", { type: "button", class: "btn btn--sign", onclick: another }, "↻ " + T("factMore")))),
+      h("section", { class: "wrap stack", style: { paddingBottom: "48px" } }, filters, count, list,
+        h("div", { class: "panel fact-play" }, h("h3", null, T("factsPlayT")), h("p", null, T("factsPlayP")),
+          h("div", { class: "row" }, h("a", { class: "btn btn--sign", href: "#spielen" }, "▶ " + T("playNowBig")), h("a", { class: "btn", href: "#set" }, T("navCards"))))));
   };
 
   /* ================= my way (Mein Weg) ================= */

@@ -2,7 +2,7 @@
  * It lies on a table in a pub, a club house or at a fair. Someone points a phone camera at the code and lands in the game.
  * One drawing serves everything: the app, the page after a scan and the print data. What people hold is what they see.
  * Round, 107 mm (the common size), drawn with 3 mm bleed on 113 x 113 mm; everything that matters stays 4 mm inside the cut.
- * Recognition comes from five things that never change: the ring «GreenComp erleben», dawn over the mountains with a question,
+ * Recognition comes from five things that never change: the ring «Spuren · GreenComp erleben», dawn over the mountains with a question,
  * the yellow signpost «Play now» with a white-red-white tip, the white code field with the trail mark, and the area colour and sign. */
 (function () {
   "use strict";
@@ -202,7 +202,7 @@
   };
   G.coasterSVGText = function (c, side) {
     var el = G.coaster(c, side, { print: true });
-    return '<?xml version="1.0" encoding="UTF-8"?>\n<!-- GreenComp erleben · Bierdeckel ' + c.no + " " + side + " · rund 107 mm, Datenformat 113 x 113 mm (3 mm Beschnitt), Sicherheitsabstand 4 mm.\n     Schriften: Atkinson Hyperlegible, Barlow Condensed (SIL Open Font License). Vor dem Druck in Pfade wandeln oder einbetten. -->\n" + new XMLSerializer().serializeToString(el);
+    return '<?xml version="1.0" encoding="UTF-8"?>\n<!-- ' + T("appName") + ' · Bierdeckel ' + c.no + " " + side + " · rund 107 mm, Datenformat 113 x 113 mm (3 mm Beschnitt), Sicherheitsabstand 4 mm.\n     Schriften: Atkinson Hyperlegible, Barlow Condensed (SIL Open Font License). Vor dem Druck in Pfade wandeln oder einbetten. -->\n" + new XMLSerializer().serializeToString(el);
   };
 
   /* ---------- after a scan: the page for this coaster ---------- */
@@ -223,12 +223,13 @@
       h("div", { class: "found-text stack" },
         h("p", { class: "eyebrow" }, T("foundEyebrow", { n: n })),
         h("h1", null, T("foundT")),
-        h("p", { class: "lead" }, T("foundLead")),
-        h("button", { type: "button", class: "btn btn--sign btn--big found-play", onclick: function () { G.newGame("group", c.id, "five"); } }, "▶ " + T("foundPlay")),
+        h("p", { class: "lead" }, T("foundLead", { n: G.gameMinutes("five") })),
+        h("button", { type: "button", class: "btn btn--sign btn--big found-play", onclick: function () { G.newGame("group", c.id, "five"); } }, "▶ " + T("foundPlay", { n: G.gameMinutes("five") })),
         h("div", { class: "row" },
           h("button", { type: "button", class: "btn btn--small", onclick: function () { G.newGame("solo", c.id, "walk"); } }, T("foundAlone")),
           h("button", { type: "button", class: "btn btn--small", onclick: function () { G.newGame("group", c.id); } }, T("foundLong")),
           h("a", { class: "btn btn--small btn--ghost", href: "#k-" + c.id }, T("foundCard"))),
+        (D.facts || []).length && G.factsFor(c.id).length ? G.factItem(c.id, true) : null,
         h("details", { class: "panel found-what" }, h("summary", null, T("foundWhatQ")), h("p", null, T("foundWhat1")), h("p", null, T("foundWhat2")), h("p", { class: "small muted" }, T("coasterWho"))),
         h("div", { class: "found-collect" }, h("p", null, h("b", null, T("foundCount", { n: count }))), dots, h("p", { class: "small muted" }, T("foundPass"))),
         h("p", { class: "small muted" }, T("foundPrivacy"))))));

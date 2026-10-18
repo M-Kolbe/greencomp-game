@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GreenComp Trails</title>
+<title>Spuren · Ein Kartenspiel zu GreenComp</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Experience GreenComp: twelve skills, five trails, one card set. A window for sound, voice and picture, a board for the room, a solo walk. No account, no tracking.">
 <meta name="theme-color" content="#13201a">
 <meta property="og:type" content="website">
-<meta property="og:title" content="GreenComp erleben">
+<meta property="og:title" content="Spuren · Ein Kartenspiel zu GreenComp">
 <meta property="og:description" content="Ein Kartenspiel für draussen: zwölf Fähigkeiten für die Nachhaltigkeit, Schritt für Schritt erlebt. Ohne Konto.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -129,6 +129,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .mark-blaze i:nth-child(2) { background: #c62f28; }
 .mark b { font-family: var(--f-sign); font-weight: 700; font-size: 1.45rem; letter-spacing: .02em; line-height: 1; }
 .mark small { display: block; font-family: var(--f-sign); font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; opacity: .65; }
+@media (max-width: 560px) { .mark small { letter-spacing: .04em; white-space: nowrap; font-size: .68rem; } }
 .nav { display: flex; gap: 4px; margin-left: auto; }
 .nav a { font-family: var(--f-sign); font-weight: 600; font-size: 1.12rem; text-decoration: none; padding: 7px 13px; border-radius: 999px; color: var(--head-ink); }
 .nav a:hover { background: rgba(255, 255, 255, .1); }
@@ -524,6 +525,34 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { border-color
 .scale-ends { display: flex; justify-content: space-between; gap: 10px; font-size: var(--s-0); color: var(--ink-2); }
 .panel { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 14px; min-width: 0; box-shadow: var(--shadow); }
 .panel h3 { font-family: var(--f-sign); font-size: 1.6rem; }
+/* «What is this about?» as folds, and facts to marvel at */
+.about-acc { gap: 10px; }
+.about-item { padding: 0; display: block; }
+.about-item > summary { display: flex; align-items: center; gap: 14px; padding: 12px 16px; list-style: none; font-size: var(--s-2); }
+.about-item > summary::-webkit-details-marker { display: none; }
+.about-item > summary::after { content: "+"; margin-left: auto; font-size: 1.4rem; font-weight: 400; color: var(--ink-2); }
+.about-item[open] > summary::after { content: "–"; }
+.about-item > summary .tile-ico { width: 40px; height: 40px; flex: none; }
+.about-item > :not(summary) { margin: 2px 16px 14px; }
+.fact-item > .btn { margin-left: 16px; }
+.about-item > p { color: var(--ink-2); max-width: 62ch; }
+.fact-box { display: grid; gap: 6px; padding: 14px 16px; border-radius: 16px; background: var(--bg-2); border-left: 5px solid var(--sign); }
+.fact-box.fact--think { border-left-color: var(--a-futures, var(--sign)); }
+.fact-text { font-size: var(--s-2); line-height: 1.4; }
+.fact-q { font-weight: 700; }
+.fact-src a { overflow-wrap: anywhere; }
+.fact-actions { gap: 6px; }
+.fact-box--big { padding: 22px 22px 18px; border-left-width: 7px; background: var(--paper); box-shadow: var(--shadow); }
+.fact-box--big .fact-text { font-size: var(--s-4); line-height: 1.3; font-weight: 700; }
+.fact-box--big .fact-q { font-size: var(--s-3); }
+.fact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.fact-sec { display: grid; gap: 12px; padding-top: 18px; border-top: 4px solid var(--area); }
+.fact-sec h2 { font-family: var(--f-sign); font-size: var(--s-4); }
+.fact-sec > .btn { justify-self: start; }
+.fact-list { display: grid; gap: 28px; }
+.fact-panel h3 { display: flex; align-items: center; gap: 8px; }
+.fact-ico { width: 1.1em; height: 1.1em; }
+.tile--facts { background: linear-gradient(150deg, var(--a-futures), var(--a-acting)); }
 .note { border-left: 4px solid var(--sign); padding: 6px 0 6px 12px; color: var(--ink-2); font-size: var(--s-1); }
 .note.warn { border-color: var(--blaze); color: var(--ink); }
 .tbl-wrap { overflow-x: auto; }
@@ -750,6 +779,7 @@ td.num, th.num { text-align: right; }
 .run-station { font-size: var(--s-1); line-height: 1.45; padding: 10px 12px; border-radius: 12px; background: var(--bg-2); }
 .hero-play-hint { color: rgba(255, 255, 255, .88); }
 .hero-play-hint a { color: #fff; font-weight: 700; }
+.birds-toggle { font: inherit; font-weight: 700; color: #fff; background: none; border: 0; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 @media (max-width: 560px) {
   .hero-play { padding: 14px; margin-top: 18px; }
   .hero-play-t small { padding-left: 0; }
@@ -1076,6 +1106,7 @@ button.pick-add:active { transform: scale(.98); }
 
 /* home: two new tiles fill the last row */
 .tile--wide { grid-column: span 2; }
+@media (min-width: 981px) { .tile--wide3 { grid-column: span 3; } }
 @media (max-width: 560px) { .tile--wide { grid-column: auto; } }
 
 /* ---------- v0.6: the coaster after a scan, the twelve coasters, print data ---------- */

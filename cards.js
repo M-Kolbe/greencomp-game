@@ -60,6 +60,40 @@
   };
   var mini = G.mini = function (cls, area, kids) { return h("article", { class: "card mini " + cls, style: area ? { "--area": area } : null }, add(h("div", { class: "card-body" }), kids)); };
   /* What a trail changes, for a group or for one person alone. */
+  /* Facts to marvel at or think about, each with its source. A think fact brings a question for the group. */
+  G.factsFor = function (comp) { return (D.facts || []).filter(function (f) { return !comp || f.comp === comp; }); };
+  /* Share a fact: the phone's share sheet, or the text and its link copied. */
+  G.shareFact = function (f, btn) {
+    var url = G.linkTo("fakt-" + f.id), text = L(f.text) + (f.q ? " " + L(f.q) : "");
+    if (navigator.share) { navigator.share({ title: T("appName") + " · " + T(f.kind === "think" ? "factThink" : "factWow"), text: text, url: url }).catch(function () {}); return; }
+    function done() { if (!btn) return; var old = btn.textContent; btn.textContent = "✓ " + T("factCopied"); setTimeout(function () { btn.textContent = old; }, 1800); }
+    if (navigator.clipboard) navigator.clipboard.writeText(text + " " + url).then(done, done); else done();
+  };
+  /* o.big: the featured fact; o.actions: share (and read out); o.card: name the card and link to it. */
+  G.factBox = function (f, o) {
+    o = o || {};
+    var c = G.COMP[f.comp], share = null;
+    if (o.actions) { share = h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { G.shareFact(f, share); } }, "↗ " + T("factShare")); }
+    return h("div", { class: "fact-box fact--" + f.kind + (o.big ? " fact-box--big" : ""), id: o.anchor ? "fakt-" + f.id : null },
+      h("p", { class: "eyebrow" }, "✦ " + T(f.kind === "think" ? "factThink" : "factWow") + (o.card && c ? " · " + c.no + " " + L(c.name) : "")),
+      h("p", { class: "fact-text" }, L(f.text)),
+      f.q ? h("p", { class: "fact-q" }, L(f.q)) : null,
+      h("p", { class: "small muted fact-src" }, T("factSource") + ": ", f.url ? h("a", { href: f.url, target: "_blank", rel: "noopener" }, f.source) : f.source),
+      o.actions ? h("div", { class: "row fact-actions" }, share,
+        o.read && G.Voice.ok ? G.speakButton(function () { return L(f.text) + (f.q ? " " + L(f.q) : ""); }, T("readOut"), "btn btn--small btn--ghost") : null,
+        o.card && c ? h("a", { class: "btn btn--small btn--ghost", href: "#k-" + c.id }, T("factToCard") + " →") : null) : null);
+  };
+  /* One fact with «Another one», in a fold (start page) or open (a scanned card or coaster), and the way to all facts. */
+  G.factItem = function (comp, open) {
+    var list = G.factsFor(comp), i = Math.random() * list.length | 0, box = h("div");
+    function paint() { put(box, G.factBox(list[i % list.length], { actions: true })); }
+    paint();
+    var more = h("div", { class: "row" },
+      list.length > 1 ? h("button", { type: "button", class: "btn btn--small", onclick: function () { i += 1 + (Math.random() * (list.length - 1) | 0); paint(); } }, "↻ " + T("factMore")) : null,
+      h("a", { class: "btn btn--small btn--ghost", href: "#fakten" }, T("factsAll", { n: (D.facts || []).length }) + " →"));
+    if (open) return h("div", { class: "panel fact-panel" }, h("h3", null, G.icon("spark", "fact-ico"), T("factsT")), box, more);
+    return h("details", { class: "panel about-item fact-item" }, h("summary", null, h("span", { class: "tile-ico" }, G.icon("spark")), h("b", null, T("factsT"))), box, more);
+  };
   G.compQ = function (c, solo) { return L(solo && c.questionSolo ? c.questionSolo : c.question); };
   G.compTalk = function (c, k, solo) { return L(solo && c.talkSolo && c.talkSolo[k] || c.talk[k]); };
   G.trailChange = function (t, solo) { return L(solo && t.changeSolo ? t.changeSolo : t.change); };

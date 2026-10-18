@@ -10,6 +10,7 @@
     { hash: "spielen", icon: "play", key: "navPlay", desktop: true, play: true },
     { hash: "", icon: "home", key: "navHome", mobile: true },
     { hash: "set", icon: "set", key: "navCards", desktop: true, mobile: true },
+    { hash: "fakten", icon: "spark", key: "navFacts", desktop: true },
     { hash: "spielen", icon: "play", key: "navPlay", mobile: true, play: true },
     { hash: "anleitung", icon: "guide", key: "navGuide", desktop: true, mobile: true },
     { hash: "tafel", icon: "board", key: "navBoard", desktop: true },
@@ -29,6 +30,9 @@
     else if (hash.indexOf("k-") === 0 && G.COMP[hash.slice(2)]) P.comp(app, hash.slice(2));
     else if (hash.indexOf("walk-") === 0 && G.COMP[hash.slice(5)]) { P.comp(app, hash.slice(5)); G.openWalk(hash.slice(5)); }
     else if (hash.indexOf("station-") === 0 && G.AREA[hash.slice(8)]) P.station(app, hash.slice(8));
+    else if (hash === "fakten") P.fakten(app);
+    else if (hash.indexOf("fakten-") === 0 && G.COMP[hash.slice(7)]) { P.fakten(app, { comp: hash.slice(7) }); current = "fakten"; }
+    else if (hash.indexOf("fakt-") === 0) { P.fakten(app, { fact: hash.slice(5) }); current = "fakten"; }
     else if (P[hash] && ["spielen", "vorbereiten", "set", "loesungen", "tafel", "spuren", "messung", "werkstatt", "anleitung", "schaetzen", "joker", "deckel"].indexOf(hash) >= 0) P[hash](app);
     else { current = ""; P.home(app); }
     /* In the game the phone shows only the game: no tab bar under the cards. */
@@ -60,12 +64,12 @@
     }));
     G.$("#tabbar").setAttribute("aria-label", T("navLabel"));
     var sk = G.$(".skip"); if (sk) sk.textContent = T("skip");
-    document.title = T("appName");
+    document.title = T("appName") + " · " + T("working");
   }
   function renderFooter() {
     put(G.$("#foot"), h("div", { class: "wrap" },
       h("div", { class: "foot-links" },
-        h("a", { href: "#anleitung" }, T("navGuide")), h("a", { href: "#vorbereiten" }, T("prepT")), h("a", { href: "#schaetzen" }, T("trainTitle")), h("a", { href: "#joker" }, T("tJoker")), h("a", { href: "#deckel" }, T("coasterTitle")), h("a", { href: "#loesungen" }, T("solTitle")),
+        h("a", { href: "#anleitung" }, T("navGuide")), h("a", { href: "#fakten" }, T("navFacts")), h("a", { href: "#vorbereiten" }, T("prepT")), h("a", { href: "#schaetzen" }, T("trainTitle")), h("a", { href: "#joker" }, T("tJoker")), h("a", { href: "#deckel" }, T("coasterTitle")), h("a", { href: "#loesungen" }, T("solTitle")),
         h("a", { href: "#messung" }, T("navMeasure")), h("a", { href: "#werkstatt" }, T("wsTitle"))),
       h("p", null, T("footPrivacy")),
       h("p", null, T("footLicense")),
@@ -80,6 +84,18 @@
   window.addEventListener("hashchange", function () { G.closeOverlays(); G.route(); });
   renderFooter();
   render(decodeURIComponent(location.hash.slice(1)));
+  /* Birds greet you when the app opens. Browsers allow sound only after a first tap, so the chorus starts with it. */
+  var WELCOME = ["pointerdown", "pointerup", "touchend", "keydown", "click"], welcomed = false;
+  function welcomeDone() { welcomed = true; WELCOME.forEach(function (t) { document.removeEventListener(t, welcome, true); }); }
+  function welcome(ev) {
+    if (welcomed) return;
+    if (!store.get("birdsStart", true) || !window.GCTAudio || (ev.target.closest && ev.target.closest(".birds-toggle"))) { welcomeDone(); return; }
+    var ctx = window.GCTAudio.ensure();
+    if (!ctx) { welcomeDone(); return; }
+    function go() { if (!welcomed && ctx.state === "running") { welcomeDone(); window.GCTAudio.welcome(); } }
+    if (ctx.state === "running") go(); else ctx.resume().then(go, function () {});
+  }
+  WELCOME.forEach(function (t) { document.addEventListener(t, welcome, true); });
   if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol) && !G.inFrame) {
     try { navigator.serviceWorker.register("sw.js").catch(function () {}); } catch (e) {}
   }

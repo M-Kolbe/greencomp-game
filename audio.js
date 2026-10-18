@@ -335,6 +335,14 @@
   }
 
   var BUILD = {
+    /* --- the welcome: a short dawn chorus when the app opens (7 s, then it fades) --- */
+    welcome: function (S, ctx, out) {
+      var air = S.bus([0, 1.5], [5.5, 7.5]);
+      windBed(S, ctx, air, 0.16);
+      ["robin", "blackbird", "chaffinch", "wren", "greattit", "blackbird"].forEach(function (name, i) {
+        BIRDS[name](air, S.at(0.3 + i * 0.9 + rnd(0, 0.3)), i % 2 ? 0.09 : 0.11, rnd(-0.8, 0.8));
+      });
+    },
     /* --- station sounds (20 s) --- */
     wind: function (S, ctx, out) {
       windBed(S, ctx, out, 0.55);
@@ -494,6 +502,7 @@
     scene: scene,
     chime: chime,
     signal: signal,
+    welcome: function () { var sc = scene("welcome"); if (sc && sc.ok) setTimeout(function () { sc.stop(1.5); }, 6500); return sc; },
     analyser: function () { return A.analyser; },
     suspend: function () { if (A.ctx && A.ctx.state === "running") return A.ctx.suspend(); },
     resume: function () { if (A.ctx && A.ctx.state === "suspended") return A.ctx.resume(); },

@@ -10,7 +10,7 @@ Damit das funktioniert, muss man den Deckel **wiedererkennen**: auf dem Tisch, a
 
 Diese fünf Dinge bleiben auf jedem Deckel gleich:
 
-1. **Rund wie ein echter Bierdeckel**, mit der Ringschrift «GreenComp erleben».
+1. **Rund wie ein echter Bierdeckel**, mit der Ringschrift «Spuren · GreenComp erleben» (der Name kommt aus `appTitleRing` in `i18n.js`).
 2. **Vorne Morgenrot über den Bergen** und eine Frage, die neugierig macht. Darüber die weiss-rot-weisse Wegmarkierung.
 3. **Hinten der gelbe Wegweiser «Jetzt spielen · 5 min»** mit weiss-rot-weisser Spitze, wie auf Schweizer Bergwanderwegen.
 4. **Der Code in einem weissen Feld**, in der Mitte die Wegmarkierung.

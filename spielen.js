@@ -52,12 +52,12 @@
   /* ---------- time ----------
    * Seconds for one part of the game. Sixty minutes: arrive 2, briefing 1, choose 2, four stations of 11, debrief 8,
    * promise 2, next game leader 1. A station: listen 20 s, three quick draws, the task as long as the card says,
-   * talking for the rest of 7:20, estimate 2, one sentence and a find 1:40. Groups above four talk a little longer;
+   * talking for the rest of 8:20, estimate 1, one sentence and a find 1:40. Groups above four talk a little longer;
    * the pace stretches or shortens everything except the fixed silence.
-   * task: seconds of the task on the card (2 to 4 minutes); unknown before the card is drawn, then 3 minutes. */
+   * task: seconds of the task on the card (3 to 5 minutes); unknown before the card is drawn, then 4 minutes. */
   function durFor(kind, len, n, pace, r0, task) {
     var f = PACE[pace] || 1, sec;
-    task = task || 180;
+    task = task || 240;
     switch (kind) {
       case "silence": return 60;
       case "arrive": sec = 60; break;
@@ -67,8 +67,8 @@
       case "brief": sec = len === "exp" || len === "one" ? 60 : 30; break;
       case "choose": sec = 120 + (r0 ? 60 : 0); break;
       case "task": sec = task; break;
-      case "talk": sec = Math.max(90, 375 - task + 20 * Math.max(0, n - 4)); break;
-      case "est": sec = 120; break;
+      case "talk": sec = Math.max(90, 435 - task + 20 * Math.max(0, n - 4)); break;
+      case "est": sec = 60; break;
       case "sentence": sec = len === "five" ? clamp(12 + 12 * n, 45, 120) : 100; break;
       case "what": sec = 160; break;
       case "sowhat": sec = 150; break;
@@ -84,7 +84,7 @@
   var KIND = { card: "pick", trail: "pick", spark: "pick" };
   var TIMED = { silence: 1, brief: 1, choose: 1, sound: 1, task: 1, talk: 1, est: 1, sentence: 1, what: 1, sowhat: 1, nowwhat: 1, debrief: 1, promise: 1, leader: 1 };
   function people() { return solo() ? 1 : Math.max(2, S.names.length); }
-  function taskSec(st) { var c = st && !st.joker && G.COMP[st.comp]; return c && c.minutes ? c.minutes * 60 : 180; }
+  function taskSec(st) { var c = st && !st.joker && G.COMP[st.comp]; return c && c.minutes ? c.minutes * 60 : 240; }
   function dur(kind, st) { return durFor(kind, S.len, people(), S.pace, isR0(), taskSec(st)); }
 
   /* ---------- the plan: every step of the chosen game ----------
@@ -136,7 +136,7 @@
   /* What one station holds, with minutes, for the briefing: listen, task, talk, estimate, one sentence. */
   function stationLine() {
     var n = people(), f = function (k, sec) { return T(k) + " " + durLabel(sec); };
-    return [f("stListen", dur("sound")), T("stTask", { a: 2, b: 4 }), f("stTalk", Math.round(durFor("talk", S.len, n, S.pace, false, 180) / 60) * 60), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
+    return [f("stListen", dur("sound")), T("stTask", { a: 3, b: 5 }), f("stTalk", Math.round(durFor("talk", S.len, n, S.pace, false, 240) / 60) * 60), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
   }
 
   /* ---------- per-station state ---------- */
@@ -234,6 +234,18 @@
     return h("ul", { class: "roles-list" }, row("roleLead", r.lead, "card"), row("roleSilence", r.silence, "phone"), S.names.length > 2 ? row("roleTracker", r.tracker, "eye") : null);
   }
   /* What this station plays. bare: only the card and its question, for the steps that show the new card itself. */
+  /* One fact at the end of each station, about the card just played and not yet seen in this game. */
+  function factOf(st) {
+    if (!D.facts || !D.facts.length || !st.comp) return null;
+    var f = st.fact && D.facts.find(function (x) { return x.id === st.fact; });
+    if (!f) {
+      var seen = S.st.map(function (x) { return x && x.fact; }), fresh = function (x) { return seen.indexOf(x.id) < 0; };
+      var own = G.factsFor(st.comp).filter(fresh);
+      f = G.pick(own.length ? own : D.facts.filter(fresh).length ? D.facts.filter(fresh) : D.facts);
+      st.fact = f.id; save();
+    }
+    return G.factBox(f);
+  }
   function compSummary(st, withTask, bare) {
     var c = G.COMP[st.comp], j = st.joker, t = trailById(st.trail), t2 = trailById(st.trail2), sp = sparkById(st.spark);
     var task = null;
@@ -335,8 +347,8 @@
       function pickLen(id) { if (S.len !== id) { S.len = id; S.st = []; S.leader = null; S.dots = {}; S.choice = null; S.final = null; S.done = false; S.later = false; } save(); ctl.go(1); }
       var n = Math.max(2, S.names.length || 4);
       var opts = solo()
-        ? [["five", "hourglass", T("len5"), T("len5SubSolo")], ["walk", "walk", T("lenWalk"), T("lenWalkSub")]]
-        : [["five", "hourglass", T("len5"), T("len5Sub")],
+        ? [["five", "hourglass", T("len5", { n: totalMin("solo", "five", 1, S.pace) }), T("len5SubSolo")], ["walk", "walk", T("lenWalk"), T("lenWalkSub")]]
+        : [["five", "hourglass", T("len5", { n: totalMin("group", "five", n, S.pace) }), T("len5Sub")],
            ["one", "compass", T("len15", { n: totalMin("group", "one", n, S.pace) }), T("len15Sub")],
            ["exp", "peak", T("len60", { n: totalMin("group", "exp", n, S.pace) }), T("len60Sub")]];
       return { icon: "hourglass", title: solo() ? T("wLenTSolo") : T("wLenT"), say: solo() ? T("wLenSaySolo") : T("wLenSay"),
@@ -792,7 +804,7 @@
       var P = plan(), nx = P[P.findIndex(function (p) { return p.id === "sentence" && p.k === step.k; }) + 1] || {};
       var nextLabel = nx.id === "sound" ? T("toStation", { n: nx.k + 1 }) : nx.id === "what" || nx.id === "debrief" ? T("toDebrief") : null;
       return { icon: "leaf", kicker: phLabel(step.ph), title: !five ? T("wSentT") : solo() ? T("wSentTSolo") : T("phSentence"), say: solo() ? T("wSentSaySolo") : five ? T("oneSentence") : T("wSentSay"),
-        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null],
+        body: [timer(dur("sentence")), findBtn ? h("div", { class: "row" }, findBtn) : null, factOf(st)],
         nextLabel: function () { return nextLabel; } };
     },
     /* Debrief, after Rolfe: What? So what? Now what? */

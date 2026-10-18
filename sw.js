@@ -1,6 +1,6 @@
 /* GreenComp Trails: offline after the first visit. Cache-first for the app shell,
    stale-while-revalidate for fonts and the QR library. Stores nothing about the user. */
-var CACHE = "gct-v9";
+var CACHE = "gct-v12";
 var SHELL = ["./", "index.html", "data.js", "pieces.js", "guide.js", "i18n.js", "audio.js", "core.js", "cards.js", "joker.js", "deckel.js", "viz.js", "scenes.js", "play.js", "tafel.js", "spielen.js", "pages.js", "app.js", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", function (e) {

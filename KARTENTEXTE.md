@@ -1,6 +1,6 @@
-# GreenComp Spuren · alle Kartentexte und Anweisungen
+# Spuren · alle Kartentexte und Anweisungen
 
-Stand: App-Version 0.8 · 2026-10-17. Automatisch aus den Daten der App erzeugt, also genau das, was die App heute zeigt.
+Stand: App-Version 0.9 · 2026-10-18. Automatisch aus den Daten der App erzeugt, also genau das, was die App heute zeigt.
 
 ## So arbeitest du mit dieser Datei
 
@@ -15,7 +15,7 @@ Stand: App-Version 0.8 · 2026-10-17. Automatisch aus den Daten der App erzeugt,
 Die ganzen Regeln stehen in `SPRACHE.md`. Kurz:
 
 1. Versteht man die Frage beim ersten Hören, ohne Erklärung?
-2. Hat die Aufgabe genau drei Schritte, jeder mit einem Tun-Wort, in 2 bis 5 Minuten machbar?
+2. Hat die Aufgabe genau drei Schritte, jeder mit einem Tun-Wort, in 3 bis 5 Minuten machbar?
 3. Geht die Aufgabe draussen, bei jedem Wetter, ohne Material, das nicht in einer Tasche ist oder am Ort liegt?
 4. Ist klar, wer was macht, und sagt «Fertig, wenn …», wann es zu Ende ist?
 5. Gibt es eine zweite Form: sitzend, ohne Sehen, ohne Hören?
@@ -32,6 +32,7 @@ Die ganzen Regeln stehen in `SPRACHE.md`. Kurz:
 - 6. Versprechen-Karte
 - 7. Joker-Karte
 - 8. Schätzkarten
+- 8b. Fakten zum Staunen und Nachdenken
 - 9. Anweisungen im geführten Spiel («Jetzt spielen»)
 - 10. Der Spaziergang (Stimme)
 - 11. Spielregeln und Anleitung
@@ -1230,6 +1231,874 @@ Spielbar sind nur Karten mit geprüfter Quelle: 7 von 24.
 **4.3 Eigeninitiative**
 - Idee 1: (noch keine Idee)
 
+## 8b. Fakten zum Staunen und Nachdenken
+
+Eine Station endet mit einem Fakt zur gespielten Karte. Auf der Startseite und auf jeder Kartenseite gibt es «Noch einer». Jede Zahl ist an der genannten Quelle geprüft.
+
+### 1.1 Werte für Nachhaltigkeit
+
+**Zum Staunen · nature-120-minutes** · `fact.nature-120-minutes`
+- DE: Wer pro Woche mindestens 120 Minuten in der Natur verbringt, fühlt sich häufiger gesund und zufrieden. Ob am Stück oder verteilt, spielt keine Rolle.
+- EN: People who spend at least 120 minutes a week in nature feel healthy and content more often. One long visit or several short ones both count.
+
+Quelle: White et al., Scientific Reports, 2019 (University of Exeter) · https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6565732/
+
+**Zum Staunen · protection-forest-44** · `fact.protection-forest-44`
+- DE: 44 Prozent des Schweizer Waldes sind Schutzwald. Diese Bäume schützen Dörfer, Strassen und Bahnlinien vor Naturgefahren wie Lawinen und Steinschlag.
+- EN: 44 percent of Switzerland's forest is protection forest. Its trees shield villages, roads and railways from natural hazards such as avalanches and rockfall.
+
+Quelle: BAFU & WSL, Waldbericht 2025 · https://www.bafu.admin.ch/dam/de/sd-web/VL0obw1MJTg3/waldbericht_2025.pdf
+
+**Zum Nachdenken · eu-textiles-19kg** · `fact.eu-textiles-19kg`
+- DE: Pro Person kauften die Menschen in der EU 2022 rund 19 Kilo Kleider, Schuhe und Heimtextilien – so viel wie noch nie.
+- EN: In 2022, people in the EU bought around 19 kilos of clothes, shoes and household textiles per person – more than ever before.
+
+**Frage dazu** · `fact.eu-textiles-19kg.q`
+- DE: Welches Kleidungsstück würdest du nie hergeben – und warum?
+- EN: Which piece of clothing would you never give away – and why?
+
+Quelle: European Environment Agency (EEA), briefing with 2022 data · https://www.eea.europa.eu/en/newsroom/news/consumption-of-clothing-footwear-other-textiles-in-the-eu-reaches-new-record-high
+
+**Zum Staunen · tree-view-hospital-stay** · `fact.tree-view-hospital-stay`
+- DE: In einer Studie lagen Kranke mit Blick auf Bäume nach einer Operation rund 8 Tage im Spital – mit Blick auf eine Mauer fast 9 Tage.
+- EN: In one study, patients with a view of trees stayed in hospital for about 8 days after surgery – with a view of a wall, almost 9 days.
+
+Quelle: Roger S. Ulrich, Science, 1984 · https://www.wrrc.arizona.edu/sites/default/files/ulrich-view%20through%20a%20window.pdf
+
+**Zum Staunen · awe-walk-15-minutes** · `fact.awe-walk-15-minutes`
+- DE: In einem Versuch gingen ältere Menschen jede Woche 15 Minuten staunend spazieren. Mit der Zeit fühlten sie sich froher und lächelten auf ihren Selfies breiter.
+- EN: In one experiment, older people went for a 15-minute 'awe walk' every week. Over time they felt happier and smiled more broadly in their selfies.
+
+Quelle: Sturm et al., Emotion, 2020 (UCSF) · https://www.ucsf.edu/news/2020/09/418551/awe-walks-boost-emotional-well-being
+
+**Zum Staunen · birds-wellbeing-8-hours** · `fact.birds-wellbeing-8-hours`
+- DE: In einer Londoner Studie ging es Menschen besser, wenn sie Vögel sahen oder hörten – noch bis zu acht Stunden danach.
+- EN: In a London study, people felt better when they saw or heard birds – for up to eight hours afterwards.
+
+Quelle: Hammoud et al., Scientific Reports, 2022 (King's College London) · https://www.kcl.ac.uk/news/feeling-chirpy-being-around-birds-is-linked-to-lasting-mental-health-benefits
+
+**Zum Staunen · car-free-sundays-1973** · `fact.car-free-sundays-1973`
+- DE: Wegen der Ölkrise waren Ende 1973 in der Schweiz drei Sonntage autofrei. Auf den Autobahnen gingen Menschen spazieren und fuhren Velo.
+- EN: Because of the oil crisis, Switzerland had three car-free Sundays at the end of 1973. People went for walks and rode bicycles on the motorways.
+
+Quelle: SRF (Schweizer Radio und Fernsehen), 2023 · https://www.srf.ch/radio-srf-musikwelle/vor-50-jahren-drei-sonntage-autofrei
+
+**Zum Nachdenken · part-time-4-in-10** · `fact.part-time-4-in-10`
+- DE: In der Schweiz arbeiten fast 4 von 10 Berufstätigen Teilzeit. In Europa ist dieser Anteil nur in den Niederlanden höher.
+- EN: In Switzerland, almost 4 in 10 working people work part-time. In Europe, only the Netherlands has a higher share.
+
+**Frage dazu** · `fact.part-time-4-in-10.q`
+- DE: Was ist dir wichtiger: mehr Zeit oder mehr Geld?
+- EN: What matters more to you: more time or more money?
+
+Quelle: Bundesamt für Statistik (BFS), Medienmitteilung 2025 (Daten 2024) · https://www.admin.ch/de/newnsb/aKQ5sPeICslmVN0GN1CYd
+
+**Zum Nachdenken · living-space-47m2** · `fact.living-space-47m2`
+- DE: In der Schweiz hat jede Person im Schnitt knapp 47 Quadratmeter Wohnfläche. Lange stieg dieser Wert, seit ein paar Jahren bleibt er etwa gleich.
+- EN: In Switzerland, each person has almost 47 square metres of living space on average. The figure rose for years and has stayed level for a while now.
+
+**Frage dazu** · `fact.living-space-47m2.q`
+- DE: Wie viel Platz braucht ein gutes Leben?
+- EN: How much space does a good life need?
+
+Quelle: Bundesamt für Statistik (BFS), Gebäude- und Wohnungsstatistik 2024 (via Keystone-SDA) · https://www.swissinfo.ch/ger/in-den-meisten-einfamilienh%C3%A4usern-wohnen-h%C3%B6chstens-zwei-personen/90043705
+
+### 1.2 Fairness stützen
+
+**Zum Staunen · ibis-take-turns** · `fact.ibis-take-turns`
+- DE: Waldrappe wechseln sich im V-Flug an der Spitze ab: Jeder Vogel fliegt etwa gleich lange vorne im Wind wie hinten im bequemen Windschatten.
+- EN: Northern bald ibises take turns at the front of their V-formation: each bird leads for about as long as it rests in another's slipstream.
+
+Quelle: Voelkl et al., PNAS, 2015 (Waldrappteam, Austria) · https://www.pnas.org/doi/10.1073/pnas.1413589112
+
+**Zum Nachdenken · richest-one-percent** · `fact.richest-one-percent`
+- DE: Das reichste Prozent der Weltbevölkerung verursachte 2015 mehr als doppelt so viele Treibhausgase wie die ärmere Hälfte der Menschheit zusammen.
+- EN: In 2015, the richest one percent of the world's population caused more than twice the greenhouse gas emissions of the poorer half of humanity combined.
+
+**Frage dazu** · `fact.richest-one-percent.q`
+- DE: Wie sähe eine faire Verteilung der Klimaschutz-Aufgaben aus?
+- EN: What would a fair way to share climate efforts look like?
+
+Quelle: UNEP, Emissions Gap Report 2020 · https://www.unep.org/en/news-and-stories/press-release/green-pandemic-recovery-essential-close-climate-action-gap-un-report
+
+**Zum Nachdenken · heatwaves-grandchildren** · `fact.heatwaves-grandchildren`
+- DE: Kinder, die 2020 geboren wurden, erleben laut einer Studie rund siebenmal so viele Hitzewellen wie ihre Grosseltern – wenn es bei den heutigen Klimazusagen bleibt.
+- EN: According to one study, children born in 2020 will live through about seven times as many heatwaves as their grandparents – if today's climate pledges stay as they are.
+
+**Frage dazu** · `fact.heatwaves-grandchildren.q`
+- DE: Was schulden wir den Menschen, die nach uns kommen?
+- EN: What do we owe the people who come after us?
+
+Quelle: Thiery et al., Science, 2021 (press release PIK Potsdam, 2021) · https://www.pik-potsdam.de/en/news/latest-news/today2019s-children-to-experience-two-to-seven-times-more-extremes-than-their-grandparents
+
+**Zum Staunen · babies-expect-fairness** · `fact.babies-expect-fairness`
+- DE: In einem Versuch schauten schon 15 Monate alte Babys länger hin, wenn Essen ungleich verteilt wurde – sie hatten vermutlich Fairness erwartet.
+- EN: In one experiment, babies just 15 months old looked longer when food was shared out unequally – they had probably expected fairness.
+
+Quelle: Schmidt & Sommerville, PLoS ONE, 2011 (University of Washington) · https://www.washington.edu/news/2011/10/07/babies-show-sense-of-fairness-altruism-as-early-as-15-months/
+
+**Zum Staunen · vampire-bats-share-blood** · `fact.vampire-bats-share-blood`
+- DE: Findet eine Vampirfledermaus zwei Nächte lang kein Blut, droht sie zu verhungern. Oft würgen dann satte Tiere aus ihrer Gruppe Blut für sie hervor.
+- EN: If a vampire bat finds no blood for two nights, it risks starving. Well-fed bats from its group often regurgitate blood for it.
+
+Quelle: Gerald S. Wilkinson, Scientific American, 1990 · https://www.scientificamerican.com/author/gerald-s-wilkinson
+
+**Zum Staunen · ravens-remember-fair-partners** · `fact.ravens-remember-fair-partners`
+- DE: Raben merken sich, wer fair tauscht: In einem Versuch der Universität Wien wählten sie noch nach einem Monat lieber faire Tauschpartner.
+- EN: Ravens remember who trades fairly: in an experiment at the University of Vienna, they still preferred fair trading partners a month later.
+
+Quelle: Müller, Massen, Bugnyar & Osvath, Animal Behaviour, 2017 · https://research-portal.uu.nl/en/publications/ravens-remember-the-nature-of-a-single-reciprocal-interaction-seq/
+
+**Zum Staunen · guinea-pigs-in-pairs** · `fact.guinea-pigs-in-pairs`
+- DE: Meerschweinchen müssen in der Schweiz grundsätzlich mindestens zu zweit leben. Denn kein Mensch und kein Kaninchen ersetzt einen Artgenossen.
+- EN: In Switzerland, guinea pigs must as a rule live at least in pairs. No human and no rabbit can replace another guinea pig.
+
+Quelle: Bundesamt für Lebensmittelsicherheit und Veterinärwesen (BLV) · https://www.blv.admin.ch/de/nager
+
+**Zum Nachdenken · ahv-vote-1947** · `fact.ahv-vote-1947`
+- DE: 1947 sagten 80 Prozent der Stimmenden Ja zur AHV, der Rente im Alter für alle in der Schweiz.
+- EN: In 1947, 80 percent of voters said yes to the AHV, Switzerland's old-age pension for everyone.
+
+**Frage dazu** · `fact.ahv-vote-1947.q`
+- DE: Was schulden sich Junge und Alte gegenseitig?
+- EN: What do young and old owe each other?
+
+Quelle: Swissvotes (Universität Bern), Volksabstimmung vom 6. Juli 1947 · https://swissvotes.ch/vote/144.00/kurzbeschreibung-de.pdf
+
+**Zum Nachdenken · safe-water-one-in-four** · `fact.safe-water-one-in-four`
+- DE: Rund 2,1 Milliarden Menschen – jeder vierte Mensch auf der Erde – haben kein sicheres Trinkwasser zu Hause.
+- EN: Around 2.1 billion people – one in four on Earth – have no safe drinking water at home.
+
+**Frage dazu** · `fact.safe-water-one-in-four.q`
+- DE: Was wäre in deinem Alltag anders ohne sauberes Hahnenwasser?
+- EN: What would change in your day without clean tap water?
+
+Quelle: WHO & UNICEF, Joint Monitoring Programme (JMP), 2025 (Daten 2024) · https://www.who.int/news/item/26-08-2025-1-in-4-people-globally-still-lack-access-to-safe-drinking-water---who--unicef
+
+**Zum Nachdenken · fairtrade-one-billion-francs** · `fact.fairtrade-one-billion-francs`
+- DE: 2024 kauften die Menschen in der Schweiz zum ersten Mal für mehr als eine Milliarde Franken Fairtrade-Produkte.
+- EN: In 2024, people in Switzerland bought more than one billion francs' worth of Fairtrade products for the first time.
+
+**Frage dazu** · `fact.fairtrade-one-billion-francs.q`
+- DE: Was macht einen Preis fair – und für wen?
+- EN: What makes a price fair – and for whom?
+
+Quelle: Fairtrade Max Havelaar Schweiz, Jahresbericht 2024 · https://www.fairtrade.net/ch-de/mach-mit/news/jahresbericht-2024-ftmh.html
+
+### 1.3 Natur fördern
+
+**Zum Staunen · soil-most-species** · `fact.soil-most-species`
+- DE: Vermutlich leben rund 59 Prozent aller Arten im Boden – von Pilzen über Würmer bis zu Bakterien. Kein Lebensraum der Erde ist artenreicher.
+- EN: An estimated 59 percent of all species live in soil – from fungi and worms to bacteria. No habitat on Earth is richer in species.
+
+Quelle: Anthony, Bender & van der Heijden (WSL, Agroscope, Univ. Zürich), PNAS, 2023 · https://www.pnas.org/doi/10.1073/pnas.2304663120
+
+**Zum Staunen · oak-2300-species** · `fact.oak-2300-species`
+- DE: Eine Eiche ist wie ein ganzes Dorf: In Grossbritannien nutzen rund 2300 Arten Eichen – Vögel, Pilze, Flechten, Moose, Insekten und Säugetiere.
+- EN: An oak is like a whole village: in Britain, around 2,300 species use oaks – birds, fungi, lichens, mosses, insects and mammals.
+
+Quelle: Mitchell et al. (James Hutton Institute), Data in Brief, 2019 · https://pmc.ncbi.nlm.nih.gov/articles/PMC6600707/
+
+**Zum Staunen · ocean-oxygen-half** · `fact.ocean-oxygen-half`
+- DE: Rund die Hälfte des Sauerstoffs, der auf der Erde entsteht, wird im Meer gebildet – vor allem von winzigem Plankton, das im Wasser treibt.
+- EN: Roughly half of the oxygen produced on Earth is made in the ocean – mostly by tiny plankton drifting in the water.
+
+Quelle: NOAA National Ocean Service, Ocean Facts (undated web page) · https://oceanservice.noaa.gov/facts/ocean-oxygen.html
+
+**Zum Staunen · alpine-swift-200-days** · `fact.alpine-swift-200-days`
+- DE: Alpensegler bleiben vermutlich rund 200 Tage am Stück in der Luft – sie fressen und schlafen sogar im Flug.
+- EN: Alpine swifts probably stay in the air for around 200 days at a stretch – they even eat and sleep while flying.
+
+Quelle: Liechti et al., Nature Communications, 2013 (Schweizerische Vogelwarte) · https://www.nature.com/articles/ncomms3554
+
+**Zum Staunen · alpine-salamander-pregnancy** · `fact.alpine-salamander-pregnancy`
+- DE: Alpensalamander tragen ihre Jungen zwei bis vier Jahre im Bauch – je höher sie leben, desto länger. Dann kommen fertige kleine Salamander zur Welt.
+- EN: Alpine salamanders carry their young for two to four years – the higher up they live, the longer. Then fully formed little salamanders are born.
+
+Quelle: Naturschutzbund Österreich, Steckbrief Alpensalamander; DGHT, Lurch des Jahres 2026 · https://naturschutzbund.at/files/projekte_aktionen/netzwerk_amphibien/unterlagen/SteckbriefAlpensalamander.pdf
+
+**Zum Staunen · saxifrage-4505-metres** · `fact.saxifrage-4505-metres`
+- DE: Am Dom im Wallis blüht der Gegenblättrige Steinbrech auf 4505 Metern. Bisher wurde in Europa keine Blütenpflanze höher oben gefunden.
+- EN: On the Dom in Valais, purple saxifrage blooms at 4,505 metres. No flowering plant has yet been found higher up in Europe.
+
+Quelle: Christian Körner, Alpine Botany, 2011 (Universität Basel) · https://phys.org/news/2011-05-4505m-swiss-alps.html
+
+**Zum Staunen · eel-journey-sargasso** · `fact.eel-journey-sargasso`
+- DE: Europäische Aale schwimmen zum Laichen bis in die Sargassosee im Atlantik – je nach Herkunft 5000 bis 10 000 Kilometer weit.
+- EN: European eels swim all the way to the Sargasso Sea in the Atlantic to spawn – 5,000 to 10,000 kilometres, depending on where they start.
+
+Quelle: Wright et al., Scientific Reports, 2022 · https://orbit.dtu.dk/en/publications/first-direct-evidence-of-adult-european-eels-migrating-to-their-b/
+
+**Zum Staunen · virus-dna-8-percent** · `fact.virus-dna-8-percent`
+- DE: Rund 8 Prozent unseres Erbguts stammen von Viren. Sie haben sich vor sehr langer Zeit in die Gene unserer Vorfahren eingebaut.
+- EN: Around 8 percent of our DNA comes from viruses. They built themselves into the genes of our ancestors a very long time ago.
+
+Quelle: The Conversation, 2022 (Fachartikel zu menschlichen endogenen Retroviren) · https://theconversation.com/humans-are-8-virus-how-the-ancient-viral-dna-in-your-genome-plays-a-role-in-human-disease-and-development-192322
+
+**Zum Nachdenken · swiss-red-list-third** · `fact.swiss-red-list-third`
+- DE: Gut ein Drittel der untersuchten Tier-, Pflanzen- und Pilzarten der Schweiz ist gefährdet oder schon ausgestorben.
+- EN: A good third of the animal, plant and fungus species assessed in Switzerland are threatened or already extinct.
+
+**Frage dazu** · `fact.swiss-red-list-third.q`
+- DE: Hat eine Art einen Wert, auch wenn sie uns nichts nützt?
+- EN: Does a species matter even if it's no use to us?
+
+Quelle: Bundesamt für Umwelt (BAFU), Rote Listen (Stand 2022) · https://www.bafu.admin.ch/de/artenvielfalt
+
+### 2.1 Systemdenken
+
+**Zum Staunen · night-light-pollinators** · `fact.night-light-pollinators`
+- DE: Licht in der Nacht stört Bestäuber: Auf beleuchteten Wiesen in den Schweizer Voralpen gab es 62 Prozent weniger nächtliche Blütenbesuche – und später weniger Früchte.
+- EN: Light at night disturbs pollinators: on lit meadows in the Swiss Prealps, flowers got 62 percent fewer night-time visits – and later produced less fruit.
+
+Quelle: Knop et al. (Universität Bern), Nature, 2017 · https://www.nature.com/articles/nature23288
+
+**Zum Staunen · earthworms-millions** · `fact.earthworms-millions`
+- DE: Unter einer Hektare gesunder Wiese leben bis zu drei Millionen Regenwürmer. Ihre Gänge helfen, dass Regenwasser im Boden versickert, statt abzufliessen.
+- EN: Up to three million earthworms live under one hectare of healthy grassland. Their burrows help rainwater soak into the soil instead of running off.
+
+Quelle: FiBL (Pfiffner), Merkblatt Regenwürmer / Bioaktuell, 2022 · https://www.bioaktuell.ch/pflanzenbau/boden/allgemein/regenwurm.html
+
+**Zum Nachdenken · footprint-abroad** · `fact.footprint-abroad`
+- DE: Mehr als drei Viertel der Umweltbelastung, die der Konsum in der Schweiz verursacht, entstehen im Ausland – dort, wo viele unserer Waren hergestellt werden.
+- EN: More than three quarters of the environmental impact caused by consumption in Switzerland occurs abroad – where many of our goods are made.
+
+**Frage dazu** · `fact.footprint-abroad.q`
+- DE: Welche Spuren hinterlässt dein Frühstück auf anderen Kontinenten?
+- EN: What traces does your breakfast leave on other continents?
+
+Quelle: BAFU, Umwelt-Fussabdrücke der Schweiz 2000–2023, 2026 · https://www.bafu.admin.ch/de/ressourcenverbrauch
+
+**Zum Staunen · beaver-streams-more-species** · `fact.beaver-streams-more-species`
+- DE: Wo Biber Bäche stauen, blüht das Leben: Eine Schweizer Studie fand an Biberbächen mehr als doppelt so viele Arten wie an Abschnitten ohne Biber.
+- EN: Where beavers dam streams, life flourishes: a Swiss study found more than twice as many species along beaver streams as on stretches without beavers.
+
+Quelle: BAFU & info fauna, Synthesebericht «Der Biber – ein wirkungsvoller Partner für lebendige Gewässer», 2025 · https://www.infofauna.ch/sites/default/files/files/publications/synthesebericht_biber_2025_der-biber_ein-wirkungsvoller-partner-fur-lebendige-gewasser_0.pdf
+
+**Zum Staunen · sahara-dust-feeds-amazon** · `fact.sahara-dust-feeds-amazon`
+- DE: Staub aus der Sahara düngt den Amazonas-Regenwald: Jedes Jahr trägt der Wind geschätzt rund 22 000 Tonnen Phosphor über den Atlantik.
+- EN: Dust from the Sahara fertilises the Amazon rainforest: each year the wind carries an estimated 22,000 tonnes of phosphorus across the Atlantic.
+
+Quelle: Yu et al., Geophysical Research Letters, 2015 (NASA / University of Maryland) · https://essic.umd.edu/estimates-of-saharan-dust-in-amazon/
+
+**Zum Staunen · salmon-feed-the-forest** · `fact.salmon-feed-the-forest`
+- DE: Tote Lachse düngen den Wald: Bäume und Sträucher an Lachsbächen in Alaska holen rund ein Viertel des Stickstoffs in ihren Blättern aus den Fischen.
+- EN: Dead salmon fertilise the forest: trees and shrubs along salmon streams in Alaska get around a quarter of the nitrogen in their leaves from the fish.
+
+Quelle: Helfield & Naiman, Oecologia, 2002 · https://works.bepress.com/helfield_james/7/
+
+**Zum Staunen · water-in-air-9-days** · `fact.water-in-air-9-days`
+- DE: Verdunstetes Wasser bleibt im Schnitt nur rund 9 Tage in der Luft. Dann fällt es als Regen oder Schnee wieder auf die Erde.
+- EN: Evaporated water stays in the air for only about 9 days on average. Then it falls back to Earth as rain or snow.
+
+Quelle: van der Ent & Tuinenburg, Hydrology and Earth System Sciences, 2017 · https://hess.copernicus.org/articles/21/779/2017/
+
+**Zum Staunen · plants-partner-with-fungi** · `fact.plants-partner-with-fungi`
+- DE: Mehr als 8 von 10 Pflanzenarten leben an ihren Wurzeln mit Pilzen zusammen: Die Pilze liefern Wasser und Nährstoffe, die Pflanzen geben dafür Zucker.
+- EN: More than 8 in 10 plant species live together with fungi on their roots: the fungi supply water and nutrients, and the plants give sugar in return.
+
+Quelle: Brundrett & Tedersoo, New Phytologist, 2018 · https://sisu.ut.ee/wp-content/uploads/sites/474/brundretttedersoonew_phytologist_-_2018_-_brundrett_-_evolutionary_history_of_mycorrhizal_symbioses_and_global_host_plant_diversity.pdf
+
+**Zum Nachdenken · nitrogen-90-percent-forest** · `fact.nitrogen-90-percent-forest`
+- DE: Auf rund 90 Prozent der Schweizer Waldfläche fällt mehr Stickstoff aus der Luft, als der Wald auf Dauer verträgt. Ein grosser Teil stammt aus der Landwirtschaft.
+- EN: On about 90 percent of Swiss forest land, more nitrogen falls from the air than the forest can bear long-term. Much of it comes from farming.
+
+**Frage dazu** · `fact.nitrogen-90-percent-forest.q`
+- DE: Wann wird etwas Nützliches zu viel des Guten?
+- EN: When does something useful become too much of a good thing?
+
+Quelle: Bundesamt für Umwelt (BAFU), Stickstoffeinträge · https://www.bafu.admin.ch/de/stickstoffeintraege
+
+**Zum Nachdenken · tyre-rubber-200000-tonnes** · `fact.tyre-rubber-200000-tonnes`
+- DE: In rund 30 Jahren haben sich in der Schweiz etwa 200 000 Tonnen Gummiteilchen in der Umwelt angesammelt – fast alles Abrieb von Reifen.
+- EN: Over about 30 years, around 200,000 tonnes of rubber particles have built up in Switzerland's environment – almost all of it worn off tyres.
+
+**Frage dazu** · `fact.tyre-rubber-200000-tonnes.q`
+- DE: Welche Folgen bemerkt man erst nach Jahrzehnten?
+- EN: Which consequences only become visible after decades?
+
+Quelle: Empa, 2020 (berichtet von SRF) · https://www.srf.ch/news/schweiz/reifenabrieb-ist-ein-problem-mikrogummi-ist-schlimmer-als-mikroplastik
+
+### 2.2 Kritisches Denken
+
+**Zum Staunen · bacteria-myth** · `fact.bacteria-myth`
+- DE: Lange hiess es, in unserem Körper lebten zehnmal mehr Bakterien als eigene Zellen. Neue Berechnungen zeigen: Es sind ungefähr gleich viele.
+- EN: It was long claimed that our bodies hold ten times more bacteria than human cells. Newer calculations show: the numbers are roughly equal.
+
+Quelle: Sender, Fuchs & Milo, PLoS Biology, 2016 · https://pmc.ncbi.nlm.nih.gov/articles/PMC4991899/
+
+**Zum Staunen · swiss-forest-grows** · `fact.swiss-forest-grows`
+- DE: Der Wald in der Schweiz schrumpft nicht, er wächst – schon seit über 150 Jahren. Vor allem in den Bergen wachsen alte Weiden wieder zu.
+- EN: Switzerland's forest is not shrinking but growing – and has been for over 150 years. Mostly in the mountains, where old pastures are turning back into forest.
+
+Quelle: BAFU & WSL, Waldbericht 2025 · https://www.bafu.admin.ch/dam/de/sd-web/VL0obw1MJTg3/waldbericht_2025.pdf
+
+**Zum Nachdenken · cotton-bag-7100** · `fact.cotton-bag-7100`
+- DE: Eine dänische Studie verglich Einkaufstaschen: Eine Baumwolltasche müsste rund 7100 Mal benutzt werden, um bei allen Umweltwirkungen so gut zu sein wie ein Plastiksack.
+- EN: A Danish study compared shopping bags: a cotton bag would have to be used about 7,100 times to match a plastic bag on every environmental impact.
+
+**Frage dazu** · `fact.cotton-bag-7100.q`
+- DE: Warum hängt die Antwort davon ab, was man misst?
+- EN: Why does the answer depend on what you measure?
+
+Quelle: Danish Environmental Protection Agency (Bisinella et al.), 2018 · https://www2.mst.dk/udgiv/publications/2018/02/978-87-93614-73-4.pdf
+
+**Zum Staunen · saentis-lightning-100-times** · `fact.saentis-lightning-100-times`
+- DE: Der Blitz schlägt nie zweimal am selben Ort ein? Den Sendeturm auf dem Säntis trifft er rund 100-mal pro Jahr.
+- EN: Lightning never strikes the same place twice? The transmitter tower on the Säntis is hit about 100 times a year.
+
+Quelle: EPFL, Säntis lightning research station (Rachidi et al.); review 2022 · https://www.epfl.ch/labs/emc/page-97269-en-html
+
+**Zum Staunen · earth-closest-to-sun-in-january** · `fact.earth-closest-to-sun-in-january`
+- DE: Im Januar ist die Erde der Sonne am nächsten – rund 5 Millionen Kilometer näher als im Juli. Die Jahreszeiten entstehen durch die schräge Erdachse.
+- EN: In January, Earth is closest to the Sun – about 5 million kilometres nearer than in July. The seasons come from Earth's tilted axis.
+
+Quelle: NASA Science, Milankovitch (Orbital) Cycles, 2020 · https://climate.nasa.gov/news/2948/milankovitch-orbital-cycles-and-their-role-in-earths-climate/
+
+**Zum Staunen · big-old-trees-keep-growing** · `fact.big-old-trees-keep-growing`
+- DE: Alte Bäume wachsen kaum noch? Im Gegenteil: Ein einziger grosser Baum kann in einem Jahr so viel Kohlenstoff zulegen, wie ein ganzer mittelgrosser Baum enthält.
+- EN: Old trees barely grow? Quite the opposite: a single large tree can add as much carbon in one year as an entire mid-sized tree contains.
+
+Quelle: Stephenson et al., Nature 507, 2014 (403 tree species) · https://www.usgs.gov/publications/rate-tree-carbon-accumulation-increases-continuously-tree-size
+
+**Zum Staunen · cow-methane-mostly-burps** · `fact.cow-methane-mostly-burps`
+- DE: Das Methan der Kühe kommt vor allem hinten raus? Nein: Rund 95 Prozent davon rülpsen sie aus.
+- EN: Cow methane mostly comes out the back end? No: about 95 percent of it is burped out.
+
+Quelle: UC Davis CLEAR Center, 2023 · https://clear.ucdavis.edu/news/state-science-summit-seven-things-you-dont-have-be-science-whiz-wrap-your-head-around
+
+**Zum Staunen · lemmings-no-mass-suicide** · `fact.lemmings-no-mass-suicide`
+- DE: Lemminge stürzen sich nicht massenhaft in den Tod. Die berühmten Bilder dazu stammen aus einem Disney-Film von 1958 – und waren gestellt.
+- EN: Lemmings do not leap to their deaths en masse. The famous footage comes from a 1958 Disney film – and was staged.
+
+Quelle: Alaska Department of Fish and Game, Alaska Fish & Wildlife News (R. Woodford), 2003 · https://www.adfg.alaska.gov/index.cfm?adfg=wildlifenews.view_article&articles_id=56
+
+**Zum Nachdenken · ev-lifecycle-73-percent-less** · `fact.ev-lifecycle-73-percent-less`
+- DE: Elektroautos sind wegen der Batterie schlechter fürs Klima? Neue E-Autos verursachen in der EU über ihr ganzes Leben rund 73 Prozent weniger Treibhausgase als Benziner.
+- EN: Are electric cars worse for the climate due to their batteries? Over their lifetime, new ones in the EU emit about 73% less greenhouse gas than petrol cars.
+
+**Frage dazu** · `fact.ev-lifecycle-73-percent-less.q`
+- DE: Warum halten sich manche Annahmen, obwohl Studien anderes zeigen?
+- EN: Why do some beliefs persist even when studies show otherwise?
+
+Quelle: ICCT (Negri & Bieker), 2025 · https://theicct.org/pr-electric-cars-getting-cleaner-faster/
+
+**Zum Nachdenken · plastic-only-9-percent-recycled** · `fact.plastic-only-9-percent-recycled`
+- DE: Weltweit wird nur rund 9 Prozent des Plastikabfalls tatsächlich rezykliert. Der Rest wird verbrannt, deponiert oder landet in der Umwelt.
+- EN: Worldwide, only about 9 percent of plastic waste actually gets recycled. The rest is burned, landfilled or ends up in the environment.
+
+**Frage dazu** · `fact.plastic-only-9-percent-recycled.q`
+- DE: Warum ist Plastik so schwer im Kreislauf zu halten?
+- EN: Why is plastic so hard to keep in the loop?
+
+Quelle: OECD, Global Plastics Outlook, 2022 (data for 2019) · https://www.oecd.org/en/about/news/press-releases/2022/02/plastic-pollution-is-growing-relentlessly-as-waste-management-and-recycling-fall-short.html
+
+### 2.3 Probleme einrahmen
+
+**Zum Nachdenken · co2-four-in-10000** · `fact.co2-four-in-10000`
+- DE: Von 10 000 Teilchen in der Luft sind nur gut 4 CO2-Moleküle. Diese kleine Menge reicht, um das Klima der Erde spürbar zu erwärmen.
+- EN: Of every 10,000 molecules in the air, only just over 4 are CO2. That small amount is enough to noticeably warm Earth's climate.
+
+**Frage dazu** · `fact.co2-four-in-10000.q`
+- DE: Wie kann so wenig so viel bewirken?
+- EN: How can so little have such a big effect?
+
+Quelle: NOAA Climate.gov, 2025 (NOAA Global Monitoring Laboratory data for 2024) · https://www.climate.gov/news-features/understanding-climate/climate-change-atmospheric-carbon-dioxide
+
+**Zum Staunen · honey-fungus-35ha** · `fact.honey-fungus-35ha`
+- DE: Ist das ein einziges Lebewesen? Im Schweizerischen Nationalpark breitet sich ein einzelner Hallimasch-Pilz unter dem Boden über rund 35 Hektaren aus.
+- EN: Is this one single living thing? In the Swiss National Park, one individual honey fungus spreads underground across about 35 hectares.
+
+Quelle: WSL, via waldwissen.net (undated) · https://www.waldwissen.net/de/lebensraum-wald/pilze-und-flechten/der-groesste-pilz-der-schweiz
+
+**Zum Nachdenken · mammal-biomass-wild-5** · `fact.mammal-biomass-wild-5`
+- DE: Wiegt man alle Säugetiere der Erde, sind nur rund 5 Prozent wilde Tiere. Der Rest sind Menschen und ihre Nutztiere.
+- EN: If you weigh all the mammals on Earth, only about 5 percent are wild animals. The rest are humans and their livestock.
+
+**Frage dazu** · `fact.mammal-biomass-wild-5.q`
+- DE: Was sagt diese Zahl – und was sagt sie nicht?
+- EN: What does this number tell us – and what doesn't it?
+
+Quelle: Our World in Data (Ritchie & Spooner), 2024 · https://ourworldindata.org/wild-mammals-birds-biomass
+
+**Zum Staunen · mercator-africa-14-greenlands** · `fact.mercator-africa-14-greenlands`
+- DE: Auf vielen Weltkarten wirken Grönland und Afrika etwa gleich gross. In Wirklichkeit ist Afrika rund 14-mal grösser.
+- EN: On many world maps, Greenland and Africa look about the same size. In reality, Africa is roughly 14 times larger.
+
+Quelle: AP / Reuters reporting on the African Union's «Correct The Map» endorsement, Aug 2025 · https://uk.news.yahoo.com/campaigners-want-change-world-map-122239491.html
+
+**Zum Staunen · ants-per-person** · `fact.ants-per-person`
+- DE: Auf jeden Menschen kommen rund 2,5 Millionen Ameisen. Das schätzt ein Forschungsteam aus Zählungen auf der ganzen Welt.
+- EN: There are about 2.5 million ants for every human. A research team estimated this from counts all over the world.
+
+Quelle: Schultheiss et al., PNAS 2022 (University of Würzburg press release) · https://idw-online.de/-DDq_AA
+
+**Zum Staunen · biodegradable-bags-three-years** · `fact.biodegradable-bags-three-years`
+- DE: In einem Versuch konnten «biologisch abbaubare» Plastiksäcke nach über drei Jahren im Meer oder in der Erde noch Einkäufe tragen.
+- EN: In one experiment, ‘biodegradable’ plastic bags could still carry shopping after more than three years in the sea or in soil.
+
+Quelle: Napper & Thompson, Environmental Science & Technology, 2019 (University of Plymouth) · https://www.sci.news/othersciences/materials/biodegradable-bags-07139.html
+
+**Zum Staunen · metres-above-sea-not-equal** · `fact.metres-above-sea-not-equal`
+- DE: «Meter über Meer» ist nicht überall gleich: Die Schweiz misst ab Marseille, Deutschland ab Amsterdam. Je nach Ort liegen die Höhen rund 30 Zentimeter auseinander.
+- EN: ‘Metres above sea level’ is not the same everywhere: Switzerland measures from Marseille, Germany from Amsterdam. Depending on the place, heights differ by about 30 centimetres.
+
+Quelle: swisstopo / Kanton Basel-Stadt, 200 Jahre Repère Pierre du Niton, 2020 · https://www.bs.ch/news/2020-200-jahre-repere-pierre-du-niton
+
+**Zum Staunen · banana-is-a-berry** · `fact.banana-is-a-berry`
+- DE: Für die Botanik ist die Banane eine Beere – die Erdbeere aber nicht: Ihre «Kerne» sind eigentlich winzige Früchte.
+- EN: To botanists, a banana is a berry – but a strawberry is not: its ‘seeds’ are actually tiny fruits.
+
+Quelle: Live Science, with a UC Davis plant scientist · https://www.livescience.com/57477-why-are-bananas-considered-berries.html
+
+**Zum Nachdenken · forest-definition-10-percent** · `fact.forest-definition-10-percent`
+- DE: Für die Weltstatistik der UNO gilt eine Fläche schon als Wald, wenn Baumkronen mehr als 10 Prozent des Bodens bedecken.
+- EN: In the UN's global statistics, land already counts as forest when tree crowns cover more than 10 percent of the ground.
+
+**Frage dazu** · `fact.forest-definition-10-percent.q`
+- DE: Ab wann ist ein Wald für dich ein Wald?
+- EN: When does a forest really count as a forest for you?
+
+Quelle: FAO, Global Forest Resources Assessment 2020 – Terms and definitions · https://fra-data.fao.org/definitions/fra/2020/en/tad
+
+**Zum Nachdenken · methane-depends-on-timescale** · `fact.methane-depends-on-timescale`
+- DE: Wie stark wärmt ein Kilo Methan? Über 20 Jahre gerechnet rund 80-mal so stark wie CO₂, über 100 Jahre gerechnet rund 30-mal.
+- EN: How strongly does a kilogram of methane warm the planet? Over 20 years, about 80 times as much as CO₂; over 100 years, about 30 times.
+
+**Frage dazu** · `fact.methane-depends-on-timescale.q`
+- DE: Welcher Zeitraum sollte bei Klimaentscheiden zählen?
+- EN: Which time span should count in climate decisions?
+
+Quelle: UNEP 2021; IPCC AR6 WG1, Chapter 7 (2021) · https://www.unep.org/en/explore-topics/energy/facts-about-methane
+
+### 3.1 Zukunftskompetenz
+
+**Zum Staunen · silene-30000-years** · `fact.silene-30000-years`
+- DE: Ein Erdhörnchen versteckte einst Früchte im sibirischen Dauerfrost. Rund 30 000 Jahre später zogen Forschende daraus Pflanzen, die blühten und Samen bildeten.
+- EN: A ground squirrel once hid fruits in Siberian permafrost. About 30,000 years later, researchers grew plants from them that flowered and made seeds.
+
+Quelle: Yashina et al., PNAS, 2012 · https://pmc.ncbi.nlm.nih.gov/articles/PMC3309767/
+
+**Zum Staunen · greenland-shark-272** · `fact.greenland-shark-272`
+- DE: Grönlandhaie können mindestens 272 Jahre alt werden. Kein anderes Wirbeltier lebt nach heutigem Wissen so lange.
+- EN: Greenland sharks can live for at least 272 years. As far as we know, no other vertebrate lives that long.
+
+Quelle: Nielsen et al., Science, 2016 · https://ora.ox.ac.uk/objects/pubs:633506
+
+**Zum Nachdenken · nuclear-waste-200000** · `fact.nuclear-waste-200000`
+- DE: Hochaktive Abfälle aus Schweizer Atomkraftwerken müssen rund 200 000 Jahre sicher eingeschlossen bleiben, fern vom Lebensraum der Menschen.
+- EN: High-level waste from Swiss nuclear power plants must stay safely sealed away from where people live for around 200,000 years.
+
+**Frage dazu** · `fact.nuclear-waste-200000.q`
+- DE: Wie warnt man Menschen, die in 200 000 Jahren leben?
+- EN: How do you warn people living 200,000 years from now?
+
+Quelle: Nagra, web page Langzeitsicherheit (accessed 2026) · https://www.nagra.ch/de/sicherheit.htm
+
+**Zum Staunen · eunice-foote-1856** · `fact.eunice-foote-1856`
+- DE: Schon 1856 zeigte Eunice Foote in einem Versuch: CO₂ erwärmt sich im Sonnenlicht stärker als Luft. Sie folgerte, mehr CO₂ könne die Erde erwärmen.
+- EN: In 1856, Eunice Foote showed in an experiment that CO₂ heats up more in sunlight than air. She concluded that more CO₂ could warm the Earth.
+
+Quelle: American Physical Society (APS News), 2023; NOAA Climate.gov · https://www.aps.org/apsnews/2023/07/carbon-dioxide-atmosphere-eunice-foote
+
+**Zum Staunen · future-library-2114** · `fact.future-library-2114`
+- DE: Bei Oslo wachsen Bäume für eine Büchersammlung, die erst 2114 gedruckt wird. Bis dahin gibt jedes Jahr eine Autorin oder ein Autor einen unveröffentlichten Text ab.
+- EN: Near Oslo, trees are growing for a collection of books that will only be printed in 2114. Until then, every year one author hands in an unpublished text.
+
+Quelle: Future Library (Katie Paterson), curated by Situations; Smithsonian Magazine 2014 · https://situations.org.uk/projects/slow-space-2010-2014/katie-paterson-future-library
+
+**Zum Staunen · seed-vault-1-3-million-samples** · `fact.seed-vault-1-3-million-samples`
+- DE: Im Permafrost auf Spitzbergen lagern über 1,3 Millionen Saatgutproben aus aller Welt – eine Sicherheitskopie für die Landwirtschaft der Zukunft.
+- EN: In the permafrost of Svalbard, more than 1.3 million seed samples from around the world are stored – a backup for the farming of the future.
+
+Quelle: Crop Trust, Annual Report 2025; NordGen Annual Review 2025 · https://report.croptrust.org/2025/highlights/svalbard-global-seed-vault/
+
+**Zum Staunen · schnidejoch-ice-reveals-bow-case** · `fact.schnidejoch-ice-reveals-bow-case`
+- DE: Im Hitzesommer 2003 gab das schmelzende Eis am Schnidejoch BE Teile eines Bogenfutterals aus Birkenrinde frei. Sie sind rund 4800 Jahre alt.
+- EN: In the hot summer of 2003, melting ice on the Schnidejoch pass (Bern) revealed parts of a birch-bark bow case. They are about 4,800 years old.
+
+Quelle: University of Bern, Institute of Archaeological Sciences; Archäologischer Dienst des Kantons Bern · https://www.iaw.unibe.ch/research/prehistoric_archaeology/schnidejoch_and_ice_archaeology/index_eng.html
+
+**Zum Staunen · geneva-chestnut-since-1808** · `fact.geneva-chestnut-since-1808`
+- DE: Genf notiert seit über 200 Jahren, wann eine Rosskastanie ihre Knospen öffnet. Rekord: am 29. Dezember 2002, mitten im Winter.
+- EN: Geneva has recorded for over 200 years when a horse chestnut tree opens its buds. The record: 29 December 2002, in the middle of winter.
+
+Quelle: MeteoSchweiz, Lange phänologische Beobachtungsreihen · https://www.meteoschweiz.admin.ch/klima/klimawandel/vegetationsentwicklung/lange-phaenologische-beobachtungsreihen.html
+
+**Zum Nachdenken · climate-models-predicted-right** · `fact.climate-models-predicted-right`
+- DE: Von 17 Klimamodellen aus den Jahren 1970 bis 2007 sagten 14 die spätere Erwärmung richtig voraus – wenn man die tatsächlichen Treibhausgas-Mengen berücksichtigt.
+- EN: Of 17 climate models from 1970 to 2007, 14 correctly predicted the warming that followed – once actual greenhouse gas levels are taken into account.
+
+**Frage dazu** · `fact.climate-models-predicted-right.q`
+- DE: Wann vertrauen wir einer Vorhersage – und wann nicht?
+- EN: When do we trust a forecast – and when not?
+
+Quelle: Hausfather et al., Geophysical Research Letters 2020; NASA 2019 · https://science.nasa.gov/earth/climate-change/study-confirms-climate-models-are-getting-future-warming-projections-right/
+
+**Zum Nachdenken · swiss-glaciers-fifth-in-five-years** · `fact.swiss-glaciers-fifth-in-five-years`
+- DE: Von 2021 bis 2026 haben die Schweizer Gletscher fast einen Fünftel ihres Eises verloren.
+- EN: Between 2021 and 2026, Swiss glaciers lost almost a fifth of their ice.
+
+**Frage dazu** · `fact.swiss-glaciers-fifth-in-five-years.q`
+- DE: Was verändert sich in einem Tal, wenn sein Gletscher verschwindet?
+- EN: What changes in a valley when its glacier disappears?
+
+Quelle: GLAMOS / SCNAT (Swiss Academy of Sciences), Oct 2026 · https://www.geo.uzh.ch/en/news/2026/glamos-2026.html
+
+### 3.2 Anpassungsfähigkeit
+
+**Zum Staunen · marmot-heartbeat** · `fact.marmot-heartbeat`
+- DE: Im Winterschlaf schlägt das Herz eines Murmeltiers nur noch 4 bis 6 Mal pro Minute – statt bis zu 140 Mal wie im wachen Zustand.
+- EN: During hibernation, a marmot's heart beats only 4 to 6 times a minute – instead of up to 140 times when it is awake.
+
+Quelle: Arnold (Vetmeduni Wien, Forschungsinstitut für Wildtierkunde), Weidwerk, 2015 · https://www.vetmeduni.ac.at/fileadmin/v/fiwi/Publikationen/Populaerwissenschaftliche/Arnold_2015_Murmeltiere_Weidwerk.pdf
+
+**Zum Staunen · summit-plants-five-times** · `fact.summit-plants-five-times`
+- DE: Pflanzen wandern mit der Wärme bergauf: Auf Europas Gipfeln kamen zwischen 2007 und 2016 fünfmal so viele neue Arten dazu wie 50 Jahre zuvor.
+- EN: Plants are climbing uphill with the warmth: on Europe's summits, five times as many new species arrived between 2007 and 2016 as 50 years earlier.
+
+Quelle: Steinbauer et al., Nature, 2018 · https://www.nature.com/articles/s41586-018-0005-6
+
+**Zum Nachdenken · test-trees-55000** · `fact.test-trees-55000`
+- DE: In der ganzen Schweiz wachsen über 55 000 junge Testbäume von 18 Arten. Forschende prüfen, welche mit dem Klima der nächsten Jahrzehnte zurechtkommen.
+- EN: Over 55,000 young test trees of 18 species are growing across Switzerland. Researchers are checking which ones can cope with the climate of coming decades.
+
+**Frage dazu** · `fact.test-trees-55000.q`
+- DE: Was würdest du heute pflanzen, damit es 2100 noch gedeiht?
+- EN: What would you plant today so it still thrives in 2100?
+
+Quelle: WSL, Projekt Testpflanzungen zukunftsfähiger Baumarten, 2023 · https://www.wsl.ch/en/news/55000-baeume-fuer-einen-klimafitten-wald-der-letzte-setzling-wurde-gepflanzt/
+
+**Zum Staunen · camel-hump-fat-not-water** · `fact.camel-hump-fat-not-water`
+- DE: Im Höcker eines Kamels steckt Fett, kein Wasser. Dafür kann ein durstiges Kamel auf einmal über 100 Liter trinken.
+- EN: A camel's hump holds fat, not water. But a thirsty camel can drink more than 100 litres in one go.
+
+Quelle: Live Science, quoting Rick Schwartz (San Diego Zoo) · https://www.livescience.com/32366-why-do-camels-have-humps.html
+
+**Zum Staunen · bajau-divers-larger-spleen** · `fact.bajau-divers-larger-spleen`
+- DE: Die Bajau in Indonesien leben seit Generationen vom Tauchen. Ihre Milz ist rund 50 Prozent grösser als bei ihren Nachbarn an Land – vermutlich eine genetische Anpassung.
+- EN: The Bajau of Indonesia have lived from diving for generations. Their spleens are about 50 percent larger than those of land-dwelling neighbours – probably a genetic adaptation.
+
+Quelle: Ilardo et al., Cell 2018 (Universities of Copenhagen, Cambridge, Radboudumc et al.) · https://www.sci.news/genetics/bajau-people-spleens-free-diving-05944.html
+
+**Zum Staunen · snowfarming-davos-three-quarters** · `fact.snowfarming-davos-three-quarters`
+- DE: In Davos überstanden in einem Versuch rund drei Viertel eines Schneehaufens den ganzen Sommer – unter einer dicken Schicht aus Sägemehl und Holzschnitzeln.
+- EN: In an experiment in Davos, about three quarters of a snow pile survived the whole summer – under a thick layer of sawdust and wood chips.
+
+Quelle: Grünewald, Wolfsperger & Lehning (WSL-SLF), The Cryosphere 2018 · https://tc.copernicus.org/articles/12/385/2018/
+
+**Zum Staunen · plane-trees-cool-above-39-degrees** · `fact.plane-trees-cool-above-39-degrees`
+- DE: Messungen an Platanen in Lancy GE zeigten: Die Bäume kühlten ihre Umgebung auch bei über 39 °C. Statt Wasser zu sparen, verdunsteten sie bei Hitze sogar mehr.
+- EN: Measurements on plane trees in Lancy (Geneva) showed they kept cooling their surroundings even above 39 °C. Instead of saving water, they evaporated even more in the heat.
+
+Quelle: WSL & EPFL (Bachofen et al.), Urban Forestry & Urban Greening, 2025 · https://www.wsl.ch/en/news/city-trees-provide-cooling-even-in-extreme-heat/
+
+**Zum Nachdenken · mountain-hare-loses-habitat** · `fact.mountain-hare-loses-habitat`
+- DE: Modelle zeigen: Bis 2100 könnte der Schneehase in den Schweizer Alpen rund einen Drittel seines Lebensraums verlieren. Er weicht nach oben aus.
+- EN: Models show that by 2100, the mountain hare could lose about a third of its habitat in the Swiss Alps. It is moving uphill.
+
+**Frage dazu** · `fact.mountain-hare-loses-habitat.q`
+- DE: Wohin weichen Tiere aus, wenn es oben nicht weitergeht?
+- EN: Where can animals go when there is no higher ground?
+
+Quelle: Rehnus et al., Global Change Biology 2018 (WSL) · https://www.wsl.ch/en/news/climate-change-drives-mountain-hares-to-higher-altitudes/
+
+**Zum Nachdenken · heat-deaths-2022-switzerland** · `fact.heat-deaths-2022-switzerland`
+- DE: Im Sommer 2022 starben in der Schweiz laut einer Studie rund 620 Menschen wegen der Hitze. Hitzeschutzpläne in der Westschweiz und im Tessin hielten die Zahl vermutlich tiefer.
+- EN: In summer 2022, a study found, heat killed about 620 people in Switzerland. Heat plans in western Switzerland and Ticino probably kept the number lower.
+
+**Frage dazu** · `fact.heat-deaths-2022-switzerland.q`
+- DE: Was hilft Menschen, heisse Tage gut zu überstehen?
+- EN: What helps people get through hot days well?
+
+Quelle: Vicedo-Cabrera et al., Environmental Research Letters 2023 (University of Bern, Swiss TPH) · https://mediarelations.unibe.ch/media_releases/2023/media_releases_2023/global_warming_caused_60_percent_of_swiss_heat_deaths_in_the_summer_of_2022/index_eng.html
+
+### 3.3 Erkundendes Denken
+
+**Zum Staunen · velcro-burrs-1951** · `fact.velcro-burrs-1951`
+- DE: Ein Schweizer Ingenieur sah unter dem Mikroskop winzige Häkchen an Kletten aus dem Fell seines Hundes. 1951 meldete er den Klettverschluss zum Patent an.
+- EN: A Swiss engineer saw tiny hooks on burrs from his dog's fur under a microscope. In 1951, he applied for a patent on the hook-and-loop fastener.
+
+Quelle: Eidgenössisches Institut für Geistiges Eigentum (IGE), 2021 · https://www.ige.ch/en/blog/blog-article/wie-ein-schweizer-den-klettverschluss-erfand
+
+**Zum Staunen · slime-mould-railway** · `fact.slime-mould-railway`
+- DE: Ein Schleimpilz ohne Gehirn verband in 26 Stunden Haferflocken, die wie die Städte rund um Tokio verteilt waren. Sein Netz glich dem echten Bahnnetz.
+- EN: A brainless slime mould linked oat flakes, placed like the cities around Tokyo, in 26 hours. Its network resembled the real rail network.
+
+Quelle: Tero et al., Science, 2010 (Science news report, 2010) · https://www.science.org/content/article/ride-slime-mold-express
+
+**Zum Staunen · primrose-hears-bees** · `fact.primrose-hears-bees`
+- DE: In einem Versuch reagierten Nachtkerzen auf das Summen von Bienen: Innerhalb von 3 Minuten wurde ihr Nektar süsser. Die Blütenblätter schwangen dabei mit.
+- EN: In an experiment, evening primroses responded to the buzz of bees: within 3 minutes, their nectar became sweeter. Their petals vibrated with the sound.
+
+Quelle: Veits et al., Ecology Letters, 2019 · https://pmc.ncbi.nlm.nih.gov/articles/PMC6852653/
+
+**Zum Staunen · whale-flipper-bumps** · `fact.whale-flipper-bumps`
+- DE: Buckelwale haben Höcker vorne an ihren Brustflossen. In einem Windkanal-Versuch liess sich ein Flossenmodell mit Höckern rund 40 % steiler stellen, bevor es den Auftrieb verlor.
+- EN: Humpback whales have bumps on the front edge of their flippers. In a wind-tunnel test, a flipper model with bumps could tilt about 40% steeper before it lost lift.
+
+Quelle: Miklosovic, Murray, Howle & Fish, Physics of Fluids, 2004 · https://math.wcupa.edu/sciences-mathematics/biology/fFish/documents/2004PF-Megaptera.pdf
+
+**Zum Staunen · fungus-violin-blind-test** · `fact.fungus-violin-blind-test`
+- DE: Empa-Forschende behandelten Geigenholz mit einem Pilz. Bei einem Blindtest 2009 fanden 90 von über 180 Zuhörenden den Klang dieser Geige am besten – vor einer echten Stradivari.
+- EN: Empa researchers treated violin wood with a fungus. In a 2009 blind test, 90 of more than 180 listeners liked this violin's sound best – ahead of a real Stradivarius.
+
+Quelle: Empa (Swiss Federal Laboratories for Materials Science and Technology), 2009 · https://www.empa.ch/web/s604/geigestradivari
+
+**Zum Staunen · wood-sponge-voltage** · `fact.wood-sponge-voltage`
+- DE: Forschende von ETH und Empa verwandelten Holz in einen weichen Schwamm. Drückt man darauf, erzeugt er rund 85-mal mehr elektrische Spannung als normales Holz.
+- EN: Researchers at ETH and Empa turned wood into a soft sponge. When you press it, it produces about 85 times more electrical voltage than ordinary wood.
+
+Quelle: ETH Zurich News, 2021 (Sun et al., ACS Nano, 2020) · https://ethz.ch/en/news-and-events/eth-news/news/2021/03/voltage-from-wood.html
+
+**Zum Staunen · lichen-survives-space** · `fact.lichen-survives-space`
+- DE: Eine Gelbflechte überlebte 18 Monate ungeschützt aussen an der Raumstation ISS – trotz Vakuum, UV-Strahlung, Hitze und Kälte. Zurück auf der Erde wuchs sie weiter.
+- EN: A yellow lichen survived 18 months unprotected on the outside of the ISS space station – despite vacuum, UV radiation, heat and cold. Back on Earth, it kept growing.
+
+Quelle: European Space Agency (ESA), Expose-E experiment, 2010 · https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Columbus/Live_long_and_prosper_i_Xanthoria_elegans_i
+
+**Zum Staunen · pet-eating-bacterium** · `fact.pet-eating-bacterium`
+- DE: In Japan fanden Forschende 2016 bei einer PET-Recyclinganlage ein Bakterium, das PET-Plastik frisst. Im Labor zersetzte es dünne PET-Folie in rund 6 Wochen fast ganz.
+- EN: In 2016, researchers in Japan found a bacterium at a PET recycling plant that eats PET plastic. In the lab, it broke down thin PET film almost completely in about 6 weeks.
+
+Quelle: Yoshida et al., Science, 2016 · https://www.science.org/doi/10.1126/science.aad6359
+
+**Zum Nachdenken · deep-seafloor-unseen** · `fact.deep-seafloor-unseen`
+- DE: Vom Boden der Tiefsee hatten Menschen bis 2025 weniger als 0,001 % gesehen – mit eigenen Augen oder mit Kameras.
+- EN: By 2025, humans had seen less than 0.001% of the deep-sea floor – with their own eyes or with cameras.
+
+**Frage dazu** · `fact.deep-seafloor-unseen.q`
+- DE: Sollten wir die Tiefsee nutzen, bevor wir sie kennen?
+- EN: Should we use the deep sea before we know it?
+
+Quelle: Bell et al., Science Advances, 2025 · https://www.science.org/doi/10.1126/sciadv.adp8602
+
+**Zum Nachdenken · unusual-combinations-science** · `fact.unusual-combinations-science`
+- DE: Fachartikel, die viel Bewährtes mit ein paar ungewöhnlichen Wissens-Kombinationen mischen, landen doppelt so oft unter den meistzitierten. Das zeigte eine Auswertung von Millionen Artikeln.
+- EN: Research papers that mix lots of proven knowledge with a few unusual combinations are twice as likely to be among the most cited. An analysis of millions of papers showed this.
+
+**Frage dazu** · `fact.unusual-combinations-science.q`
+- DE: Welche zwei Fächer könnte man für eine neue Idee kombinieren?
+- EN: Which two subjects could you combine for a new idea?
+
+Quelle: Uzzi, Mukherjee, Stringer & Jones, Science, 2013 · https://www.kellogg.northwestern.edu/faculty/uzzi/htm/papers/Science-2013-Uzzi-468-72.pdf
+
+### 4.1 Politische Handlungsfähigkeit
+
+**Zum Staunen · bee-swarm-vote** · `fact.bee-swarm-vote`
+- DE: Ein Bienenschwarm mit rund 10 000 Tieren wählt sein neues Zuhause in einer Art Abstimmung: Kundschafterinnen werben für Orte, bis einer genug Unterstützung hat.
+- EN: A swarm of about 10,000 honeybees chooses its new home in a kind of vote: scouts campaign for sites until one gains enough support.
+
+Quelle: Cornell Chronicle (Thomas Seeley), 2006 · https://news.cornell.edu/stories/2006/04/honeybee-decision-making-ability-rivals-any-department-committee
+
+**Zum Staunen · moorland-vote-1987** · `fact.moorland-vote-1987`
+- DE: Moore stehen in der Schweizer Bundesverfassung unter Schutz – weil 1987 an der Urne 57,8 Prozent Ja zur Rothenthurm-Initiative sagten.
+- EN: Moorlands are protected by the Swiss Federal Constitution – because in 1987, 57.8 percent of voters said yes to the Rothenthurm initiative.
+
+Quelle: BAFU, Zustand und Entwicklung der Moore in der Schweiz (result also listed by the Federal Chancellery) · https://www.bafu.admin.ch/dam/de/sd-web/VxiC5XLwNHbD/zustand_und_entwicklungdermooreinderschweiz.pdf
+
+**Zum Nachdenken · alpine-freight-rail** · `fact.alpine-freight-rail`
+- DE: Seit einem Volksentscheid von 1994 soll der Güterverkehr durch die Schweizer Alpen auf die Schiene. 2025 fuhren etwas mehr als zwei Drittel der Güter per Bahn.
+- EN: Since a 1994 popular vote, freight crossing the Swiss Alps is meant to go by rail. In 2025, just over two thirds travelled by train.
+
+**Frage dazu** · `fact.alpine-freight-rail.q`
+- DE: Was braucht es, damit ein Volksentscheid wirklich wirkt?
+- EN: What does it take for a popular vote to really work?
+
+Quelle: Bundesamt für Verkehr (BAV), 2026 · https://www.news.admin.ch/de/newnsb/pAzo0IO4kxRefXD7Hdnrf
+
+**Zum Staunen · hiking-trails-constitution** · `fact.hiking-trails-constitution`
+- DE: Seit einer Volksabstimmung 1979 stehen die Wanderwege in der Bundesverfassung. Heute sind in der Schweiz über 65 000 km Wanderwege signalisiert.
+- EN: Since a popular vote in 1979, hiking trails have been part of the Swiss Federal Constitution. Today, more than 65,000 km of hiking trails are signposted in Switzerland.
+
+Quelle: Schweizer Wanderwege, 2024; Bundesverfassung Art. 88 (Volksabstimmung 18.2.1979) · https://www.schweizer-wanderwege.ch/de/ueber-uns/verband
+
+**Zum Staunen · glarus-voting-age-16** · `fact.glarus-voting-age-16`
+- DE: Unter freiem Himmel beschloss die Glarner Landsgemeinde 2007 knapp: Schon 16-Jährige dürfen abstimmen und wählen. Glarus war damit der erste Kanton.
+- EN: At its open-air assembly in 2007, the Landsgemeinde of Glarus narrowly decided that 16-year-olds may vote. Glarus was the first canton to do so.
+
+Quelle: SRF, 2024; Landsgemeindeprotokoll Glarus 2007 (Traktandum 7) · https://www.srf.ch/news/schweiz/stimmrechtsalter-16-unbeliebt-das-gallische-dorf-warum-glarus-das-stimmrechtsalter-16-annahm
+
+**Zum Staunen · eu-common-charger** · `fact.eu-common-charger`
+- DE: Seit Ende 2024 brauchen neue Handys, Tablets und Kopfhörer in der EU einen USB-C-Anschluss. Ungenutzte und weggeworfene Ladegeräte machen dort rund 11 000 Tonnen Elektroschrott pro Jahr aus.
+- EN: Since the end of 2024, new phones, tablets and headphones in the EU must have a USB-C port. Unused and discarded chargers there add up to about 11,000 tonnes of e-waste a year.
+
+Quelle: European Commission, 2024 · https://commission.europa.eu/news-and-media/news/eu-common-charger-rules-power-all-your-devices-single-charger-2024-12-28_en
+
+**Zum Staunen · ireland-plastic-bag-levy** · `fact.ireland-plastic-bag-levy`
+- DE: 2002 führte Irland eine kleine Abgabe auf Plastiksäcke ein. Der Verbrauch sank fast sofort von 328 auf 21 Säcke pro Person und Jahr.
+- EN: In 2002, Ireland introduced a small charge on plastic bags. Use dropped almost immediately from 328 to 21 bags per person per year.
+
+Quelle: OECD, Environment Working Paper No. 174, 2021 · https://one.oecd.org/document/ENV/WKP(2021)14/en/pdf
+
+**Zum Staunen · river-legal-person** · `fact.river-legal-person`
+- DE: Seit 2017 ist der Whanganui-Fluss in Neuseeland rechtlich eine Person mit eigenen Rechten. Zwei Menschen sprechen für ihn: einer bestimmt von den Māori, einer vom Staat.
+- EN: Since 2017, New Zealand's Whanganui River has been a legal person with its own rights. Two people speak for it: one chosen by the Māori, one by the state.
+
+Quelle: Te Awa Tupua (Whanganui River Claims Settlement) Act, New Zealand, 2017 · https://www.legislation.govt.nz/act/public/2017/0007/latest/whole.html
+
+**Zum Nachdenken · klimaseniorinnen-court** · `fact.klimaseniorinnen-court`
+- DE: Mehr als 2000 ältere Frauen klagten als Verein gegen die Schweiz. 2024 urteilte der Europäische Gerichtshof für Menschenrechte: Die Schweiz hatte beim Klimaschutz nicht genug getan.
+- EN: More than 2,000 older women took Switzerland to court as an association. In 2024, the European Court of Human Rights ruled that Switzerland had not done enough to protect the climate.
+
+**Frage dazu** · `fact.klimaseniorinnen-court.q`
+- DE: Wer sollte für das Klima vor Gericht gehen dürfen?
+- EN: Who should be allowed to go to court for the climate?
+
+Quelle: European Court of Human Rights, Verein KlimaSeniorinnen Schweiz and Others v. Switzerland, 9 April 2024 · https://hudoc.echr.coe.int/app/conversion/pdf/?library=ECHR&id=003-7919428-11026177&filename=Judgment+Verein+KlimaSeniorinnen+Schweiz+and+Others+v.+Switzerland+-+Violations+of+the+Convention+for+failing+to+implement+sufficient+measures+to+combat+climate+change.pdf
+
+**Zum Nachdenken · high-seas-treaty** · `fact.high-seas-treaty`
+- DE: Seit dem 17. Januar 2026 gilt das UNO-Hochseeabkommen. Es ermöglicht Schutzgebiete auf der Hohen See, die keinem Land gehört – über zwei Drittel des Meeres.
+- EN: Since 17 January 2026, the UN High Seas Treaty has been in force. It makes protected areas possible on the high seas, which belong to no country – over two thirds of the ocean.
+
+**Frage dazu** · `fact.high-seas-treaty.q`
+- DE: Wie schützt man etwas, das niemandem gehört?
+- EN: How do you protect something that belongs to no one?
+
+Quelle: UN News, 2026 · https://news.un.org/en/story/2026/01/1166762
+
+### 4.2 Kollektives Handeln
+
+**Zum Staunen · starlings-seven-neighbours** · `fact.starlings-seven-neighbours`
+- DE: Ein Starenschwarm aus Tausenden Vögeln bewegt sich wie ein einziges Wesen. Das Geheimnis: Jeder Star achtet nur auf seine sechs bis sieben nächsten Nachbarn.
+- EN: A flock of thousands of starlings moves like a single creature. The secret: each bird pays attention only to its six or seven nearest neighbours.
+
+Quelle: Ballerini et al., PNAS, 2008 · https://pmc.ncbi.nlm.nih.gov/articles/PMC2234121/
+
+**Zum Staunen · bearded-vulture-35-pairs** · `fact.bearded-vulture-35-pairs`
+- DE: Bartgeier waren in den Alpen ausgerottet. Dank einem gemeinsamen Projekt mehrerer Alpenländer brüteten 2025 allein in der Schweiz wieder 35 Paare.
+- EN: Bearded vultures had vanished from the Alps. Thanks to a joint project of several Alpine countries, 35 pairs bred in Switzerland alone in 2025.
+
+Quelle: Schweizerische Vogelwarte Sempach, species page Bartgeier (status 2025) · https://www.vogelwarte.ch/de/artenfoerderung-voegel-schweiz/prioritaetsarten/bartgeier/
+
+**Zum Nachdenken · montreal-protocol-all** · `fact.montreal-protocol-all`
+- DE: 2009 wurde das Montreal-Protokoll zum Schutz der Ozonschicht als erster UNO-Vertrag von allen Staaten der Welt ratifiziert. Die Ozonschicht erholt sich langsam.
+- EN: In 2009, the Montreal Protocol to protect the ozone layer became the first UN treaty ratified by every country in the world. The ozone layer is slowly recovering.
+
+**Frage dazu** · `fact.montreal-protocol-all.q`
+- DE: Was braucht es, damit alle Länder bei etwas mitmachen?
+- EN: What does it take for every country to join in?
+
+Quelle: United Nations, International Day for the Preservation of the Ozone Layer · https://www.un.org/en/observances/ozone-day
+
+**Zum Staunen · penguin-huddle-heat** · `fact.penguin-huddle-heat`
+- DE: Kaiserpinguine drängen sich im antarktischen Winter dicht zusammen. Im Inneren der Gruppe wurden in einer Studie bis zu 37,5 °C gemessen – fast Körpertemperatur.
+- EN: Emperor penguins huddle tightly together in the Antarctic winter. In one study, temperatures of up to 37.5 °C were measured inside the huddle – almost body temperature.
+
+Quelle: Gilbert et al., Physiology & Behavior, 2006 · https://pubmed.ncbi.nlm.nih.gov/16740281/
+
+**Zum Staunen · jura-ant-supercolony** · `fact.jura-ant-supercolony`
+- DE: Im Waadtländer Jura bilden geschätzt 1200 Ameisenhügel eine einzige Kolonie, verbunden durch Ameisenstrassen. Sie gilt als grösste Waldameisen-Kolonie Europas.
+- EN: In the Vaud Jura, an estimated 1,200 ant mounds form a single colony, linked by ant trails. It is considered Europe's largest wood ant colony.
+
+Quelle: Parc Jura vaudois; Musée cantonal de zoologie Lausanne (interview A. Freitag) · https://parcjuravaudois.ch/fr/chronique-dune-fourmi
+
+**Zum Staunen · foldit-gamers-protein** · `fact.foldit-gamers-protein`
+- DE: Die Form eines Eiweisses aus einem Affenvirus war Fachleuten über zehn Jahre lang ein Rätsel. Spielende des Online-Puzzles Foldit lieferten in 3 Wochen das passende Modell.
+- EN: For more than ten years, the shape of a protein from a monkey virus puzzled experts. Players of the online puzzle game Foldit delivered a fitting model in 3 weeks.
+
+Quelle: Nature Reviews Microbiology, 2011 (on Khatib et al., Nature Structural & Molecular Biology, 2011) · https://www.nature.com/articles/nrmicro2687
+
+**Zum Staunen · toerbel-commons** · `fact.toerbel-commons`
+- DE: Im Walliser Dorf Törbel regelt die Dorfgemeinschaft Alpweiden und Wasser seit über 500 Jahren gemeinsam. Die Nobelpreisträgerin Elinor Ostrom machte das Dorf weltweit bekannt.
+- EN: In the Valais village of Törbel, the community has managed alpine pastures and water together for more than 500 years. Nobel laureate Elinor Ostrom made the village famous worldwide.
+
+Quelle: SWI swissinfo.ch, 2025; Historisches Lexikon der Schweiz (Törbel) · https://www.swissinfo.ch/eng/swiss-democracy/the-swiss-mountain-village-that-inspired-a-nobel-prize-and-digital-governance/89529395
+
+**Zum Staunen · migros-cooperative-members** · `fact.migros-cooperative-members`
+- DE: Die Migros ist eine Genossenschaft und gehört ihren Mitgliedern. Ende 2025 waren das über 2,3 Millionen Menschen.
+- EN: Migros is a cooperative and belongs to its members. At the end of 2025, that was more than 2.3 million people.
+
+Quelle: Migros-Genossenschafts-Bund, Geschäftsbericht 2025 · https://report.migros.ch/2025/app/uploads/Governance_2025_de.pdf
+
+**Zum Nachdenken · swiss-volunteering** · `fact.swiss-volunteering`
+- DE: Rund 4 von 10 Menschen ab 15 Jahren in der Schweiz leisten Freiwilligenarbeit – im Verein oder als Hilfe für Nachbarn und Bekannte.
+- EN: About 4 in 10 people aged 15 and over in Switzerland do voluntary work – in a club or as help for neighbours and acquaintances.
+
+**Frage dazu** · `fact.swiss-volunteering.q`
+- DE: Was würde fehlen, wenn niemand mehr freiwillig mithilft?
+- EN: What would be missing if nobody volunteered anymore?
+
+Quelle: Bundesamt für Statistik (BFS), Freiwilligenarbeit, data 2024 · https://www.bfs.admin.ch/bfs/de/home/statistiken/arbeit-erwerb/erwerbstaetigkeit-arbeitszeit/vereinbarkeit-unbezahlte-arbeit/freiwilligenarbeit.html
+
+**Zum Nachdenken · climate-support-underestimated** · `fact.climate-support-underestimated`
+- DE: Laut einer Weltumfrage wären 69 % bereit, einen kleinen Teil ihres Einkommens fürs Klima abzugeben. Im Schnitt glauben sie aber, nur 43 % der anderen würden mitmachen.
+- EN: According to a global survey, 69% would be willing to give a small share of their income for the climate. But on average they think only 43% of others would.
+
+**Frage dazu** · `fact.climate-support-underestimated.q`
+- DE: Warum unterschätzen wir, wie viele andere mithelfen wollen?
+- EN: Why do we underestimate how many others want to help?
+
+Quelle: Andre, Boneva, Chopra & Falk, Nature Climate Change, 2024 (via Our World in Data) · https://ourworldindata.org/climate-change-support
+
+### 4.3 Eigeninitiative
+
+**Zum Staunen · jay-5000-acorns** · `fact.jay-5000-acorns`
+- DE: Ein einzelner Eichelhäher kann im Herbst bis zu 5000 Eicheln verstecken. Was er nicht wiederfindet, kann keimen – so hilft er, neue Eichen zu pflanzen.
+- EN: A single jay can hide up to 5,000 acorns in autumn. The ones it never finds again can sprout – so it helps plant new oaks.
+
+Quelle: waldwissen.net (Markwart, der vorlaute Eichenpflanzer); Schweizerische Zeitschrift für Forstwesen, 2025 · https://www.waldwissen.net/de/lebensraum-wald/tiere-im-wald/voegel/markwart-der-vorlaute-eichenpflanzer
+
+**Zum Staunen · repair-cafe-4000** · `fact.repair-cafe-4000`
+- DE: 2009 lud Martine Postma in Amsterdam zum ersten Repair Café ein. 2026 kam weltweit das 4000. Repair Café dazu – in Kanada.
+- EN: In 2009, Martine Postma invited people to the first Repair Café in Amsterdam. In 2026, the world's 4,000th Repair Café opened – in Canada.
+
+Quelle: Repair Café International, 2026 · https://www.repaircafe.org/en/the-worlds-4000th-repair-cafe-is-in-canada/
+
+**Zum Nachdenken · heating-one-degree** · `fact.heating-one-degree`
+- DE: Ein Grad weniger Raumtemperatur spart rund 6 bis 10 Prozent Heizkosten. Ein kleiner Dreh am Thermostat wirkt jeden Tag des Winters.
+- EN: Lowering the room temperature by one degree saves around 6 to 10 percent of heating costs. One small turn of the thermostat works every winter day.
+
+**Frage dazu** · `fact.heating-one-degree.q`
+- DE: Wie warm muss es zuhause sein, damit du dich wohlfühlst?
+- EN: How warm does home need to be for you to feel cosy?
+
+Quelle: EnergieSchweiz (Swiss Federal Office of Energy), Wintertipps (accessed 2026) · https://www.energieschweiz.ch/stories/wintertipps/
+
+**Zum Staunen · dunant-red-cross** · `fact.dunant-red-cross`
+- DE: 1859 sah der Genfer Geschäftsmann Henry Dunant Tausende Verwundete nach einer Schlacht. Seine Idee führte zum Roten Kreuz – heute mit fast 17 Millionen Freiwilligen weltweit.
+- EN: In 1859, Geneva businessman Henry Dunant saw thousands of wounded soldiers after a battle. His idea led to the Red Cross – today with nearly 17 million volunteers worldwide.
+
+Quelle: IFRC, World Disasters Report 2026; ICRC history · https://www.ifrc.org/sites/default/files/2026-02/WDR2026_FullReport_EN.pdf
+
+**Zum Staunen · herren-wasp-cassava** · `fact.herren-wasp-cassava`
+- DE: Der Schweizer Forscher Hans Rudolf Herren stoppte in Afrika eine Schädlingsplage auf Maniok-Feldern – mit einer winzigen Wespe statt Gift. Das rettete nach Schätzungen über 20 Millionen Menschenleben.
+- EN: Swiss scientist Hans Rudolf Herren stopped a pest plague on cassava fields in Africa – with a tiny wasp instead of poison. By estimates, this saved more than 20 million lives.
+
+Quelle: World Food Prize Foundation, 1995 laureate · https://www.worldfoodprize.org/en/laureates/19871999_laureates/1995_herren/
+
+**Zum Staunen · maathai-green-belt** · `fact.maathai-green-belt`
+- DE: 1977 pflanzte Wangari Maathai in Kenia ein paar Bäume im eigenen Garten und gründete das Green Belt Movement. Seither wurden über 51 Millionen Bäume gepflanzt.
+- EN: In 1977, Wangari Maathai planted a few trees in her own backyard in Kenya and founded the Green Belt Movement. Since then, more than 51 million trees have been planted.
+
+Quelle: UNEP, 2016 (Green Belt Movement figures); Nobel Peace Prize presentation speech, 2004 · https://www.unep.org/news-and-stories/story/wangari-maathais-legacy-feted-across-africa
+
+**Zum Staunen · solar-impulse-world** · `fact.solar-impulse-world`
+- DE: Der Schweizer Bertrand Piccard wollte ein Flugzeug, das nur mit Sonnenenergie fliegt. 2016 umrundeten er und André Borschberg damit die Erde – über 40 000 km ohne Treibstoff.
+- EN: Swiss explorer Bertrand Piccard wanted a plane that flies on solar power alone. In 2016, he and André Borschberg flew it around the world – more than 40,000 km without fuel.
+
+Quelle: FAI (World Air Sports Federation), 2016 · https://www.fai.org/news/10-years-solar-impulse-2-circumnavigation-complete
+
+**Zum Nachdenken · committed-minority-tipping** · `fact.committed-minority-tipping`
+- DE: In einem Online-Experiment reichte eine entschlossene Minderheit von rund 25 % einer Gruppe, um eine eingespielte Gewohnheit zu ändern. Darunter scheiterte sie.
+- EN: In an online experiment, a committed minority of about 25% of a group was enough to change an established habit. Below that, it failed.
+
+**Frage dazu** · `fact.committed-minority-tipping.q`
+- DE: Wann hat eine kleine Gruppe in deinem Umfeld etwas verändert?
+- EN: When did a small group around you change something?
+
+Quelle: Centola, Becker, Brackbill & Baronchelli, Science, 2018 · https://www.asc.upenn.edu/news-events/news/research-finds-tipping-point-large-scale-social-change
+
+**Zum Nachdenken · solar-ambassadors-walk-the-talk** · `fact.solar-ambassadors-walk-the-talk`
+- DE: In einem Feldversuch in den USA gewannen Solar-Botschafter mit eigener Solaranlage rund 63 % mehr Leute für eine Anlage als Botschafter ohne eigene Anlage.
+- EN: In a field study in the US, solar ambassadors with their own solar panels got about 63% more people to install panels than ambassadors without their own.
+
+**Frage dazu** · `fact.solar-ambassadors-walk-the-talk.q`
+- DE: Überzeugt uns mehr, was jemand sagt oder was jemand tut?
+- EN: What convinces us more: what someone says or does?
+
+Quelle: Kraft-Todd, Bollinger, Gillingham, Lamp & Rand, Nature, 2018 · https://www.nature.com/articles/s41586-018-0647-4
+
 ## 9. Anweisungen im geführten Spiel («Jetzt spielen»)
 
 Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben teils eigene Texte.
@@ -1309,8 +2178,8 @@ Das ist, was die App bei jedem Schritt sagt. «Gruppe» und «allein» haben tei
   - DE: Beide Arten gehen ohne Punkte. Es zählt, dass du es machst.
   - EN: Both ways work without points. What counts is that you do it.
 - `ui.len5`
-  - DE: 5 Minuten
-  - EN: 5 minutes
+  - DE: {n} Minuten · eine Karte
+  - EN: {n} minutes · one card
 - `ui.len5Sub`
   - DE: Eine Karte, eine Spur, die Aufgabe, ein Satz pro Person. Hier und jetzt.
   - EN: One card, one trail, the task, one sentence each. Here and now.
@@ -2410,8 +3279,8 @@ Die Stimme spricht diese Sätze. `{q}` = Neugier-Frage, `{task}` = Allein-Form, 
    - DE: **Spurkarte ziehen.** Sie bestimmt, wie ihr die Aufgabe macht.
    - EN: **Draw a trail card.** It decides how you do the task.
 3. `guide.quick.3`
-   - DE: **Mach es echt.** 2 bis 4 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange.
-   - EN: **Make it real.** 2 to 4 minutes, at the place where you are, one step after another. The card says how long.
+   - DE: **Mach es echt.** 3 bis 5 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange.
+   - EN: **Make it real.** 3 to 5 minutes, at the place where you are, one step after another. The card says how long.
 4. `guide.quick.4`
    - DE: **Reden.** Gesprächskarte ziehen. Wer fragt, antwortet zuerst.
    - EN: **Talk.** Draw a conversation card. Whoever asks answers first.
@@ -2476,15 +3345,15 @@ Die Stimme spricht diese Sätze. `{q}` = Neugier-Frage, `{task}` = Allein-Form, 
 - **20 s · Zuhören** `guide.station.1`
   - DE: Zwanzig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang.
   - EN: Twenty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.
-- **4 min · Aufgabe** `guide.station.2`
+- **5 min · Aufgabe** `guide.station.2`
   - DE: Fähigkeitskarte und Spurkarte ziehen, dann die drei Schritte, einer nach dem anderen. Die Karte sagt, wie lange.
   - EN: Draw a skill card and a trail card, then do the three steps, one after another. The card says how long.
 - **3 min · Gespräch** `guide.station.3`
-  - DE: Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 7:20.
-  - EN: Draw a conversation card. Whoever asks answers first. The rest of the time up to 7:20.
-- **2 min · Schätzen** `guide.station.4`
-  - DE: Alle schätzen, dann die Auflösung. Wer lag am nächsten?
-  - EN: Everyone guesses, then the answer. Who came closest?
+  - DE: Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 8:20.
+  - EN: Draw a conversation card. Whoever asks answers first. The rest of the time up to 8:20.
+- **1 min · Schätzen** `guide.station.4`
+  - DE: Alle schätzen schnell, dann die Auflösung. Wer lag am nächsten?
+  - EN: Everyone guesses quickly, then the answer. Who came closest?
 - **1.6666666666666667 min · Ein Satz und ein Fundstück** `guide.station.5`
   - DE: Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit.
   - EN: One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.
@@ -2709,8 +3578,8 @@ Zwölf Deckel, je einer pro Fähigkeit. Vorne steht die Neugier-Frage der Fähig
 ### Texte auf dem Deckel
 
 - `ui.appTitleRing`
-  - DE: GreenComp erleben
-  - EN: Experience GreenComp
+  - DE: Spuren · GreenComp erleben
+  - EN: Trails · Experience GreenComp
 - `ui.coasterTurn`
   - DE: Dreh mich um
   - EN: Turn me over
@@ -2733,11 +3602,11 @@ Zwölf Deckel, je einer pro Fähigkeit. Vorne steht die Neugier-Frage der Fähig
   - DE: Ihr habt einen GreenComp-Deckel gefunden.
   - EN: You found a GreenComp coaster.
 - `ui.foundLead`
-  - DE: Die Frage auf dem Deckel ist der Anfang. Spielt sie jetzt, hier am Tisch. 5 Minuten, ohne Vorwissen.
-  - EN: The question on the coaster is the start. Play it now, right here at the table. 5 minutes, nothing to know beforehand.
+  - DE: Die Frage auf dem Deckel ist der Anfang. Spielt sie jetzt, hier am Tisch. {n} Minuten, ohne Vorwissen.
+  - EN: The question on the coaster is the start. Play it now, right here at the table. {n} minutes, nothing to know beforehand.
 - `ui.foundPlay`
-  - DE: Jetzt spielen · 5 Minuten
-  - EN: Play now · 5 minutes
+  - DE: Jetzt spielen · {n} Minuten
+  - EN: Play now · {n} minutes
 - `ui.foundAlone`
   - DE: Allein: ein Spaziergang
   - EN: Alone: a walk
@@ -2751,8 +3620,8 @@ Zwölf Deckel, je einer pro Fähigkeit. Vorne steht die Neugier-Frage der Fähig
   - DE: Was ist das?
   - EN: What is this?
 - `ui.foundWhat1`
-  - DE: GreenComp erleben ist ein Kartenspiel über Natur und Zukunft. Man spielt es draussen, mit Händen, Ohren und Augen.
-  - EN: GreenComp erleben is a card game about nature and the future. You play it outdoors, with your hands, ears and eyes.
+  - DE: Spuren ist ein Kartenspiel über Natur und Zukunft. Man spielt es draussen, mit Händen, Ohren und Augen.
+  - EN: Trails is a card game about nature and the future. You play it outdoors, with your hands, ears and eyes.
 - `ui.foundWhat2`
   - DE: Es gibt 12 Deckel, jeder mit einer anderen Frage. Jede Frage gehört zu einer Fähigkeit aus GreenComp, dem europäischen Rahmen für Nachhaltigkeit.
   - EN: There are 12 coasters, each with a different question. Each question belongs to a skill from GreenComp, the European framework for sustainability.

@@ -8,7 +8,7 @@
   var GROUP_NAMES = { en: ["Kingfishers", "Badgers", "Foxes", "Owls", "Beavers", "Swifts", "Hedgehogs", "Otters"], de: ["Eisvögel", "Dachse", "Füchse", "Eulen", "Biber", "Mauersegler", "Igel", "Otter"] };
   var GROUP_COLORS = ["--a-values", "--a-complex", "--a-futures", "--a-acting", "--sign", "--blaze", "--ink-2", "--a-values"];
   /* Eleven minutes per station with the twenty seconds of listening: task, talk, estimate, one sentence and a find. */
-  var PHASES = [["phTask", 240], ["phTalk", 180], ["phEst", 120], ["phSentence", 100]];
+  var PHASES = [["phTask", 300], ["phTalk", 180], ["phEst", 60], ["phSentence", 100]];
   function pts() { return G.withPoints && G.withPoints(); }
   function minLabel(sec) { return sec % 60 ? G.mmss(sec) : (sec / 60) + " min"; }
   function gcol(i) { return "var(" + GROUP_COLORS[i % GROUP_COLORS.length] + ")"; }

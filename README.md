@@ -1,6 +1,8 @@
-# GreenComp Trails / GreenComp Spuren (Arbeitstitel)
+# Spuren · Ein Kartenspiel zu GreenComp (Arbeitstitel)
 
-**GreenComp erleben.** Die digitale Ebene zum Kartenset «GreenComp Spuren», gebaut nach dem Konzept vom 14. Oktober 2026.
+**GreenComp erleben.** Die digitale Ebene zum Kartenset «Spuren», gebaut nach dem Konzept vom 14. Oktober 2026.
+Der Name ist vorläufig. Ändern: in `i18n.js` im letzten Block `NAME` und `SUB`, dazu `<title>` und `og:title` in `index.html`
+(für die Link-Vorschau) und `manifest.webmanifest`.
 Eine statische Web-App ohne Build-Schritt, ohne Konto und ohne Tracking. Alles, was gespeichert wird,
 bleibt im Browser des Geräts (`localStorage`). Nach dem ersten Laden läuft sie offline (Service Worker).
 
@@ -67,6 +69,26 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - **Ein Wort pro Publikum**: Für alles, was Spielende lesen, heisst es «Fähigkeit» (Fähigkeitskarte), auf Englisch «skill».
   «Kompetenz» steht nur in der Definitionszeile des JRC auf der Kartenrückseite und gegenüber dem JRC.
 
+## Neu in v0.9 (18. Oktober 2026)
+
+- **Mehr Zeit für die Aufgabe, weniger fürs Schätzen**: Jede Fähigkeitskarte hat eine Minute mehr (jetzt 3 bis 5 Minuten, die Karte
+  zeigt es), Schätzen dauert 1 Minute statt 2. Das Gespräch bleibt gleich lang, eine Station dauert weiter 11 Minuten.
+  Auf der Tafel: Aufgabe 5, Gespräch 3, Schätzen 1, ein Satz 1:40. Das kurze Spiel heisst jetzt «7 Minuten · eine Karte»
+  (die Zahl rechnet die App aus). Der Spaziergang bleibt, wie er ist (Schätzen war dort schon 1 Minute).
+- **Vorläufiger Name «Spuren»**, darunter «Ein Kartenspiel zu GreenComp». Die Einzeldatei heisst jetzt `Spuren.html`.
+- **Vogelgezwitscher zum Start**: ein kurzer Vogelchor (etwa 7 Sekunden). Browser erlauben Ton erst nach dem ersten Antippen,
+  darum singen die Vögel beim ersten Tippen auf der Seite. Abschalten auf der Startseite («Vögel zum Start: an/aus»).
+- **Startseite aufgeräumt**: «Worum geht es?» als Klapp-Liste, die Kachel «Expedition» und «Vorbereitung» sind weg (die Expedition
+  wählt man beim Spielen). «Vorbereiten» bleibt unten in der Fusszeile jeder Seite, beim ganzen Raum und in der Einführung.
+- **Fakten zum Staunen und Nachdenken**: 116 recherchierte Fakten, neun bis zehn pro Fähigkeit, jeder mit Quelle und Link (zum Beispiel:
+  Grönlandhaie können mindestens 272 Jahre alt werden; die Moore stehen seit der Rothenthurm-Abstimmung 1987 in der Verfassung; ein
+  Starenschwarm folgt der Regel «achte auf deine sechs bis sieben Nachbarn»). Jede Station endet mit einem Fakt zur gespielten Karte;
+  Fakten zum Nachdenken bringen eine Frage für die Gruppe mit. Dazu «Zum Staunen und Nachdenken» unter «Worum geht es?» und auf jeder
+  Kartenseite, mit «Noch einer». **Eigene Seite `#fakten`** zum Stöbern ohne Spiel: Filter (Staunen / Nachdenken, Bereiche), Teilen,
+  Vorlesen, ein Link pro Fakt (`#fakt-<id>`). Wer einen QR-Code scannt, sieht auf der Kartenseite drei Fakten zur Karte, auf der
+  Deckel-Seite einen mit «Noch einer», auf der Stationsseite einen aus dem Bereich. Die Zahlen sind an der Quelle geprüft; wo die Wissenschaft streitet, sagt der Text «vermutlich» oder
+  «in einem Versuch». Alle Fakten stehen in `KARTENTEXTE.md` (Abschnitt 8b).
+
 ## Neu in v0.8 (17. Oktober 2026)
 
 - Startseite: Die drei Wege (Nur ich · Wir sind 3 bis 5 · Ein ganzer Raum) sind wieder offen sichtbar, kein Titel «Wege hinein».
@@ -78,7 +100,7 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
   sagt unter seinem Namen, wie lange er dauert («Station 1 · 3 Min.»).
 - Stille-Karten passen drinnen und draussen. Funke «Doppelt»: Widersprechen sich die Spurkarten, gilt die zweite.
   Der Spaziergang dauert knapp 11 statt gut 13 Minuten (Stille 2 Minuten).
-- **Zum Weitergeben**: `GreenComp-erleben.html`, die ganze App in einer Datei (siehe «Starten»).
+- **Zum Weitergeben**: `Spuren.html`, die ganze App in einer Datei (siehe «Starten»).
 - **Vorlesen lässt sich stoppen**: Der Knopf zeigt «■ Stopp», solange gesprochen wird. **Jede Uhr hat «Überspringen»**:
   Die Zeit endet, und es geht zum nächsten Bildschirm (bei der Aufgabe direkt zum Gespräch). Auch im 5-Minuten-Spiel.
 - **Von Station zu Station**: Jeder Schritt zeigt «Station 2 von 4». Der letzte Schritt einer Station heisst «Weiter zu Station 2»,
@@ -142,7 +164,7 @@ der 96 Karten auf 70 × 120 mm passt, Vorder- und Rückseite, Deutsch und Englis
 
 ## Starten
 
-**Am einfachsten: `GreenComp-erleben.html`.** Die ganze App in einer Datei. Doppelklick öffnet sie in jedem aktuellen Browser,
+**Am einfachsten: `Spuren.html`.** Die ganze App in einer Datei. Doppelklick öffnet sie in jedem aktuellen Browser,
 auch ohne Internet (nur die Schriften kommen dann aus dem System). Man kann sie per Mail schicken, auf einen USB-Stick legen oder auf
 jeden Webspace hochladen. Fortschritt und Namen bleiben im Browser des jeweiligen Geräts. Neu erzeugen nach jeder Änderung:
 `python3 einzeldatei.py`. **Für Handys und WhatsApp einen Link schicken, nicht die Datei.** Eine HTML-Datei im Chat öffnet das iPhone nur als Vorschau,
@@ -186,7 +208,7 @@ Programm (in dieser Ladereihenfolge):
 - `index.html`: Gerüst und Gestaltung
 - `sw.js`, `manifest.webmanifest`, `icon.svg`: offline und installierbar
 - `vendor/qrcode-generator-1.4.4.js`: QR-Bibliothek von Kazuhiko Arase (MIT), für die Einzeldatei
-- `einzeldatei.py`, `GreenComp-erleben.html`: baut die App als eine Datei zum Weitergeben
+- `einzeldatei.py`, `Spuren.html`: baut die App als eine Datei zum Weitergeben
 
 Dokumente:
 - `KARTENTEXTE.md`: alle Kartentexte und Anweisungen zum Überarbeiten (aus den App-Daten erzeugt)

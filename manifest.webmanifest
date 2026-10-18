@@ -1,6 +1,6 @@
 {
-  "name": "GreenComp Trails",
-  "short_name": "GC Trails",
+  "name": "Spuren · Ein Kartenspiel zu GreenComp",
+  "short_name": "Spuren",
   "description": "Twelve GreenComp competences you do, not read. Cards, a board for the room, a solo walk.",
   "start_url": "./",
   "scope": "./",

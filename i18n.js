@@ -711,7 +711,7 @@
 /* v0.5 additions: the large card view, the joker, area signs, «Original plus» with a UN goal. Plain words, one idea per sentence. */
 (function () {
   var add = {
-    mapSub: { en: "Every sign leads to one card. Each task takes 2 to 4 minutes.", de: "Jedes Schild führt zu einer Karte. Jede Aufgabe dauert 2 bis 4 Minuten." },
+    mapSub: { en: "Every sign leads to one card. Each task takes 3 to 5 minutes.", de: "Jedes Schild führt zu einer Karte. Jede Aufgabe dauert 3 bis 5 Minuten." },
     tileSetT: { en: "All {n} cards", de: "Alle {n} Karten" },
     setLead: { en: "{n} cards in nine types. Each type has its own shape at the edge, and each area its own sign. The 22 SDG and E4C cards of the original stay as they are.", de: "{n} Karten in neun Typen. Jeder Typ hat eine eigene Form am Rand, jeder Bereich ein eigenes Zeichen. Die 22 SDG- und E4C-Karten des Originals bleiben, wie sie sind." },
     printHint: { en: "To print: use your browser’s print function (Ctrl or Cmd + P) and save as PDF. Four cards per A4 page, 70 × 120 mm (tarot size). Print the fronts, then the backs. For both sides on one sheet, turn the paper on the long edge: the backs are mirrored for that.", de: "Zum Drucken: Druckfunktion des Browsers (Strg oder Cmd + P), als PDF sichern. Vier Karten pro A4-Seite, 70 × 120 mm (Tarot-Format). Zuerst die Vorderseiten drucken, dann die Rückseiten. Für beide Seiten auf einem Blatt: an der langen Kante wenden. Die Rückseiten sind dafür gespiegelt." },
@@ -963,7 +963,7 @@
     winP: { en: "Tasks and conversations never score points, so nobody says something to win. Estimating is fun without points: the surprise is the reward. At the end everyone points at the next game leader. Whoever wants points switches them on in the briefing under «More»; then they come only from estimating:", de: "Aufgaben und Gespräche geben nie Punkte, damit niemand etwas sagt, um zu gewinnen. Schätzen macht auch ohne Punkte Spass: Die Überraschung ist der Lohn. Am Schluss zeigen alle auf die nächste Spielleitung. Wer Punkte will, schaltet sie in der Einführung unter «Mehr» ein; dann gibt es sie nur fürs Schätzen:" },
     stationT: { en: "At every station (11 minutes)", de: "An jeder Station (11 Minuten)" },
     planNote: { en: "The 60-minute game spends ten minutes choosing and debriefing. That is where most of the learning happens.", de: "Das 60-Minuten-Spiel nutzt zehn Minuten fürs Wählen und Nachbesprechen. Dort passiert das meiste Lernen." },
-    mapSub: { en: "2 to 4 minutes, one step after another. The card says how long.", de: "2 bis 4 Minuten, ein Schritt nach dem anderen. Die Karte sagt, wie lange." },
+    mapSub: { en: "3 to 5 minutes, one step after another. The card says how long.", de: "3 bis 5 Minuten, ein Schritt nach dem anderen. Die Karte sagt, wie lange." },
 
     /* the board */
     boardPoints: { en: "Points for people (off by default)", de: "Punkte für Personen (normal aus)" },
@@ -1049,6 +1049,48 @@
     talkSayName: { en: "What you talk about is on the round card. {name} reads the question out and answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. {name} liest die Frage vor und antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." },
     trailIsSolo: { en: "Your trail", de: "Deine Spur" },
     talkSayNoName: { en: "What you talk about is on the round card. Whoever reads the question out answers first. Then the others, one after another. Nobody has to.", de: "Worüber ihr redet, steht auf der runden Karte. Wer die Frage vorliest, antwortet zuerst. Dann die anderen, eine Person nach der anderen. Niemand muss." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+/* v0.9: the name in one place, birds at the start, facts to marvel at and think about.
+ * To rename the game, change NAME and SUB here (and the <title> and og:title in index.html for link previews). */
+(function () {
+  var NAME = { en: "Trails", de: "Spuren" }, SUB = { en: "A card game about GreenComp", de: "Ein Kartenspiel zu GreenComp" };
+  var add = {
+    appName: NAME,
+    working: SUB,
+    appTitleRing: { en: NAME.en + " · Experience GreenComp", de: NAME.de + " · GreenComp erleben" },
+    foundWhat1: { en: NAME.en + " is a card game about nature and the future. You play it outdoors, with your hands, ears and eyes.", de: NAME.de + " ist ein Kartenspiel über Natur und Zukunft. Man spielt es draussen, mit Händen, Ohren und Augen." },
+    len5: { en: "{n} minutes · one card", de: "{n} Minuten · eine Karte" },
+    birdsOn: { en: "Birds at the start: on", de: "Vögel zum Start: an" },
+    birdsOff: { en: "Birds at the start: off", de: "Vögel zum Start: aus" },
+    birdsHint: { en: "Browsers only allow sound after the first tap, so the birds start with your first tap.", de: "Browser erlauben Ton erst nach dem ersten Antippen. Darum singen die Vögel beim ersten Tippen." },
+    factWow: { en: "To marvel at", de: "Zum Staunen" },
+    factThink: { en: "To think about", de: "Zum Nachdenken" },
+    factMore: { en: "Another one", de: "Noch einer" },
+    factsT: { en: "To marvel at and think about", de: "Zum Staunen und Nachdenken" },
+    factsSub: { en: "Researched facts, each with its source. One appears at every station.", de: "Recherchierte Fakten, jeder mit Quelle. An jeder Station erscheint einer." },
+    factSource: { en: "Source", de: "Quelle" },
+    navFacts: { en: "Facts", de: "Fakten" },
+    factsEyebrow: { en: "With or without the game", de: "Mit oder ohne Spiel" },
+    factsLead: { en: "{n} facts about the twelve skills of GreenComp: animals, plants, climate, courage. Each one researched, with its source. To read, pass on and think about.", de: "{n} Fakten zu den zwölf Fähigkeiten aus GreenComp: Tiere, Pflanzen, Klima, Mut. Jeder recherchiert, mit Quelle. Zum Lesen, Weitererzählen und Nachdenken." },
+    factsAll: { en: "All {n} facts", de: "Alle {n} Fakten" },
+    factsCard: { en: "All {n} for this card", de: "Alle {n} zu dieser Karte" },
+    factsShown: { en: "{n} of {m} facts", de: "{n} von {m} Fakten" },
+    factsForCard: { en: "To marvel at and think about", de: "Zum Staunen und Nachdenken" },
+    factShare: { en: "Share", de: "Teilen" },
+    factCopied: { en: "Copied", de: "Kopiert" },
+    factToCard: { en: "To the card", de: "Zur Karte" },
+    factsKindLabel: { en: "Kind of fact", de: "Art der Fakten" },
+    factsKindAll: { en: "All", de: "Alle" },
+    factsAreaLabel: { en: "Area", de: "Bereich" },
+    factsAreaAll: { en: "All areas", de: "Alle Bereiche" },
+    factsPlayT: { en: "Want to experience it yourself?", de: "Lust, es selbst zu erleben?" },
+    factsPlayP: { en: "Every fact belongs to a card. A card is a task you really do: outside, with hands, ears and eyes. Five minutes are enough.", de: "Jeder Fakt gehört zu einer Karte. Eine Karte ist eine Aufgabe, die man wirklich macht: draussen, mit Händen, Ohren und Augen. Ein paar Minuten reichen." },
+    foundLead: { en: "The question on the coaster is the start. Play it now, right here at the table. {n} minutes, nothing to know beforehand.", de: "Die Frage auf dem Deckel ist der Anfang. Spielt sie jetzt, hier am Tisch. {n} Minuten, ohne Vorwissen." },
+    foundPlay: { en: "Play now · {n} minutes", de: "Jetzt spielen · {n} Minuten" },
+    tileFactsT: { en: "To marvel at", de: "Zum Staunen" },
+    tileFactsP: { en: "{n} researched facts with sources. About animals, plants, climate and people who changed something. Also without the game.", de: "{n} recherchierte Fakten mit Quelle. Über Tiere, Pflanzen, Klima und Menschen, die etwas bewegt haben. Auch ohne Spiel." }
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();

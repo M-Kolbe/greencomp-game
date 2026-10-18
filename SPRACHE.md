@@ -1,4 +1,4 @@
-# Sprachregeln für GreenComp Spuren
+# Sprachregeln für Spuren
 
 Diese Regeln gelten für alle Karten und für alles, was die App sagt. Sie stützen sich auf DIN 8581-1 «Einfache Sprache» (2024) und auf die Leitlinien für klares Englisch von GOV.UK. Ziel ist, dass man jede Karte beim ersten Hören versteht, auch mit wenig Deutsch oder Englisch.
 

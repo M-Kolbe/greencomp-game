@@ -86,7 +86,7 @@
     quick: [
       { icon: "card", t: { en: "Draw a skill card", de: "Fähigkeitskarte ziehen" }, d: { en: "Read the curiosity question out loud.", de: "Die Neugier-Frage laut vorlesen." } },
       { icon: "fork", t: { en: "Draw a trail card", de: "Spurkarte ziehen" }, d: { en: "It decides how you do the task.", de: "Sie bestimmt, wie ihr die Aufgabe macht." } },
-      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "2 to 4 minutes, at the place where you are, one step after another. The card says how long.", de: "2 bis 4 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange." } },
+      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "3 to 5 minutes, at the place where you are, one step after another. The card says how long.", de: "3 bis 5 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange." } },
       { icon: "talk", t: { en: "Talk", de: "Reden" }, d: { en: "Draw a conversation card. Whoever asks answers first.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst." } }
     ],
     bag: [
@@ -133,9 +133,9 @@
     ],
     station: [
       { sec: 20, t: { en: "Listen", de: "Zuhören" }, d: { en: "Twenty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.", de: "Zwanzig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang." } },
-      { sec: 240, t: { en: "Task", de: "Aufgabe" }, d: { en: "Draw a skill card and a trail card, then do the three steps, one after another. The card says how long.", de: "Fähigkeitskarte und Spurkarte ziehen, dann die drei Schritte, einer nach dem anderen. Die Karte sagt, wie lange." } },
-      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. The rest of the time up to 7:20.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 7:20." } },
-      { sec: 120, t: { en: "Estimate", de: "Schätzen" }, d: { en: "Everyone guesses, then the answer. Who came closest?", de: "Alle schätzen, dann die Auflösung. Wer lag am nächsten?" } },
+      { sec: 300, t: { en: "Task", de: "Aufgabe" }, d: { en: "Draw a skill card and a trail card, then do the three steps, one after another. The card says how long.", de: "Fähigkeitskarte und Spurkarte ziehen, dann die drei Schritte, einer nach dem anderen. Die Karte sagt, wie lange." } },
+      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. The rest of the time up to 8:20.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 8:20." } },
+      { sec: 60, t: { en: "Estimate", de: "Schätzen" }, d: { en: "Everyone guesses quickly, then the answer. Who came closest?", de: "Alle schätzen schnell, dann die Auflösung. Wer lag am nächsten?" } },
       { sec: 100, t: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" }, d: { en: "One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.", de: "Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit." } }
     ],
     modes: [
