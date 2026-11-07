@@ -69,6 +69,25 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - **Ein Wort pro Publikum**: Für alles, was Spielende lesen, heisst es «Fähigkeit» (Fähigkeitskarte), auf Englisch «skill».
   «Kompetenz» steht nur in der Definitionszeile des JRC auf der Kartenrückseite und gegenüber dem JRC.
 
+## Neu in v1.0 (7. November 2026) · Klare Regeln
+
+- **Womit spielt ihr?** Neuer Schritt nach der Spieldauer: **Karten und App** (Papierkarten aus dem Beutel ziehen und eintippen,
+  die App hält die Zeit), **Nur App** (die App zieht jede Karte) oder **Nur Karten** (die App zeigt einmal den ganzen Ablauf zum
+  Vorlesen oder Drucken, dann kommen die Handys weg). Die Reihenfolge der Schritte bleibt immer gleich. Bei «Karten und App» stehen
+  die Eingaben für Papierkarten offen da: Fähigkeitskarte, Spurkarte (auch nach dem Schnipsen), Funkenkarte; beim Reden zählt die
+  runde Karte aus dem Beutel, beim Schätzen verweist die App aufs Lösungsheft.
+- **Jeder Schritt hat seine Sanduhr**, in der App, auf der Tafel und im Beutel. Feste Zeiten pro Station: Zuhören 0:30, Karten ziehen
+  ohne Uhr, Aufgabe 5:00, Reden 3:00, Schätzen 1:00, ein Satz und ein Fundstück 1:30 = 11 Minuten. Tempo und Gruppengrösse ändern
+  nur noch die Teile ausserhalb der Stationen. Alle Fähigkeitskarten zeigen jetzt «5 Min.». Auch Einführung, Wählen, Nachbesprechung,
+  Versprechen und nächste Spielleitung zeigen eine Sanduhr. Im Beutel liegen neu **zwei Sanduhren (5 und 1 Minute)**.
+- **Der Ablauf ist von Anfang an sichtbar**: In der Einführung steht «An jeder Station, Schritt für Schritt» mit Nummer, Sanduhr und
+  Zeit, auch beim kurzen Spiel. Der Deckel steht im Ablauf: Wer ihn schnipst und fängt, wählt die Spur.
+- **Handy-Regel geklärt**: Alle Handys liegen in der Mitte, auch das führende. Nur die Spielleitung nimmt es in die Hand, zwischen zwei
+  Schritten. Wer die Stille hütet, sammelt die Handys ein und passt auf sie auf. Die Einführung zeigt dazu vier Regeln.
+- **Eine Station** endet jetzt auch mit dem Versprechen. Der Funke ist dort Pflicht, weil es die einzige Station ist.
+- Anleitung: neuer Abschnitt «Karten, App oder beides», Ablauf einer Station mit «Karten ziehen», neue Zeiten, «Fünf Grundregeln»
+  (es waren immer fünf), Leichte Sprache mit Sanduhr. Tafel: Raum-Uhr mit Zuhören 0:30 und Satz 1:30.
+
 ## Neu in v0.9 (18. Oktober 2026)
 
 - **Mehr Zeit für die Aufgabe, weniger fürs Schätzen**: Jede Fähigkeitskarte hat eine Minute mehr (jetzt 3 bis 5 Minuten, die Karte

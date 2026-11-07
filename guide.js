@@ -76,7 +76,7 @@
     { id: "hazards", t: { en: "Note the hazards", de: "Gefahren notieren" }, d: { en: "Water, roads, bikes, things to trip on, poisonous plants. Check again on the day.", de: "Wasser, Strasse, Velos, Stolperstellen, giftige Pflanzen. Am Spieltag noch einmal kurz prüfen." } },
     { id: "rain", t: { en: "Plan B for rain", de: "Plan B für Regen" }, d: { en: "Which station works under a roof? The leading phone goes in a zip bag; the screen still works through the plastic. Rain is no reason to cancel.", de: "Welche Station geht unter einem Dach? Das Leitungs-Handy kommt in einen Zipbeutel; der Bildschirm reagiert auch durch die Folie. Regen ist kein Grund abzusagen." } },
     { id: "access", t: { en: "Check for barriers", de: "Barrieren prüfen" }, d: { en: "Can everyone reach every station, seated and without stairs? Every card has a second form.", de: "Ist jede Station sitzend und ohne Treppe erreichbar? Jede Karte hat eine zweite Form." } },
-    { id: "material", t: { en: "Get the material ready", de: "Material bereitlegen" }, d: { en: "Card set, hourglass or this phone, pens for the promise cards, four coasters for the stations, a zip bag.", de: "Kartenset, Sanduhr oder dieses Handy, Stifte für die Versprechen-Karten, vier Bierdeckel für die Stationen, ein Zipbeutel." } },
+    { id: "material", t: { en: "Get the material ready", de: "Material bereitlegen" }, d: { en: "Card set, the two hourglasses (5 and 1 minute) or this phone, pens for the promise cards, four coasters for the stations, a zip bag.", de: "Kartenset, die zwei Sanduhren (5 und 1 Minute) oder dieses Handy, Stifte für die Versprechen-Karten, vier Bierdeckel für die Stationen, ein Zipbeutel." } },
     { id: "phone", t: { en: "Charge one phone and test the sound", de: "Ein Handy laden und den Ton testen" }, d: { en: "It plays the sounds and keeps time. Try «Play now» up to the first step.", de: "Es spielt die Klänge und hält die Zeit. Probiert «Jetzt spielen» bis zum ersten Schritt aus." } },
     { id: "groups", t: { en: "Plan the groups", de: "Gruppen planen" }, d: { en: "Three to five people per group. With several groups, open the board and enter the groups.", de: "3 bis 5 Personen pro Gruppe. Bei mehreren Gruppen die Tafel öffnen und die Gruppen eintragen." } },
     { id: "time", t: { en: "Plan the time", de: "Zeit planen" }, d: { en: "Use the time planner below. Bigger groups talk a little longer.", de: "Nutzt den Zeitplaner unten. Grössere Gruppen reden etwas länger." } }
@@ -86,8 +86,14 @@
     quick: [
       { icon: "card", t: { en: "Draw a skill card", de: "Fähigkeitskarte ziehen" }, d: { en: "Read the curiosity question out loud.", de: "Die Neugier-Frage laut vorlesen." } },
       { icon: "fork", t: { en: "Draw a trail card", de: "Spurkarte ziehen" }, d: { en: "It decides how you do the task.", de: "Sie bestimmt, wie ihr die Aufgabe macht." } },
-      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "3 to 5 minutes, at the place where you are, one step after another. The card says how long.", de: "3 bis 5 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange." } },
-      { icon: "talk", t: { en: "Talk", de: "Reden" }, d: { en: "Draw a conversation card. Whoever asks answers first.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst." } }
+      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "Five minutes, one hourglass, at the place where you are, one step after another.", de: "Fünf Minuten, eine Sanduhr, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen." } },
+      { icon: "talk", t: { en: "Talk", de: "Reden" }, d: { en: "Three minutes. Draw a conversation card. Whoever asks answers first.", de: "Drei Minuten. Gesprächskarte ziehen. Wer fragt, antwortet zuerst." } }
+    ],
+    /* v1.0: three ways to play, the same order every time. */
+    kits: [
+      { icon: "card", t: { en: "Cards and app", de: "Karten und App" }, d: { en: "Draw the paper cards from the bag and tap them in. The app keeps time and shows what comes next.", de: "Die Papierkarten aus dem Beutel ziehen und eintippen. Die App hält die Zeit und zeigt, was als Nächstes kommt." } },
+      { icon: "phone", t: { en: "App only", de: "Nur App" }, d: { en: "No card set needed. The app draws every card.", de: "Kein Kartenset nötig. Die App zieht jede Karte." } },
+      { icon: "hourglass", t: { en: "Cards only", de: "Nur Karten" }, d: { en: "Card set, two hourglasses and the answer booklet. The run sheet says every step and every time.", de: "Kartenset, zwei Sanduhren und das Lösungsheft. Der Ablauf nennt jeden Schritt und jede Zeit." } }
     ],
     bag: [
       { type: "area", n: 4, edge: "edge-square", t: { en: "Area cards", de: "Bereichskarten" }, d: { en: "Travel with the group; the finds are laid on them. QR code for the station sound indoors.", de: "Reisen mit der Gruppe mit; auf ihnen liegen die Fundstücke. QR-Code für den Klang zur Station, drinnen." } },
@@ -101,20 +107,20 @@
       { type: "joker", n: 4, edge: "edge-star", t: { en: "Joker cards", de: "Joker-Karten" }, d: { en: "Blank. The group writes its own card for its place. Once per game.", de: "Leer. Die Gruppe schreibt eine eigene Karte für ihren Ort. Einmal pro Spiel." } }
     ],
     extras: [
-      { t: { en: "5-minute hourglass", de: "5-Minuten-Sanduhr" }, d: { en: "When the sand has run through, time is up, even mid-sentence.", de: "Wenn der Sand durch ist, ist Schluss, auch mitten im Satz." } },
+      { t: { en: "Two hourglasses: 5 minutes and 1 minute", de: "Zwei Sanduhren: 5 Minuten und 1 Minute" }, d: { en: "Every step at a station has its hourglass. Task: 5 minutes. Talk: the 1-minute one three times. Estimate: once. When the sand has run through, time is up, even mid-sentence. With the app, the phone is the hourglass.", de: "Jeder Schritt an einer Station hat seine Sanduhr. Aufgabe: 5 Minuten. Reden: die 1-Minuten-Uhr dreimal. Schätzen: einmal. Wenn der Sand durch ist, ist Schluss, auch mitten im Satz. Mit der App ist das Handy die Sanduhr." } },
       { t: { en: "Answer booklet", de: "Lösungsheft" }, d: { en: "For a game without a board.", de: "Für ein Spiel ohne Tafel." } },
       { t: { en: "Coasters", de: "Bierdeckel" }, d: { en: "Twelve, one per question. They lie on tables where people meet. A phone camera on the code, and the game starts at that table. In the expedition, a coaster marks each station.", de: "Zwölf, einer pro Frage. Sie liegen auf Tischen, wo Leute zusammensitzen. Handykamera auf den Code, und das Spiel beginnt an diesem Tisch. Bei der Expedition markiert ein Deckel jede Station." } }
     ],
     rules: [
       { icon: "tree", t: { en: "Real first", de: "Zuerst echt" }, d: { en: "Whatever can be done for real is done for real. The window opens only when the real thing is not possible.", de: "Was echt geht, wird echt gemacht. Das Fenster geht nur auf, wenn es echt nicht geht." } },
-      { icon: "phone", t: { en: "Phones face down", de: "Handys nach unten" }, d: { en: "All phones lie in the middle, screens down, for the whole game. The phone that leads the game too: it chimes when the time is up.", de: "Alle Handys liegen das ganze Spiel über in der Mitte, Bildschirm nach unten. Auch das Handy, das das Spiel führt: Es klingt, wenn die Zeit um ist." } },
+      { icon: "phone", t: { en: "Phones face down", de: "Handys nach unten" }, d: { en: "All phones lie in the middle, screens down, for the whole game. The phone that leads the game too: it chimes when the time is up. Only the game leader picks it up, between two steps.", de: "Alle Handys liegen das ganze Spiel über in der Mitte, Bildschirm nach unten. Auch das Handy, das das Spiel führt: Es klingt, wenn die Zeit um ist. Nur die Spielleitung nimmt es in die Hand, zwischen zwei Schritten." } },
       { icon: "talk", t: { en: "Whoever asks answers first", de: "Wer fragt, antwortet zuerst" }, d: { en: "On every conversation card.", de: "Auf jeder Gesprächskarte." } },
       { icon: "cloud", t: { en: "Outdoors in any weather", de: "Draussen bei jedem Wetter" }, d: { en: "Rain is no reason to stay in.", de: "Regen ist kein Grund, drinnen zu bleiben." } },
       { icon: "hand", t: { en: "Nobody has to", de: "Niemand muss" }, d: { en: "Every task is an offer. You may pass, and nobody asks why.", de: "Jede Aufgabe ist ein Angebot. Passen ist erlaubt, und niemand fragt nach dem Warum." } }
     ],
     roles: [
-      { icon: "card", t: { en: "Game leader", de: "Spielleitung" }, d: { en: "Reads the card out loud and keeps time.", de: "Liest die Karte vor und hält die Zeit." } },
-      { icon: "phone", t: { en: "Silence keeper", de: "Stille-Hüterin oder Stille-Hüter" }, d: { en: "Collects the phones at the start. The only one who may lift a phone, and only for a window.", de: "Sammelt zu Beginn die Handys ein. Darf als Einzige oder Einziger ein Handy heben, und nur für ein Fenster." } },
+      { icon: "card", t: { en: "Game leader", de: "Spielleitung" }, d: { en: "Reads the card out loud, turns the hourglass and keeps time. Holds the leading phone and picks it up only between two steps.", de: "Liest die Karte vor, dreht die Sanduhr und hält die Zeit. Hat das führende Handy und nimmt es nur zwischen zwei Schritten in die Hand." } },
+      { icon: "phone", t: { en: "Silence keeper", de: "Stille-Hüterin oder Stille-Hüter" }, d: { en: "Collects the phones at the start and guards them. Opens a window only when the real thing is not possible.", de: "Sammelt zu Beginn die Handys ein und passt auf sie auf. Öffnet ein Fenster nur, wenn es echt nicht geht." } },
       { icon: "eye", t: { en: "Tracker", de: "Spurenleserin oder Spurenleser" }, d: { en: "Checks that the task really follows the trail card, for example really with eyes closed.", de: "Achtet darauf, dass die Aufgabe wirklich auf dem Weg der Spurkarte gemacht wird, zum Beispiel wirklich mit geschlossenen Augen." } }
     ],
     /* 60 minutes: arrive 2, briefing 1, choose 2, four stations of 11, debrief 8, promise 2, next leader 1.
@@ -132,11 +138,12 @@
       { min: 1, k: "leader", t: { en: "Next game leader", de: "Nächste Spielleitung" }, d: { en: "Count to three, everyone points at the same time at the person who leads the next game. No points, no winner.", de: "Bis drei zählen, alle zeigen gleichzeitig auf die Person, die das nächste Spiel leitet. Ohne Punkte, ohne Sieg." } }
     ],
     station: [
-      { sec: 20, t: { en: "Listen", de: "Zuhören" }, d: { en: "Twenty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.", de: "Zwanzig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang." } },
-      { sec: 300, t: { en: "Task", de: "Aufgabe" }, d: { en: "Draw a skill card and a trail card, then do the three steps, one after another. The card says how long.", de: "Fähigkeitskarte und Spurkarte ziehen, dann die drei Schritte, einer nach dem anderen. Die Karte sagt, wie lange." } },
-      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. The rest of the time up to 8:20.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 8:20." } },
+      { sec: 30, t: { en: "Listen", de: "Zuhören" }, d: { en: "Thirty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.", de: "Dreissig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang." } },
+      { sec: 0, t: { en: "Draw the cards", de: "Karten ziehen" }, d: { en: "Skill card, then trail card (or flick the coaster: whoever catches it chooses the trail), then a spark. No clock.", de: "Fähigkeitskarte, dann Spurkarte (oder den Deckel schnipsen: Wer ihn fängt, wählt die Spur), dann ein Funke. Ohne Uhr." } },
+      { sec: 300, t: { en: "Task", de: "Aufgabe" }, d: { en: "The three steps, outside, one after another. One hourglass of five minutes for all three.", de: "Die drei Schritte, draussen, einer nach dem anderen. Eine Sanduhr von fünf Minuten für alle drei." } },
+      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. Three minutes.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Drei Minuten." } },
       { sec: 60, t: { en: "Estimate", de: "Schätzen" }, d: { en: "Everyone guesses quickly, then the answer. Who came closest?", de: "Alle schätzen schnell, dann die Auflösung. Wer lag am nächsten?" } },
-      { sec: 100, t: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" }, d: { en: "One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.", de: "Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit." } }
+      { sec: 90, t: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" }, d: { en: "One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.", de: "Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit." } }
     ],
     modes: [
       { id: "expedition", t: { en: "Expedition", de: "Expedition" }, meta: { en: "60 min · 3–5 per group", de: "60 Min. · 3–5 pro Gruppe" } },
@@ -166,7 +173,7 @@
     fun: [
       { icon: "spark", t: { en: "Sparks", de: "Funken" }, d: { en: "At every station the group decides whether to draw a spark. Once per game is a must.", de: "An jeder Station entscheidet die Gruppe, ob sie einen Funken zieht. Einmal pro Spiel ist Pflicht." } },
       { icon: "leaf", t: { en: "Collecting finds", de: "Spuren sammeln" }, d: { en: "After each station the group finds a real object outside (leaf, stone, cone) and takes it along. At the debrief, each group’s four finds lie side by side.", de: "Nach jeder Station sucht die Gruppe draussen ein echtes Fundstück (Blatt, Stein, Zapfen) und nimmt es mit. Bei der Nachbesprechung liegen die vier Fundstücke jeder Gruppe nebeneinander." } },
-      { icon: "hourglass", t: { en: "One clock", de: "Eine Uhr" }, d: { en: "One hourglass for the whole task: a real one, or the one in the phone, which then lies face down. Nobody looks at a device. When the sand has run through, time is up.", de: "Eine Sanduhr für die ganze Aufgabe: eine echte oder die im Handy, das dann mit dem Bildschirm nach unten liegt. Niemand schaut auf ein Gerät. Wenn der Sand durch ist, ist Schluss." } },
+      { icon: "hourglass", t: { en: "An hourglass for every step", de: "Eine Sanduhr für jeden Schritt" }, d: { en: "Listen, task, talk, estimate, one sentence: every step has its hourglass. A real one, or the one in the phone, which then lies face down. Nobody looks at a device. When the sand has run through, time is up.", de: "Zuhören, Aufgabe, Reden, Schätzen, ein Satz: Jeder Schritt hat seine Sanduhr. Eine echte oder die im Handy, das dann mit dem Bildschirm nach unten liegt. Niemand schaut auf ein Gerät. Wenn der Sand durch ist, ist die Zeit um." } },
       { icon: "joker", t: { en: "Joker", de: "Joker" }, d: { en: "Once per game the group may write its own card instead of the one it drew: a question, three steps, a clear end. About three minutes.", de: "Einmal pro Spiel darf die Gruppe statt der gezogenen Karte eine eigene schreiben: eine Frage, drei Schritte, ein klares Ende. Etwa drei Minuten." } },
       { icon: "coaster", t: { en: "Flicking", de: "Schnipsen" }, d: { en: "Whoever flicks the coaster off the table edge and catches it may choose the trail. Ten seconds.", de: "Wer den Deckel von der Tischkante schnipst und fängt, darf die Spur wählen. Zehn Sekunden." } }
     ],
@@ -190,6 +197,7 @@
         { en: "Take a skill card. It has a question.", de: "Nehmt eine Fähigkeitskarte. Darauf steht eine Frage." },
         { en: "Take a trail card. It says how you do the task.", de: "Nehmt eine Spurkarte. Sie sagt, wie ihr die Aufgabe macht." },
         { en: "Do what the card says. For example: touch a tree.", de: "Macht, was auf der Karte steht. Zum Beispiel: einen Baum anfassen." },
+        { en: "Every step has an hourglass. When the sand is through, the step is over.", de: "Jeder Schritt hat eine Sanduhr. Wenn der Sand durch ist, ist der Schritt vorbei." },
         { en: "You may also write your own card. It is called the joker.", de: "Ihr dürft auch eine eigene Karte schreiben. Sie heisst Joker." },
         { en: "Then talk about it.", de: "Dann redet darüber." }
       ] },

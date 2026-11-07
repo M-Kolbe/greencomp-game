@@ -384,7 +384,7 @@
         put(detail, h("b", null, T("total60")));
         content = [bar, detail,
           h("h4", null, T("stationT")),
-          h("ol", { class: "station-list" }, D.guide.station.map(function (p) { return h("li", null, h("span", { class: "num" }, p.sec % 60 ? (p.sec > 60 ? G.mmss(p.sec) + " min" : T("seconds", { n: p.sec })) : T("minutes", { n: p.sec / 60 })), h("b", null, L(p.t)), h("span", null, L(p.d))); })),
+          h("ol", { class: "station-list" }, D.guide.station.map(function (p) { return h("li", null, h("span", { class: "num" }, !p.sec ? "—" : p.sec % 60 ? (p.sec > 60 ? G.mmss(p.sec) + " min" : T("seconds", { n: p.sec })) : T("minutes", { n: p.sec / 60 })), h("b", null, L(p.t)), h("span", null, L(p.d))); })),
           h("div", { class: "row" }, h("a", { class: "btn btn--sign", href: "#tafel" }, T("openBoard") + " →"))];
       } else {
         content = [h("ol", { class: "steps-list" }, m.steps.map(function (st) { return h("li", null, L(st)); })), h("p", { class: "note" }, L(m.note)),
@@ -399,6 +399,7 @@
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("aboutT")), G.aboutTiles()),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("quickT")),
           h("ol", { class: "quick" }, D.guide.quick.map(function (q, i) { return h("li", null, h("span", { class: "quick-n" }, String(i + 1)), h("span", { class: "tile-ico" }, G.icon(q.icon)), h("b", null, L(q.t)), h("span", null, L(q.d))); }))),
+        h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("kitsT")), h("p", { class: "lead" }, T("kitsLead")), h("div", { class: "icon-grid three" }, D.guide.kits.map(iconTile))),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("rulesT")), h("div", { class: "icon-grid" }, D.guide.rules.map(iconTile))),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("modesT")), modePanel()),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("rolesT")), h("div", { class: "icon-grid three" }, D.guide.roles.map(iconTile))),

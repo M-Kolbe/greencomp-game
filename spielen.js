@@ -14,12 +14,15 @@
   var COMMUNITY = "https://education-for-climate.ec.europa.eu/community/GreenCompGame";
   var S = null, runs = [], skipHandler = null;
 
-  function fresh() { return { v: 2, i: 0, who: null, len: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
+  function fresh() { return { v: 2, i: 0, who: null, len: null, kit: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
   function save() { store.set("game", S); }
   function load() { var g = store.get("game", null); if (!g || g.v !== 2) return fresh(); g.place = g.place || "out"; return g; }
   /* Points are a switch, off by default: estimating is fun without them (see README, v0.7). */
   G.withPoints = function () { return !!store.get("points", false); };
   function solo() { return S.who === "solo"; }
+  /* v1.0: what the group plays with. app: the app draws everything. both: paper cards from the bag, tapped in.
+   * cards: paper cards only; the app shows the run sheet once and then stays out of the game. */
+  function both() { return S.kit === "both"; }
   function stations() { return S.len === "exp" || S.len === "one"; }
   /* «Original plus»: round 0 of the JRC game, a UN goal first. */
   function isR0() { return S.goal === "sdg" || !!S.r0; }
@@ -51,30 +54,29 @@
 
   /* ---------- time ----------
    * Seconds for one part of the game. Sixty minutes: arrive 2, briefing 1, choose 2, four stations of 11, debrief 8,
-   * promise 2, next game leader 1. A station: listen 20 s, three quick draws, the task as long as the card says,
-   * talking for the rest of 8:20, estimate 1, one sentence and a find 1:40. Groups above four talk a little longer;
-   * the pace stretches or shortens everything except the fixed silence.
-   * task: seconds of the task on the card (3 to 5 minutes); unknown before the card is drawn, then 4 minutes. */
+   * promise 2, next game leader 1. v1.0: a station has fixed hourglasses, the same in the app, on the board and with
+   * the paper set: listen 0:30, task 5:00, talk 3:00, estimate 1:00, one sentence and a find 1:30 = 11 minutes.
+   * Drawing the cards has no clock. The pace only stretches the parts outside the stations. */
   function durFor(kind, len, n, pace, r0, task) {
     var f = PACE[pace] || 1, sec;
     task = task || 240;
     switch (kind) {
       case "silence": return 60;
       case "arrive": sec = 60; break;
-      case "sound": return 20;
-      case "pick": return 15;
+      case "sound": return 30;
+      case "pick": return 0;
       case "walk": return 640;
       case "brief": sec = len === "exp" || len === "one" ? 60 : 30; break;
       case "choose": sec = 120 + (r0 ? 60 : 0); break;
-      case "task": sec = task; break;
-      case "talk": sec = Math.max(90, 435 - task + 20 * Math.max(0, n - 4)); break;
-      case "est": sec = 60; break;
-      case "sentence": sec = len === "five" ? clamp(12 + 12 * n, 45, 120) : 100; break;
+      case "task": return 300;
+      case "talk": return 180;
+      case "est": return 60;
+      case "sentence": return len === "five" ? 60 : 90;
       case "what": sec = 160; break;
       case "sowhat": sec = 150; break;
       case "nowwhat": sec = 170; break;
       case "debrief": sec = 120; break;
-      case "promise": sec = 120; break;
+      case "promise": sec = len === "one" ? 60 : 120; break;
       case "leader": sec = len === "exp" ? 60 : 20; break;
       case "end": sec = 60; break;
       default: return 0;
@@ -82,7 +84,7 @@
     return Math.round(sec * f / 5) * 5;
   }
   var KIND = { card: "pick", trail: "pick", spark: "pick" };
-  var TIMED = { silence: 1, brief: 1, choose: 1, sound: 1, task: 1, talk: 1, est: 1, sentence: 1, what: 1, sowhat: 1, nowwhat: 1, debrief: 1, promise: 1, leader: 1 };
+  var TIMED = { silence: 1, brief: 1, choose: 1, sound: 1, task: 1, talk: 1, est: 1, sentence: 1, what: 1, sowhat: 1, nowwhat: 1, debrief: 1, promise: 1, leader: 1, end: 0 };
   function people() { return solo() ? 1 : Math.max(2, S.names.length); }
   function taskSec(st) { var c = st && !st.joker && G.COMP[st.comp]; return c && c.minutes ? c.minutes * 60 : 240; }
   function dur(kind, st) { return durFor(kind, S.len, people(), S.pace, isR0(), taskSec(st)); }
@@ -90,22 +92,26 @@
   /* ---------- the plan: every step of the chosen game ----------
    * One station is the way in: silence, briefing, the station, then choose and plan in a short debrief.
    * The expedition chooses before the first station, or after it (later), when the group already knows what a card is. */
-  function planFor(who, len, later) {
+  function planFor(who, len, later, kit) {
     var p = [{ id: "who", ph: "setup" }];
     if (who === "room") return p.concat([{ id: "room", ph: "setup" }]);
     if (!who) return p;
     p.push({ id: "len", ph: "setup" });
     if (!len) return p;
+    p.push({ id: "kit", ph: "setup" });
+    if (kit === undefined) kit = "app";
+    if (!kit) return p;
+    if (kit === "cards") return p.concat([{ id: "sheet", ph: "setup" }]);
     if (who !== "solo") p.push({ id: "names", ph: "setup" });
     if (len === "walk") return p.concat([{ id: "brief", ph: "start" }, { id: "card", ph: "play", k: 0 }, { id: "walk", ph: "play", k: 0 }]);
     if (len === "five") return p.concat([{ id: "brief", ph: "start" }], ["card", "trail", "task", "sentence"].map(function (id) { return { id: id, ph: "play", k: 0 }; }), [{ id: "end", ph: "end" }]);
     p.push({ id: "silence", ph: "start" }, { id: "brief", ph: "start" });
     function station(k) { STATION.forEach(function (id) { p.push({ id: id, ph: "st" + k, k: k }); }); }
-    if (len === "one") { station(0); return p.concat([{ id: "debrief", ph: "debrief" }, { id: "leader", ph: "end" }]); }
+    if (len === "one") { station(0); return p.concat([{ id: "debrief", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]); }
     for (var k = 0; k < 4; k++) { if (k === (later ? 1 : 0)) p.push({ id: "choose", ph: "choose" }); station(k); }
     return p.concat([{ id: "what", ph: "debrief" }, { id: "sowhat", ph: "debrief" }, { id: "nowwhat", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]);
   }
-  function plan() { return planFor(S.who, S.len, S.later); }
+  function plan() { return planFor(S.who, S.len, S.later, S.kit); }
   function phLabel(ph, len) {
     len = len || S.len;
     if (ph === "setup") return T("phSetup");
@@ -136,7 +142,22 @@
   /* What one station holds, with minutes, for the briefing: listen, task, talk, estimate, one sentence. */
   function stationLine() {
     var n = people(), f = function (k, sec) { return T(k) + " " + durLabel(sec); };
-    return [f("stListen", dur("sound")), T("stTask", { a: 3, b: 5 }), f("stTalk", Math.round(durFor("talk", S.len, n, S.pace, false, 240) / 60) * 60), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
+    return [f("stListen", dur("sound")), f("stTaskW", dur("task")), f("stTalk", dur("talk")), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
+  }
+
+  /* v1.0: what happens at a station, step by step, each with its hourglass. Shown in the briefing and on the run sheet,
+   * so that everyone knows from the start what comes next. */
+  function stationSteps(five) {
+    function li(t, sec, sub) { return h("li", null, h("span", { class: "flow-time num" }, sec ? [G.icon("hourglass", "flow-ico"), " " + G.mmss(sec)] : "—"), h("span", null, h("b", null, t), sub ? h("small", null, sub) : null)); }
+    var out = five ? [] : [li(T("flowListen"), durFor("sound", S.len)), ];
+    out.push(li(T("flowDraw"), 0, five ? T("flowDrawSub5") : T("flowDrawSub")));
+    out.push(li(T("flowTask"), durFor("task", S.len), T("flowTaskSub")));
+    if (!five) { out.push(li(T("flowTalk"), durFor("talk", S.len), T("flowTalkSub"))); out.push(li(T("flowEst"), durFor("est", S.len), T("flowEstSub"))); }
+    out.push(li(five ? T("flowSentence5") : T("flowSentence"), durFor("sentence", S.len), five ? null : T("flowSentenceSub")));
+    return h("ol", { class: "flow-list" }, out);
+  }
+  function kitNote() {
+    return S.kit === "both" ? h("p", { class: "note" }, "🃏 " + T("kitBothNote")) : S.kit === "app" ? h("p", { class: "note" }, "📱 " + T("kitAppNote")) : null;
   }
 
   /* ---------- per-station state ---------- */
@@ -199,7 +220,7 @@
   }
   function timer(sec, opts) {
     opts = opts || {};
-    var hg = opts.glass ? G.hourglass() : null;
+    var hg = opts.glass === false ? null : G.hourglass();
     var clock = h("p", { class: "clock" }, G.mmss(sec));
     var phase = h("p", { class: "lead", "aria-live": "polite" }, opts.label || "");
     var btn = h("button", { type: "button", class: "btn btn--sign btn--big" }, opts.start || T("startTime", { t: G.mmss(sec) }));
@@ -344,7 +365,7 @@
         need: function () { return S.who ? null : T("needChoice"); } };
     },
     len: function (step, st, ctl) {
-      function pickLen(id) { if (S.len !== id) { S.len = id; S.st = []; S.leader = null; S.dots = {}; S.choice = null; S.final = null; S.done = false; S.later = false; } save(); ctl.go(1); }
+      function pickLen(id) { if (S.len !== id) { S.len = id; S.kit = S.kit || null; S.st = []; S.leader = null; S.dots = {}; S.choice = null; S.final = null; S.done = false; S.later = false; } save(); ctl.go(1); }
       var n = Math.max(2, S.names.length || 4);
       var opts = solo()
         ? [["five", "hourglass", T("len5", { n: totalMin("solo", "five", 1, S.pace) }), T("len5SubSolo")], ["walk", "walk", T("lenWalk"), T("lenWalkSub")]]
@@ -354,6 +375,33 @@
       return { icon: "hourglass", title: solo() ? T("wLenTSolo") : T("wLenT"), say: solo() ? T("wLenSaySolo") : T("wLenSay"),
         body: h("div", { class: "choices" }, opts.map(function (o) { return choice(S.len === o[0], o[1], o[2], o[3], function () { pickLen(o[0]); }); })),
         need: function () { return S.len ? null : T("needChoice"); } };
+    },
+    /* v1.0: what do you play with? It changes the words on the steps, never the order. */
+    kit: function (step, st, ctl) {
+      function pick(id) { S.kit = id; save(); ctl.go(1); }
+      return { icon: "card", title: T("wKitT"), say: T("wKitSay"),
+        body: [h("div", { class: "choices" },
+          choice(S.kit === "both", "card", T("kitBoth"), solo() ? T("kitBothSubSolo") : T("kitBothSub"), function () { pick("both"); }),
+          choice(S.kit === "app", "phone", T("kitApp"), T("kitAppSub"), function () { pick("app"); }),
+          choice(S.kit === "cards", "hourglass", T("kitCards"), T("kitCardsSub"), function () { pick("cards"); })),
+          h("p", { class: "small muted" }, T("kitNote"))],
+        need: function () { return S.kit ? null : T("needChoice"); } };
+    },
+    /* Paper only: the run sheet, once, to read out or print. Then the phone goes away. */
+    sheet: function (step, st, ctl) {
+      var five = S.len === "five", walk = S.len === "walk";
+      return { icon: "hourglass", title: T("wSheetT"), say: walk ? T("wSheetSayWalk") : T("wSheetSay"), last: true,
+        body: [
+          h("section", { class: "brief-sec" }, h("h3", null, T("sheetRules")),
+            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))), solo() ? null : h("li", null, T("rulePhonesPaper")))),
+          stations() && !solo() ? h("section", { class: "brief-sec" }, h("h3", null, T("sheetBefore")), h("ol", { class: "steps-list" }, h("li", null, T("sheetBefore1")), h("li", null, T("sheetBefore2")), h("li", null, T("sheetBefore3")))) : null,
+          walk ? h("p", { class: "lead" }, T("sheetWalk")) : h("section", { class: "brief-sec" }, h("h3", null, five ? T("flowT5") : T("stEachSteps")), stationSteps(five)),
+          walk ? null : h("section", { class: "brief-sec" }, h("h3", null, T("sheetGlass")), h("p", null, T("sheetGlassP"))),
+          stations() && !solo() ? h("section", { class: "brief-sec" }, h("h3", null, T("sheetAfter")), h("ol", { class: "steps-list" }, h("li", null, T("sheetAfter1")), h("li", null, T("sheetAfter2")), h("li", null, T("sheetAfter3")))) : null,
+          h("div", { class: "row no-print" },
+            h("button", { type: "button", class: "btn btn--sign", onclick: function () { window.print(); } }, "🖨 " + T("sheetPrint")),
+            h("a", { class: "btn", href: "#loesungen" }, T("sheetAnswers")),
+            h("button", { type: "button", class: "btn btn--ghost", onclick: function () { S.kit = "both"; save(); ctl.go(1); } }, T("sheetUseApp")))] };
     },
     names: function (step, st, ctl) {
       var list = h("div", { class: "name-list" });
@@ -398,7 +446,10 @@
         var list = solo()
           ? h("ul", { class: "checklist big-list" }, h("li", null, T("ready1S")), h("li", null, T("ready2S")), h("li", null, T("ready3S")))
           : h("ul", { class: "checklist big-list" }, h("li", null, T("ready1G")), h("li", null, T("ready2G")), h("li", null, T("rule3"))) ;
-        return { icon: "tree", title: T("wReadyT"), say: solo() ? T("wReadySaySolo") : T("wReadySay"), body: [h("p", { class: "about-line" }, L(solo() ? D.about.briefSolo : D.about.brief)), list, h("details", { class: "panel" }, h("summary", null, T("settingsT")), settings)], next: solo() ? T("imReady") : T("weAreReady"),
+        return { icon: "tree", title: T("wReadyT"), say: solo() ? T("wReadySaySolo") : T("wReadySay"), body: [h("p", { class: "about-line" }, L(solo() ? D.about.briefSolo : D.about.brief)), list,
+          S.len === "five" ? h("section", { class: "brief-sec" }, h("h3", null, T("flowT5")), stationSteps(true)) : null, kitNote(),
+          timer(dur("brief"), { hint: T("briefHint") }),
+          h("details", { class: "panel" }, h("summary", null, T("settingsT")), settings)], next: solo() ? T("imReady") : T("weAreReady"),
           read: function () { return L(solo() ? D.about.briefSolo : D.about.brief); } };
       }
       if (!S.goal) { var pg = store.get("prep", {}); if (pg.goal) S.goal = pg.goal; if (pg.e4c) S.e4c = pg.e4c; }
@@ -418,7 +469,7 @@
         var segs = runPlan(S.who, S.len, people(), S.pace, isR0()), total = Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60);
         put(runBox, h("div", { class: "run-bar", role: "list", "aria-label": T("runT") }, segs.map(function (x) {
           return h("div", { class: "run-seg run-" + (x.ph.indexOf("st") === 0 ? "st" + (+x.ph.slice(2) + 1) : x.ph), role: "listitem", style: { flexGrow: String(Math.max(1, x.min)) } }, h("b", null, x.label), h("small", null, T("minShort", { n: x.min })));
-        })), h("p", { class: "run-station" }, h("b", null, T("stEach") + " "), stationLine()), h("p", { class: "small muted" }, T("runTotal", { n: total })));
+        })), h("div", { class: "run-station" }, h("p", null, h("b", null, T("stEachSteps"))), stationSteps(false)), h("p", { class: "small muted" }, T("runTotal", { n: total })));
         put(paceBox, radioChips(T("paceT"), ["calm", "normal", "brisk"].map(function (p) {
           return { id: p, label: T(p === "calm" ? "paceCalm" : p === "brisk" ? "paceBrisk" : "paceNormal") + " · " + T("minShort", { n: totalMin(S.who, S.len, people(), p, isR0()) }) };
         }), S.pace, function (p) { S.pace = p; save(); paintRun(); }));
@@ -437,15 +488,16 @@
         body: [
           h("p", { class: "about-line" }, L(D.about.brief)),
           h("section", { class: "brief-sec" }, h("h3", null, "1 · " + T("goalQ")), goalBox),
-          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("runT")), runBox),
-          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rules3T")),
-            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))))),
+          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("runT")), runBox, kitNote()),
+          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rules4T")),
+            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))), h("li", null, T("rulePhones")))),
           h("section", { class: "brief-sec" }, h("h3", null, "4 · " + T("rolesShort")), h("p", { class: "small muted" }, T("ready2G")), rolesBox),
           h("section", { class: "brief-sec" }, h("h3", null, T("placeQ")), placeBox),
+          timer(dur("brief"), { hint: T("briefHint") }),
           more],
         read: function () {
           var g = goalText(), segs = runPlan(S.who, S.len, people(), S.pace, isR0());
-          return [L(D.about.brief), g ? T("briefSayGoal", { goal: g }) : "", T("runTotal", { n: Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60) }), T("stEach") + " " + stationLine(), T("rules3T"), T("rule1"), T("rule2"), T("rule3"), T("ready2G")].filter(Boolean).join(". ");
+          return [L(D.about.brief), g ? T("briefSayGoal", { goal: g }) : "", T("runTotal", { n: Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60) }), T("stEach") + " " + stationLine(), T("rules4T"), T("rule1"), T("rule2"), T("rule3"), T("rulePhones"), T("ready2G")].filter(Boolean).join(". ");
         },
         next: T("weAreReady") };
     },
@@ -455,7 +507,7 @@
         var si = G.pick(D.silence.filter(function (x) { return x.id !== S.sil; })); S.sil = si.id; save();
         var card = G.zoomOne(G.silenceMini(si), G.silenceBack()); if (!G.reduced) card.classList.add("dealt"); put(slot, card); Voice.speak(L(si.title) + " " + L(si.text), "narrator");
       } }, "✦ " + T("drawSilence"));
-      return { icon: "feather", title: T("wSilT"), say: T("wSilSay"),
+      return { icon: "feather", title: T("wSilT"), say: both() ? T("wSilSayBoth") : T("wSilSay"),
         body: [h("div", { class: "row" }, drawBtn), slot,
           timer(dur("silence"), { start: T("start60"), hint: T("silHint"), onEnd: function () { G.award("silence"); } })] };
     },
@@ -539,7 +591,7 @@
         } }, "↷ " + T("chooseLater")), h("span", { class: "small muted" }, T("chooseLaterSub"))) : null;
       paintR0(); paint();
       return { icon: "compass", kicker: phLabel(step.ph), title: T("wChooseT"), say: (S.later ? T("chooseAfterOne") + " " : "") + (isR0() ? T("wChooseSayR0") : T("wChooseSay")),
-        body: [r0Box, status, grid, result, direct, later],
+        body: [r0Box, timer(dur("choose"), { hint: T("chooseHint") }), status, grid, result, direct, later],
         read: function () { return isR0() ? T("wChooseSayR0") : T("wChooseSay"); },
         need: function () { if (isR0() && !S.sdg) return T("needSdg"); return S.choice ? null : T("needChooseComp"); } };
     },
@@ -601,9 +653,9 @@
       if (st.comp) showCard(false);
       else put(slot, h("button", { type: "button", class: "deck", onclick: function () { draw(); } }, h("span", { class: "deck-c" }), h("span", { class: "deck-c" }), h("span", { class: "deck-top" }, G.icon("card", "deck-ico"), h("b", null, "✦ " + T("drawCard")))));
       paintJoker();
-      var paper = h("details", { class: "panel" }, h("summary", null, T("paperCard")),
+      var paper = h("details", { class: "panel", open: both() && !st.comp ? true : null }, h("summary", null, T("paperCard")),
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
-      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: (both() ? T(solo() ? "wCardSayBothSolo" : "wCardSayBoth") : solo() ? T("wCardSaySolo") : T("wCardSay")) + (stations() && !solo() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
         read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
@@ -631,16 +683,17 @@
           }, G.reduced ? 0 : 1000);
         } }, "✦ " + T("drawTrail"));
         put(box, f, h("div", { class: "row", style: { justifyContent: "center" } }, drawBtn),
-          h("details", { class: "panel" }, h("summary", null, T("chooseTrail")),
+          h("details", { class: "panel", open: both() ? true : null }, h("summary", null, both() ? T("chooseTrailBoth") : T("chooseTrail")),
             h("div", { class: "trail-pick" }, D.trails.map(function (t) { return h("button", { type: "button", class: "btn", onclick: function () { st.trail = t.id; save(); result(t); } }, L(t.name) + ": " + L(t.motto)); }))));
       }
       if (st.trail) result(trailById(st.trail)); else fan();
-      return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay"), body: [compSummary(st, false, true), box],
+      return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay") + " " + (both() ? T("wTrailSayBoth") : T("wTrailSayFlick")), body: [compSummary(st, false, true), box],
         read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + G.trailChange(t, solo()) : ""; },
         need: function () { return st.trail ? null : T("needTrail"); } };
     },
     spark: function (step, st, ctl) {
-      var must = S.len === "exp" && step.k === 3 && sparkCount() === 0 && !st.spark;
+      var lastSt = S.len === "one" || (S.len === "exp" && step.k === 3);
+      var must = lastSt && sparkCount() === 0 && !st.spark;
       var box = h("div", { class: "stack" });
       /* Two sparks change the cards themselves: «Double» adds a trail card, «Swap» exchanges the competence card. */
       function sparkAction(sp) {
@@ -670,7 +723,9 @@
         var w = G.sparkWheel(function (sp) { st.spark = sp.id; save(); G.award("spark"); put(res, h("b", null, L(sp.name) + ": "), L(sp.text)); if (store.get("autoRead", false)) Voice.speak(L(sp.name) + ". " + L(sp.text), "narrator"); setTimeout(function () { if (box.isConnected) result(); }, 1400); });
         var spin = h("button", { type: "button", class: "btn btn--sign", onclick: function () { spin.disabled = true; if (no) no.disabled = true; w.spin(); } }, T("spinWheel"));
         var no = must ? null : h("button", { type: "button", class: "btn", onclick: function () { st.spark = "none"; save(); result(); } }, T("noSpark"));
-        put(box, must ? h("p", { class: "note warn" }, T("sparkMust")) : null, h("div", { class: "wheel-wrap" }, w.el), h("div", { class: "row", style: { justifyContent: "center" } }, spin, no), res);
+        var paperSp = h("details", { class: "panel", open: both() ? true : null }, h("summary", null, T("paperSpark")),
+          h("div", { class: "chips" }, D.sparks.map(function (sp) { return h("button", { type: "button", class: "chip", onclick: function () { st.spark = sp.id; save(); G.award("spark"); result(); } }, L(sp.name)); })));
+        put(box, must ? h("p", { class: "note warn" }, S.len === "one" ? T("sparkMustOne") : T("sparkMust")) : null, h("div", { class: "wheel-wrap" }, w.el), h("div", { class: "row", style: { justifyContent: "center" } }, spin, no), res, paperSp);
       }
       if (st.spark) result(); else wheel();
       return { icon: "spark", kicker: phLabel(step.ph), title: T("wSparkT"), say: T("sparkQ"), body: [compSummary(st, false, true), box],
@@ -717,11 +772,13 @@
       var asker = S.names.length ? st.asker : -1;
       function paint() { put(slot, G.zoomOne(G.talkMini(c, st.talk), G.talkMini(c, st.talk, true))); }
       paint();
-      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
-        body: [h("div", { class: "row talk-row" }, slot,
+      var appQ = both() ? h("details", { class: "panel" }, h("summary", null, T("talkAppQ")), h("div", { class: "row talk-row" }, slot,
+        h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))) : null;
+      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: both() ? T("talkBoth") : asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
+        body: [both() ? null : h("div", { class: "row talk-row" }, slot,
           h("div", { class: "stack", style: { flex: "1", minWidth: "220px" } },
             h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))),
-          timer(dur("talk", st), { hint: T("talkHint") })],
+          timer(dur("talk", st), { hint: T("talkHint") }), appQ],
         read: function () { return L(c.talk[st.talk]); } };
     },
     est: function (step, st, ctl) {
@@ -790,6 +847,8 @@
       if (st.revealed) { revealBtn.hidden = true; reveal(false); }
       return { icon: "target", title: e.type === "number" ? T("estimateNum") : T("estimateTF"), say: e.type === "number" ? T("wEstSay") : T("wEstSayTF"),
         body: [h("div", { class: "panel est-card" }, h("p", { class: "eyebrow" }, G.COMP[e.comp].no + " " + L(G.COMP[e.comp].name)), h("p", { class: "est-q" }, L(e.q))),
+          both() ? h("p", { class: "note" }, T("estBoth"), " ", h("a", { href: "#loesungen" }, T("sheetAnswers"))) : null,
+          timer(dur("est"), { hint: T("estHint") }),
           h("div", { class: "panel stack" }, h("h3", null, n > 1 ? T("guessesAll") : T("yourGuess")), inputs,
             h("div", { class: "row" }, revealBtn)), out],
         read: function () { return L(e.q); },
@@ -862,7 +921,7 @@
       var ta = h("textarea", { id: "game-promise", placeholder: T("promisePh") });
       var say = D.guide.expedition.find(function (x) { return x.k === "promise"; });
       return { icon: "seed", kicker: phLabel(step.ph), title: T("tPromise"), say: L(say.d),
-        body: [cardRow(G.promiseMini(false), G.promiseMini(true), [h("p", { class: "lead" }, L(D.promise.back))]),
+        body: [timer(dur("promise"), { hint: T("promiseHint") }), cardRow(G.promiseMini(false), G.promiseMini(true), [h("p", { class: "lead" }, L(D.promise.back))]),
           (S.plan || "").trim() ? h("p", { class: "note" }, T("promiseFromPlan", { plan: S.plan.trim().replace(/[.!?]+$/, "") })) : null,
           h("div", { class: "panel" }, h("div", { class: "field" }, h("label", { for: "game-promise" }, T("promiseOwn")), ta),
             h("div", { class: "row" }, h("button", { type: "button", class: "btn btn--sign", onclick: function () { if (G.savePromise(ta.value, last.comp)) { msg.textContent = T("saved"); ta.value = ""; } } }, T("save"))), msg)] };
@@ -888,7 +947,7 @@
       }
       paint();
       return { icon: "flag", kicker: phLabel(step.ph), title: T("wLeaderT"), say: T("wLeaderSay"), last: true,
-        body: [box, groupCard(), outsidePanel(), againRow(ctl)] };
+        body: [timer(dur("leader"), { hint: T("leaderHint") }), box, groupCard(), outsidePanel(), againRow(ctl)] };
     }
   };
 
@@ -1037,7 +1096,7 @@
   G.newGame = function (who, comp, len, replace) {
     S = fresh(); S.pre = comp && G.COMP[comp] ? comp : null;
     if (who) { S.who = who; S.i = 1; if (who === "group") S.names = ["", "", ""]; }
-    if (who && len) { S.len = len; var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.ph !== "setup"; })); }
+    if (who && len) { S.len = len; S.kit = "app"; var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.ph !== "setup"; })); }
     save();
     if (replace) { history.replaceState(null, "", "#spielen"); G.route(); }
     else if (location.hash === "#spielen") G.route(); else location.hash = "spielen";
@@ -1045,14 +1104,14 @@
   /* «Original plus» is no game of its own: the expedition with the goal «a UN goal», set beforehand. Starts at the names. */
   G.newOriginal = function () {
     S = fresh(); S.who = "group"; S.names = ["", "", ""]; S.len = "exp"; S.goal = "sdg"; S.r0 = true;
-    S.i = Math.max(0, plan().findIndex(function (p) { return p.id === "names"; }));
+    S.i = Math.max(0, plan().findIndex(function (p) { return p.id === "kit"; }));
     save();
     if (location.hash === "#spielen") G.route(); else location.hash = "spielen";
   };
   G.gameInProgress = function () {
     var g = store.get("game", null);
     if (!g || g.v !== 2 || g.done || !g.len || g.i < 1) return null;
-    return { i: g.i + 1, n: planFor(g.who, g.len, g.later).length };
+    return { i: g.i + 1, n: planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit).length };
   };
 
   /* ---------- «Prepare»: for the game leader, before the day ---------- */

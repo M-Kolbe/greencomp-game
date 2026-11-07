@@ -1158,6 +1158,16 @@ button.pick-add:active { transform: scale(.98); }
   .guide-sec, .booklet-item { break-inside: avoid; }
   .panel, .tile, .quick li, .icon-tile { box-shadow: none; }
 }
+/* v1.0 · Ablauf einer Station mit Sanduhren */
+.flow-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: flow; }
+.flow-list li { counter-increment: flow; display: grid; grid-template-columns: 30px 92px 1fr; gap: 10px; align-items: start; padding: 10px 12px; border-radius: 14px; background: var(--bg-2, rgba(0,0,0,.03)); border: 1px solid var(--line); }
+.flow-list li::before { content: counter(flow); display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--sign, #f5c518); color: #14261c; font-weight: 700; font-size: 14px; }
+.flow-time { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; white-space: nowrap; }
+.flow-ico { width: 18px; height: 18px; }
+.flow-list b { display: block; }
+.flow-list small { display: block; color: var(--ink-2); margin-top: 2px; }
+.run-station .flow-list { margin-top: 6px; }
+@media print { .no-print, .play-nav, .play-top, header.site, nav, footer { display: none !important; } .flow-list li { break-inside: avoid; } }
 </style>
 </head>
 <body>
@@ -3474,7 +3484,7 @@ var qrcode = function() {
  * Card texts follow the language rules in SPRACHE.md: one idea per sentence, three steps per task, a clear end.
  */
 window.GCT_DATA = {
-  version: "0.9 · 2026-10-18",
+  version: "1.0 · 2026-11-07",
 
   areas: [
     {
@@ -3539,7 +3549,7 @@ window.GCT_DATA = {
         { en: "Then talk: where did you agree? Where not? One sentence each.", de: "Dann redet: Wo wart ihr euch einig? Wo nicht? Jede Person ein Satz." }
       ],
       done: { en: "Done when everyone has spoken.", de: "Fertig, wenn alle gesprochen haben." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 1, en: "For example: phone, keys, chewing gum, headphones, wallet.", de: "Zum Beispiel: Handy, Schlüssel, Kaugummi, Kopfhörer, Portemonnaie." },
       solo: { en: "Hold one thing from your pocket while you walk. Ask yourself: could I live without it?", de: "Halte beim Gehen einen Gegenstand aus deiner Tasche in der Hand. Frag dich: Könnte ich darauf verzichten?" },
       access: { en: "Without sight: pass the things from hand to hand. Whoever holds one says «I need it» or «it could go».", de: "Ohne Sehen: Die Gegenstände gehen von Hand zu Hand. Wer einen hält, sagt «brauche ich» oder «könnte weg»." },
@@ -3576,7 +3586,7 @@ window.GCT_DATA = {
         { en: "Everyone says: what was different the second time?", de: "Jede Person sagt: Was war beim zweiten Mal anders?" }
       ],
       done: { en: "Done when everyone has spoken.", de: "Fertig, wenn alle gesprochen haben." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 1, en: "Food or drink only if everyone can have it. Otherwise stones, coins or leaves.", de: "Essen oder Trinken nur, wenn alle es vertragen. Sonst Steine, Münzen oder Blätter." },
       solo: { en: "Eat or drink something on your way. First set a part aside for someone still to come. How does that feel?", de: "Iss oder trink etwas unterwegs. Leg vorher einen Teil beiseite für jemanden, der noch kommt. Wie fühlt sich das an?" },
       access: { en: "Without sight: share by touch, piece by piece. Seated: share on a bench or on your lap.", de: "Ohne Sehen: Teilt über die Hände, Stück für Stück. Sitzend: Teilt auf einer Bank oder auf dem Schoss." },
@@ -3613,7 +3623,7 @@ window.GCT_DATA = {
         { en: "Everyone says exactly one word for what they felt.", de: "Jede Person sagt genau ein Wort für das, was sie gespürt hat." }
       ],
       done: { en: "Done after the last word.", de: "Fertig nach dem letzten Wort." },
-      minutes: 3,
+      minutes: 5,
       solo: { en: "Touch something alive. Stay silent for one minute. Then say one word.", de: "Berühre etwas Lebendiges. Bleib eine Minute still. Sag dann ein Wort." },
       access: { en: "Seated: someone brings a leaf or a little soil. Without sight: touch and smell.", de: "Sitzend: Jemand bringt ein Blatt oder etwas Erde. Ohne Sehen: tasten und riechen." },
       windowText: {
@@ -3760,7 +3770,7 @@ window.GCT_DATA = {
         { en: "Open your eyes. Everyone says: which part of it do I want?", de: "Augen auf. Jede Person sagt: Was davon wünsche ich mir?" }
       ],
       done: { en: "Done when everyone has said what they want.", de: "Fertig, wenn alle gesagt haben, was sie sich wünschen." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 2, en: "For example: do you hear cars or birds? Does it smell of tarmac or soil? Is the ground hot or cool?", de: "Zum Beispiel: Hört ihr Autos oder Vögel? Riecht es nach Asphalt oder Erde? Ist der Boden heiss oder kühl?" },
       solo: { en: "Close your eyes for a moment. Picture this place in 2046: what do you hear and smell? Which part of it do you want?", de: "Schliess kurz die Augen. Stell dir diesen Ort im Jahr 2046 vor: Was hörst du, was riechst du? Was davon wünschst du dir?" },
       access: { en: "Without hearing: the person draws the future on the ground or on paper.", de: "Ohne Hören: Die Person zeichnet die Zukunft auf den Boden oder auf Papier." },
@@ -3831,7 +3841,7 @@ window.GCT_DATA = {
         { en: "Find three links between the two.", de: "Findet drei Verbindungen zwischen den beiden." }
       ],
       done: { en: "Done when you have three links.", de: "Fertig bei drei Verbindungen." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 3, en: "For example, a leaf and a shoe: both have lines. Both turn brown with time. Both protect something.", de: "Zum Beispiel Blatt und Schuh: Beide haben Linien. Beide werden mit der Zeit braun. Beide schützen etwas." },
       solo: { en: "Find two things that don’t fit together, for example a leaf and a shoe. Find three links between them.", de: "Such dir zwei Dinge, die nicht zusammenpassen, zum Beispiel ein Blatt und einen Schuh. Finde drei Verbindungen." },
       access: { en: "Without sight: name things you can hear or touch.", de: "Ohne Sehen: Nennt Dinge, die ihr hört oder ertastet." },
@@ -3904,7 +3914,7 @@ window.GCT_DATA = {
         { en: "Afterwards, everyone says: what helped us?", de: "Danach sagt jede Person: Was hat uns geholfen?" }
       ],
       done: { en: "Done at 20. After two minutes, 10 counts too.", de: "Fertig bei 20. Nach zwei Minuten gilt auch 10." },
-      minutes: 4,
+      minutes: 5,
       solo: { en: "Think of something you only managed with others. Whom could you ask this week to do something together?", de: "Denk an etwas, das du nur mit anderen geschafft hast. Wen könntest du diese Woche für etwas Gemeinsames fragen?" },
       access: { en: "Without hearing: instead of numbers, everyone raises one hand in turn. Nobody agrees who goes next.", de: "Ohne Hören: Statt Zahlen hebt jede Person nacheinander eine Hand. Niemand macht ab, wer als Nächstes dran ist." },
       windowText: {
@@ -3938,7 +3948,7 @@ window.GCT_DATA = {
         { en: "Everyone names a first step for tomorrow.", de: "Jede Person nennt einen ersten Schritt für morgen." }
       ],
       done: { en: "Done when everyone has a first step.", de: "Fertig, wenn jede Person einen ersten Schritt hat." },
-      minutes: 4,
+      minutes: 5,
       solo: { en: "Think of something you are good at. Where could it help nature or the climate? What is a first step for tomorrow?", de: "Denk an etwas, das du gut kannst. Wo könnte es der Natur oder dem Klima nützen? Was ist ein erster Schritt für morgen?" },
       access: { en: "Without hearing: write it down or show it.", de: "Ohne Hören: aufschreiben oder zeigen." },
       windowText: {
@@ -4658,7 +4668,7 @@ window.GCT_DATA.facts = [
     { id: "hazards", t: { en: "Note the hazards", de: "Gefahren notieren" }, d: { en: "Water, roads, bikes, things to trip on, poisonous plants. Check again on the day.", de: "Wasser, Strasse, Velos, Stolperstellen, giftige Pflanzen. Am Spieltag noch einmal kurz prüfen." } },
     { id: "rain", t: { en: "Plan B for rain", de: "Plan B für Regen" }, d: { en: "Which station works under a roof? The leading phone goes in a zip bag; the screen still works through the plastic. Rain is no reason to cancel.", de: "Welche Station geht unter einem Dach? Das Leitungs-Handy kommt in einen Zipbeutel; der Bildschirm reagiert auch durch die Folie. Regen ist kein Grund abzusagen." } },
     { id: "access", t: { en: "Check for barriers", de: "Barrieren prüfen" }, d: { en: "Can everyone reach every station, seated and without stairs? Every card has a second form.", de: "Ist jede Station sitzend und ohne Treppe erreichbar? Jede Karte hat eine zweite Form." } },
-    { id: "material", t: { en: "Get the material ready", de: "Material bereitlegen" }, d: { en: "Card set, hourglass or this phone, pens for the promise cards, four coasters for the stations, a zip bag.", de: "Kartenset, Sanduhr oder dieses Handy, Stifte für die Versprechen-Karten, vier Bierdeckel für die Stationen, ein Zipbeutel." } },
+    { id: "material", t: { en: "Get the material ready", de: "Material bereitlegen" }, d: { en: "Card set, the two hourglasses (5 and 1 minute) or this phone, pens for the promise cards, four coasters for the stations, a zip bag.", de: "Kartenset, die zwei Sanduhren (5 und 1 Minute) oder dieses Handy, Stifte für die Versprechen-Karten, vier Bierdeckel für die Stationen, ein Zipbeutel." } },
     { id: "phone", t: { en: "Charge one phone and test the sound", de: "Ein Handy laden und den Ton testen" }, d: { en: "It plays the sounds and keeps time. Try «Play now» up to the first step.", de: "Es spielt die Klänge und hält die Zeit. Probiert «Jetzt spielen» bis zum ersten Schritt aus." } },
     { id: "groups", t: { en: "Plan the groups", de: "Gruppen planen" }, d: { en: "Three to five people per group. With several groups, open the board and enter the groups.", de: "3 bis 5 Personen pro Gruppe. Bei mehreren Gruppen die Tafel öffnen und die Gruppen eintragen." } },
     { id: "time", t: { en: "Plan the time", de: "Zeit planen" }, d: { en: "Use the time planner below. Bigger groups talk a little longer.", de: "Nutzt den Zeitplaner unten. Grössere Gruppen reden etwas länger." } }
@@ -4668,8 +4678,14 @@ window.GCT_DATA.facts = [
     quick: [
       { icon: "card", t: { en: "Draw a skill card", de: "Fähigkeitskarte ziehen" }, d: { en: "Read the curiosity question out loud.", de: "Die Neugier-Frage laut vorlesen." } },
       { icon: "fork", t: { en: "Draw a trail card", de: "Spurkarte ziehen" }, d: { en: "It decides how you do the task.", de: "Sie bestimmt, wie ihr die Aufgabe macht." } },
-      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "3 to 5 minutes, at the place where you are, one step after another. The card says how long.", de: "3 bis 5 Minuten, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen. Die Karte sagt, wie lange." } },
-      { icon: "talk", t: { en: "Talk", de: "Reden" }, d: { en: "Draw a conversation card. Whoever asks answers first.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst." } }
+      { icon: "hand", t: { en: "Make it real", de: "Mach es echt" }, d: { en: "Five minutes, one hourglass, at the place where you are, one step after another.", de: "Fünf Minuten, eine Sanduhr, an dem Ort, an dem ihr seid, einen Schritt nach dem anderen." } },
+      { icon: "talk", t: { en: "Talk", de: "Reden" }, d: { en: "Three minutes. Draw a conversation card. Whoever asks answers first.", de: "Drei Minuten. Gesprächskarte ziehen. Wer fragt, antwortet zuerst." } }
+    ],
+    /* v1.0: three ways to play, the same order every time. */
+    kits: [
+      { icon: "card", t: { en: "Cards and app", de: "Karten und App" }, d: { en: "Draw the paper cards from the bag and tap them in. The app keeps time and shows what comes next.", de: "Die Papierkarten aus dem Beutel ziehen und eintippen. Die App hält die Zeit und zeigt, was als Nächstes kommt." } },
+      { icon: "phone", t: { en: "App only", de: "Nur App" }, d: { en: "No card set needed. The app draws every card.", de: "Kein Kartenset nötig. Die App zieht jede Karte." } },
+      { icon: "hourglass", t: { en: "Cards only", de: "Nur Karten" }, d: { en: "Card set, two hourglasses and the answer booklet. The run sheet says every step and every time.", de: "Kartenset, zwei Sanduhren und das Lösungsheft. Der Ablauf nennt jeden Schritt und jede Zeit." } }
     ],
     bag: [
       { type: "area", n: 4, edge: "edge-square", t: { en: "Area cards", de: "Bereichskarten" }, d: { en: "Travel with the group; the finds are laid on them. QR code for the station sound indoors.", de: "Reisen mit der Gruppe mit; auf ihnen liegen die Fundstücke. QR-Code für den Klang zur Station, drinnen." } },
@@ -4683,20 +4699,20 @@ window.GCT_DATA.facts = [
       { type: "joker", n: 4, edge: "edge-star", t: { en: "Joker cards", de: "Joker-Karten" }, d: { en: "Blank. The group writes its own card for its place. Once per game.", de: "Leer. Die Gruppe schreibt eine eigene Karte für ihren Ort. Einmal pro Spiel." } }
     ],
     extras: [
-      { t: { en: "5-minute hourglass", de: "5-Minuten-Sanduhr" }, d: { en: "When the sand has run through, time is up, even mid-sentence.", de: "Wenn der Sand durch ist, ist Schluss, auch mitten im Satz." } },
+      { t: { en: "Two hourglasses: 5 minutes and 1 minute", de: "Zwei Sanduhren: 5 Minuten und 1 Minute" }, d: { en: "Every step at a station has its hourglass. Task: 5 minutes. Talk: the 1-minute one three times. Estimate: once. When the sand has run through, time is up, even mid-sentence. With the app, the phone is the hourglass.", de: "Jeder Schritt an einer Station hat seine Sanduhr. Aufgabe: 5 Minuten. Reden: die 1-Minuten-Uhr dreimal. Schätzen: einmal. Wenn der Sand durch ist, ist Schluss, auch mitten im Satz. Mit der App ist das Handy die Sanduhr." } },
       { t: { en: "Answer booklet", de: "Lösungsheft" }, d: { en: "For a game without a board.", de: "Für ein Spiel ohne Tafel." } },
       { t: { en: "Coasters", de: "Bierdeckel" }, d: { en: "Twelve, one per question. They lie on tables where people meet. A phone camera on the code, and the game starts at that table. In the expedition, a coaster marks each station.", de: "Zwölf, einer pro Frage. Sie liegen auf Tischen, wo Leute zusammensitzen. Handykamera auf den Code, und das Spiel beginnt an diesem Tisch. Bei der Expedition markiert ein Deckel jede Station." } }
     ],
     rules: [
       { icon: "tree", t: { en: "Real first", de: "Zuerst echt" }, d: { en: "Whatever can be done for real is done for real. The window opens only when the real thing is not possible.", de: "Was echt geht, wird echt gemacht. Das Fenster geht nur auf, wenn es echt nicht geht." } },
-      { icon: "phone", t: { en: "Phones face down", de: "Handys nach unten" }, d: { en: "All phones lie in the middle, screens down, for the whole game. The phone that leads the game too: it chimes when the time is up.", de: "Alle Handys liegen das ganze Spiel über in der Mitte, Bildschirm nach unten. Auch das Handy, das das Spiel führt: Es klingt, wenn die Zeit um ist." } },
+      { icon: "phone", t: { en: "Phones face down", de: "Handys nach unten" }, d: { en: "All phones lie in the middle, screens down, for the whole game. The phone that leads the game too: it chimes when the time is up. Only the game leader picks it up, between two steps.", de: "Alle Handys liegen das ganze Spiel über in der Mitte, Bildschirm nach unten. Auch das Handy, das das Spiel führt: Es klingt, wenn die Zeit um ist. Nur die Spielleitung nimmt es in die Hand, zwischen zwei Schritten." } },
       { icon: "talk", t: { en: "Whoever asks answers first", de: "Wer fragt, antwortet zuerst" }, d: { en: "On every conversation card.", de: "Auf jeder Gesprächskarte." } },
       { icon: "cloud", t: { en: "Outdoors in any weather", de: "Draussen bei jedem Wetter" }, d: { en: "Rain is no reason to stay in.", de: "Regen ist kein Grund, drinnen zu bleiben." } },
       { icon: "hand", t: { en: "Nobody has to", de: "Niemand muss" }, d: { en: "Every task is an offer. You may pass, and nobody asks why.", de: "Jede Aufgabe ist ein Angebot. Passen ist erlaubt, und niemand fragt nach dem Warum." } }
     ],
     roles: [
-      { icon: "card", t: { en: "Game leader", de: "Spielleitung" }, d: { en: "Reads the card out loud and keeps time.", de: "Liest die Karte vor und hält die Zeit." } },
-      { icon: "phone", t: { en: "Silence keeper", de: "Stille-Hüterin oder Stille-Hüter" }, d: { en: "Collects the phones at the start. The only one who may lift a phone, and only for a window.", de: "Sammelt zu Beginn die Handys ein. Darf als Einzige oder Einziger ein Handy heben, und nur für ein Fenster." } },
+      { icon: "card", t: { en: "Game leader", de: "Spielleitung" }, d: { en: "Reads the card out loud, turns the hourglass and keeps time. Holds the leading phone and picks it up only between two steps.", de: "Liest die Karte vor, dreht die Sanduhr und hält die Zeit. Hat das führende Handy und nimmt es nur zwischen zwei Schritten in die Hand." } },
+      { icon: "phone", t: { en: "Silence keeper", de: "Stille-Hüterin oder Stille-Hüter" }, d: { en: "Collects the phones at the start and guards them. Opens a window only when the real thing is not possible.", de: "Sammelt zu Beginn die Handys ein und passt auf sie auf. Öffnet ein Fenster nur, wenn es echt nicht geht." } },
       { icon: "eye", t: { en: "Tracker", de: "Spurenleserin oder Spurenleser" }, d: { en: "Checks that the task really follows the trail card, for example really with eyes closed.", de: "Achtet darauf, dass die Aufgabe wirklich auf dem Weg der Spurkarte gemacht wird, zum Beispiel wirklich mit geschlossenen Augen." } }
     ],
     /* 60 minutes: arrive 2, briefing 1, choose 2, four stations of 11, debrief 8, promise 2, next leader 1.
@@ -4714,11 +4730,12 @@ window.GCT_DATA.facts = [
       { min: 1, k: "leader", t: { en: "Next game leader", de: "Nächste Spielleitung" }, d: { en: "Count to three, everyone points at the same time at the person who leads the next game. No points, no winner.", de: "Bis drei zählen, alle zeigen gleichzeitig auf die Person, die das nächste Spiel leitet. Ohne Punkte, ohne Sieg." } }
     ],
     station: [
-      { sec: 20, t: { en: "Listen", de: "Zuhören" }, d: { en: "Twenty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.", de: "Zwanzig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang." } },
-      { sec: 300, t: { en: "Task", de: "Aufgabe" }, d: { en: "Draw a skill card and a trail card, then do the three steps, one after another. The card says how long.", de: "Fähigkeitskarte und Spurkarte ziehen, dann die drei Schritte, einer nach dem anderen. Die Karte sagt, wie lange." } },
-      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. The rest of the time up to 8:20.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Die restliche Zeit bis 8:20." } },
+      { sec: 30, t: { en: "Listen", de: "Zuhören" }, d: { en: "Thirty seconds, eyes closed, listen to the place. Indoors, the board plays a sound.", de: "Dreissig Sekunden, Augen zu, dem Ort zuhören. Drinnen spielt die Tafel einen Klang." } },
+      { sec: 0, t: { en: "Draw the cards", de: "Karten ziehen" }, d: { en: "Skill card, then trail card (or flick the coaster: whoever catches it chooses the trail), then a spark. No clock.", de: "Fähigkeitskarte, dann Spurkarte (oder den Deckel schnipsen: Wer ihn fängt, wählt die Spur), dann ein Funke. Ohne Uhr." } },
+      { sec: 300, t: { en: "Task", de: "Aufgabe" }, d: { en: "The three steps, outside, one after another. One hourglass of five minutes for all three.", de: "Die drei Schritte, draussen, einer nach dem anderen. Eine Sanduhr von fünf Minuten für alle drei." } },
+      { sec: 180, t: { en: "Talk", de: "Gespräch" }, d: { en: "Draw a conversation card. Whoever asks answers first. Three minutes.", de: "Gesprächskarte ziehen. Wer fragt, antwortet zuerst. Drei Minuten." } },
       { sec: 60, t: { en: "Estimate", de: "Schätzen" }, d: { en: "Everyone guesses quickly, then the answer. Who came closest?", de: "Alle schätzen schnell, dann die Auflösung. Wer lag am nächsten?" } },
-      { sec: 100, t: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" }, d: { en: "One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.", de: "Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit." } }
+      { sec: 90, t: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" }, d: { en: "One sentence each: what do I take with me? Then find something real and lay it on your area card. It comes with you.", de: "Ein Satz pro Person: Was nehme ich mit? Dann ein echtes Fundstück suchen und auf eure Bereichskarte legen. Es kommt mit." } }
     ],
     modes: [
       { id: "expedition", t: { en: "Expedition", de: "Expedition" }, meta: { en: "60 min · 3–5 per group", de: "60 Min. · 3–5 pro Gruppe" } },
@@ -4748,7 +4765,7 @@ window.GCT_DATA.facts = [
     fun: [
       { icon: "spark", t: { en: "Sparks", de: "Funken" }, d: { en: "At every station the group decides whether to draw a spark. Once per game is a must.", de: "An jeder Station entscheidet die Gruppe, ob sie einen Funken zieht. Einmal pro Spiel ist Pflicht." } },
       { icon: "leaf", t: { en: "Collecting finds", de: "Spuren sammeln" }, d: { en: "After each station the group finds a real object outside (leaf, stone, cone) and takes it along. At the debrief, each group’s four finds lie side by side.", de: "Nach jeder Station sucht die Gruppe draussen ein echtes Fundstück (Blatt, Stein, Zapfen) und nimmt es mit. Bei der Nachbesprechung liegen die vier Fundstücke jeder Gruppe nebeneinander." } },
-      { icon: "hourglass", t: { en: "One clock", de: "Eine Uhr" }, d: { en: "One hourglass for the whole task: a real one, or the one in the phone, which then lies face down. Nobody looks at a device. When the sand has run through, time is up.", de: "Eine Sanduhr für die ganze Aufgabe: eine echte oder die im Handy, das dann mit dem Bildschirm nach unten liegt. Niemand schaut auf ein Gerät. Wenn der Sand durch ist, ist Schluss." } },
+      { icon: "hourglass", t: { en: "An hourglass for every step", de: "Eine Sanduhr für jeden Schritt" }, d: { en: "Listen, task, talk, estimate, one sentence: every step has its hourglass. A real one, or the one in the phone, which then lies face down. Nobody looks at a device. When the sand has run through, time is up.", de: "Zuhören, Aufgabe, Reden, Schätzen, ein Satz: Jeder Schritt hat seine Sanduhr. Eine echte oder die im Handy, das dann mit dem Bildschirm nach unten liegt. Niemand schaut auf ein Gerät. Wenn der Sand durch ist, ist die Zeit um." } },
       { icon: "joker", t: { en: "Joker", de: "Joker" }, d: { en: "Once per game the group may write its own card instead of the one it drew: a question, three steps, a clear end. About three minutes.", de: "Einmal pro Spiel darf die Gruppe statt der gezogenen Karte eine eigene schreiben: eine Frage, drei Schritte, ein klares Ende. Etwa drei Minuten." } },
       { icon: "coaster", t: { en: "Flicking", de: "Schnipsen" }, d: { en: "Whoever flicks the coaster off the table edge and catches it may choose the trail. Ten seconds.", de: "Wer den Deckel von der Tischkante schnipst und fängt, darf die Spur wählen. Zehn Sekunden." } }
     ],
@@ -4772,6 +4789,7 @@ window.GCT_DATA.facts = [
         { en: "Take a skill card. It has a question.", de: "Nehmt eine Fähigkeitskarte. Darauf steht eine Frage." },
         { en: "Take a trail card. It says how you do the task.", de: "Nehmt eine Spurkarte. Sie sagt, wie ihr die Aufgabe macht." },
         { en: "Do what the card says. For example: touch a tree.", de: "Macht, was auf der Karte steht. Zum Beispiel: einen Baum anfassen." },
+        { en: "Every step has an hourglass. When the sand is through, the step is over.", de: "Jeder Schritt hat eine Sanduhr. Wenn der Sand durch ist, ist der Schritt vorbei." },
         { en: "You may also write your own card. It is called the joker.", de: "Ihr dürft auch eine eigene Karte schreiben. Sie heisst Joker." },
         { en: "Then talk about it.", de: "Dann redet darüber." }
       ] },
@@ -5894,6 +5912,107 @@ window.GCT_DATA.facts = [
     foundPlay: { en: "Play now · {n} minutes", de: "Jetzt spielen · {n} Minuten" },
     tileFactsT: { en: "To marvel at", de: "Zum Staunen" },
     tileFactsP: { en: "{n} researched facts with sources. About animals, plants, climate and people who changed something. Also without the game.", de: "{n} recherchierte Fakten mit Quelle. Über Tiere, Pflanzen, Klima und Menschen, die etwas bewegt haben. Auch ohne Spiel." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+/* v1.0 · Klare Regeln: Spielweise (App, Karten, beides), feste Sanduhren an jeder Station, Ablauf von Anfang an sichtbar. */
+(function () {
+  var add = {
+    wKitT: { en: "What do you play with?", de: "Womit spielt ihr?" },
+    wKitSay: { en: "All three work. The order of the game stays the same.", de: "Alle drei gehen. Der Ablauf bleibt derselbe." },
+    kitBoth: { en: "Cards and app", de: "Karten und App" },
+    kitBothSub: { en: "You draw paper cards from the bag and tap them in. The app keeps time and shows the next step.", de: "Ihr zieht Papierkarten aus dem Beutel und tippt sie ein. Die App hält die Zeit und zeigt den nächsten Schritt." },
+    kitBothSubSolo: { en: "You draw a paper card and tap it in. The app keeps time and leads you.", de: "Du ziehst eine Papierkarte und tippst sie ein. Die App hält die Zeit und führt dich." },
+    kitApp: { en: "App only", de: "Nur App" },
+    kitAppSub: { en: "No card set needed. The app draws every card.", de: "Kein Kartenset nötig. Die App zieht jede Karte." },
+    kitCards: { en: "Cards only", de: "Nur Karten" },
+    kitCardsSub: { en: "No phone in the game. You get the run sheet once, with every step and every time.", de: "Kein Handy im Spiel. Ihr bekommt einmal den Ablauf mit jedem Schritt und jeder Zeit." },
+    kitNote: { en: "No card set at hand? Choose «App only». The set can also be printed: Cards → print.", de: "Kein Kartenset da? Wählt «Nur App». Das Set lässt sich auch drucken: Karten → drucken." },
+    kitBothNote: { en: "With your card set: draw each card from the bag, then tap it in here.", de: "Mit eurem Kartenset: Jede Karte aus dem Beutel ziehen, dann hier eintippen." },
+    kitAppNote: { en: "The app draws the cards. Everything else you do for real.", de: "Die App zieht die Karten. Alles andere macht ihr echt." },
+    wSheetT: { en: "Your run sheet", de: "Euer Ablauf" },
+    wSheetSay: { en: "Read it out once, or print it. Then the phones go away, and the hourglass leads.", de: "Einmal vorlesen oder ausdrucken. Dann kommen die Handys weg, und die Sanduhr führt." },
+    wSheetSayWalk: { en: "Without a phone, your skill card leads you.", de: "Ohne Handy führt dich deine Fähigkeitskarte." },
+    sheetRules: { en: "The rules", de: "Die Regeln" },
+    sheetWalk: { en: "Draw a skill card and turn it over. «Alone» on the back is your task. Go outside, take your time, and say one word at the end. At home, write your promise on a promise card.", de: "Zieh eine Fähigkeitskarte und dreh sie um. «Allein» auf der Rückseite ist deine Aufgabe. Geh hinaus, lass dir Zeit und sag am Ende ein Wort. Zu Hause schreibst du dein Versprechen auf eine Versprechen-Karte." },
+    sheetGlass: { en: "The hourglasses", de: "Die Sanduhren" },
+    sheetGlassP: { en: "The bag holds a 5-minute and a 1-minute hourglass. Task: the 5-minute one. Talk: the 1-minute one, three times. Estimate: once. One sentence and a find: one and a half. Listen: half of the 1-minute one. When the sand has run through, time is up, even mid-sentence.", de: "Im Beutel liegen eine 5-Minuten- und eine 1-Minuten-Sanduhr. Aufgabe: die 5-Minuten-Uhr. Reden: die 1-Minuten-Uhr dreimal. Schätzen: einmal. Ein Satz und ein Fundstück: anderthalbmal. Zuhören: die halbe 1-Minuten-Uhr. Wenn der Sand durch ist, ist Schluss, auch mitten im Satz." },
+    sheetAfter: { en: "After the stations", de: "Nach den Stationen" },
+    sheetAfter1: { en: "Debrief: What happened? What does it mean for us? What do we do now? Agree on one small plan.", de: "Nachbesprechung: Was ist passiert? Was heisst das für uns? Was machen wir damit? Einigt euch auf ein kleines Vorhaben." },
+    sheetAfter2: { en: "Promise: everyone writes one action for the next seven days on a promise card.", de: "Versprechen: Jede Person schreibt eine Handlung für die nächsten sieben Tage auf eine Versprechen-Karte." },
+    sheetAfter3: { en: "Count to three, and everyone points at the next game leader.", de: "Bis drei zählen, und alle zeigen auf die nächste Spielleitung." },
+    sheetPrint: { en: "Print", de: "Drucken" },
+    sheetAnswers: { en: "Answer booklet", de: "Lösungsheft" },
+    sheetUseApp: { en: "Use the app after all", de: "Doch mit der App spielen" },
+    flowT5: { en: "How it goes", de: "So läuft es" },
+    stEachSteps: { en: "At every station, step by step:", de: "An jeder Station, Schritt für Schritt:" },
+    stTaskW: { en: "task", de: "Aufgabe" },
+    flowListen: { en: "Listen, eyes closed", de: "Zuhören, Augen zu" },
+    flowDraw: { en: "Draw the cards", de: "Karten ziehen" },
+    flowDrawSub: { en: "Skill card, then trail card (or flick the coaster: whoever catches it chooses the trail), then a spark. No clock.", de: "Fähigkeitskarte, dann Spurkarte (oder den Deckel schnipsen: Wer ihn fängt, wählt die Spur), dann ein Funke. Ohne Uhr." },
+    flowDrawSub5: { en: "Skill card and trail card (or flick the coaster). No clock.", de: "Fähigkeitskarte und Spurkarte (oder den Deckel schnipsen). Ohne Uhr." },
+    flowTask: { en: "Make it real", de: "Mach es echt" },
+    flowTaskSub: { en: "Three steps, outside, one after another. One hourglass for all three.", de: "Drei Schritte, draussen, einer nach dem anderen. Eine Sanduhr für alle drei." },
+    flowTalk: { en: "Talk", de: "Reden" },
+    flowTalkSub: { en: "A round card asks. Whoever asks answers first.", de: "Eine runde Karte fragt. Wer fragt, antwortet zuerst." },
+    flowEst: { en: "Estimate", de: "Schätzen" },
+    flowEstSub: { en: "Everyone guesses, then the answer.", de: "Alle schätzen, dann die Auflösung." },
+    flowSentence: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" },
+    flowSentenceSub: { en: "What do I take with me? Then a leaf or a stone for your area card.", de: "Was nehme ich mit? Dann ein Blatt oder ein Stein für eure Bereichskarte." },
+    flowSentence5: { en: "One sentence each", de: "Ein Satz pro Person" },
+    rulePhones: { en: "Phones in the middle, screens down. Only the game leader picks up the leading phone, between two steps.", de: "Handys in die Mitte, Bildschirm nach unten. Nur die Spielleitung nimmt das führende Handy in die Hand, zwischen zwei Schritten." },
+    rulePhonesPaper: { en: "Phones stay away. Nobody needs one.", de: "Die Handys bleiben weg. Niemand braucht eines." },
+    roleLead: { en: "leads: reads out loud, keeps time, holds the leading phone", de: "leitet: liest vor, hält die Zeit, hat das führende Handy" },
+    ready2G: { en: "All phones in the middle, screens down, this one too. Only the game leader picks it up, between two steps. It chimes when the sand has run through.", de: "Alle Handys in die Mitte, Bildschirm nach unten, auch dieses. Nur die Spielleitung nimmt es in die Hand, zwischen zwei Schritten. Es klingt, wenn der Sand durch ist." },
+    wSilSayBoth: { en: "All phones in the middle, screens down. Draw a silence card from the bag and do what it says. Then one minute without a word.", de: "Alle Handys in die Mitte, Bildschirm nach unten. Zieht eine Stille-Karte aus dem Beutel und tut, was darauf steht. Dann eine Minute ohne Worte." },
+    wCardSayBoth: { en: "Draw a skill card from the bag and tap it in below. Whoever leads reads the question out loud.", de: "Zieht eine Fähigkeitskarte aus dem Beutel und tippt sie unten ein. Wer leitet, liest die Frage laut vor." },
+    wCardSayBothSolo: { en: "Draw a skill card from your set and tap it in below. Read the question out loud, just for yourself.", de: "Zieh eine Fähigkeitskarte aus deinem Set und tipp sie unten ein. Lies die Frage laut vor, nur für dich." },
+    chooseTrailBoth: { en: "Paper trail card, or flicked the coaster? Tap the trail:", de: "Papier-Spurkarte oder Deckel geschnipst? Spur antippen:" },
+    wTrailSayBoth: { en: "Draw a trail card from the bag, or flick the coaster off the table edge: whoever catches it chooses.", de: "Zieht eine Spurkarte aus dem Beutel, oder schnipst den Deckel von der Tischkante: Wer ihn fängt, wählt." },
+    wTrailSayFlick: { en: "Or flick the coaster: whoever catches it chooses.", de: "Oder schnipst den Deckel: Wer ihn fängt, wählt." },
+    paperSpark: { en: "Drew a spark card? Tap it here:", de: "Eine Funkenkarte gezogen? Hier antippen:" },
+    sparkMustOne: { en: "Only one station today: the spark is a must.", de: "Heute nur eine Station: Der Funke ist Pflicht." },
+    talkAppQ: { en: "No round card at hand? A question from the app", de: "Keine runde Karte zur Hand? Eine Frage aus der App" },
+    talkBoth: { en: "Draw a round card from the bag. Whoever reads it out answers first, then the others. Nobody has to.", de: "Zieht eine runde Karte aus dem Beutel. Wer sie vorliest, antwortet zuerst, dann die anderen. Niemand muss." },
+    estHint: { en: "One minute: guess, say it out loud, type it in.", de: "Eine Minute: schätzen, laut sagen, eintippen." },
+    estBoth: { en: "With your own estimate card: the answer is on the board or in the answer booklet.", de: "Mit eurer eigenen Schätzkarte: Die Antwort steht auf der Tafel oder im Lösungsheft." },
+    listen20: { en: "Listen: 0:30", de: "Zuhören: 0:30" },
+    phListen: { en: "Listen", de: "Zuhören" }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    kitsT: { en: "Cards, app, or both", de: "Karten, App oder beides" },
+    kitsLead: { en: "Choose at the start of the game. The order of the steps and the hourglasses stay the same.", de: "Ihr wählt zu Beginn des Spiels. Die Reihenfolge der Schritte und die Sanduhren bleiben gleich." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = { briefHint: { en: "Read it out together, then off to the station.", de: "Gemeinsam vorlesen, dann los zur Station." } };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    chooseHint: { en: "Count to three, everyone points at one skill at the same time.", de: "Bis drei zählen, alle zeigen gleichzeitig auf eine Fähigkeit." },
+    promiseHint: { en: "Write it on your promise card, put it in your pocket.", de: "Schreibt es auf eure Versprechen-Karte und steckt sie ein." },
+    leaderHint: { en: "Count to three, everyone points at the next game leader.", de: "Bis drei zählen, alle zeigen auf die nächste Spielleitung." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    sheetBefore: { en: "Before the first station", de: "Vor der ersten Station" },
+    sheetBefore1: { en: "Arrive in silence: phones away, draw a silence card and do it. Then one minute without a word (the 1-minute hourglass).", de: "Ankommen in Stille: Handys weg, eine Stille-Karte ziehen und tun. Dann eine Minute ohne Worte (die 1-Minuten-Uhr)." },
+    sheetBefore2: { en: "Why are you playing today? Say it out loud. Then the four rules.", de: "Wozu spielt ihr heute? Laut sagen. Dann die vier Regeln." },
+    sheetBefore3: { en: "Three roles, passed on at every station: the game leader reads out and turns the hourglass, the silence keeper guards the phones, the tracker checks the trail.", de: "Drei Rollen, die an jeder Station weiterwandern: Die Spielleitung liest vor und dreht die Sanduhr. Wer die Stille hütet, passt auf die Handys auf. Wer die Spur liest, achtet darauf, dass die Aufgabe der Spurkarte folgt." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    rules4T: { en: "Four rules for today", de: "Vier Regeln für heute" },
+    rulesT: { en: "Five rules", de: "Fünf Grundregeln" }
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
@@ -8523,7 +8642,7 @@ window.GCT_DATA.facts = [
   var GROUP_NAMES = { en: ["Kingfishers", "Badgers", "Foxes", "Owls", "Beavers", "Swifts", "Hedgehogs", "Otters"], de: ["Eisvögel", "Dachse", "Füchse", "Eulen", "Biber", "Mauersegler", "Igel", "Otter"] };
   var GROUP_COLORS = ["--a-values", "--a-complex", "--a-futures", "--a-acting", "--sign", "--blaze", "--ink-2", "--a-values"];
   /* Eleven minutes per station with the twenty seconds of listening: task, talk, estimate, one sentence and a find. */
-  var PHASES = [["phTask", 300], ["phTalk", 180], ["phEst", 60], ["phSentence", 100]];
+  var PHASES = [["phListen", 30], ["phTask", 300], ["phTalk", 180], ["phEst", 60], ["phSentence", 90]];
   function pts() { return G.withPoints && G.withPoints(); }
   function minLabel(sec) { return sec % 60 ? G.mmss(sec) : (sec / 60) + " min"; }
   function gcol(i) { return "var(" + GROUP_COLORS[i % GROUP_COLORS.length] + ")"; }
@@ -8978,12 +9097,15 @@ window.GCT_DATA.facts = [
   var COMMUNITY = "https://education-for-climate.ec.europa.eu/community/GreenCompGame";
   var S = null, runs = [], skipHandler = null;
 
-  function fresh() { return { v: 2, i: 0, who: null, len: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
+  function fresh() { return { v: 2, i: 0, who: null, len: null, kit: null, names: [], roles: 0, pace: "normal", goal: null, e4c: null, pre: null, sil: null, dots: {}, choice: null, final: null, changed: false, plan: "", thumbs: {}, st: [], leader: null, out: null, done: false, r0: false, sdg: null, picks: null, place: "out", later: false }; }
   function save() { store.set("game", S); }
   function load() { var g = store.get("game", null); if (!g || g.v !== 2) return fresh(); g.place = g.place || "out"; return g; }
   /* Points are a switch, off by default: estimating is fun without them (see README, v0.7). */
   G.withPoints = function () { return !!store.get("points", false); };
   function solo() { return S.who === "solo"; }
+  /* v1.0: what the group plays with. app: the app draws everything. both: paper cards from the bag, tapped in.
+   * cards: paper cards only; the app shows the run sheet once and then stays out of the game. */
+  function both() { return S.kit === "both"; }
   function stations() { return S.len === "exp" || S.len === "one"; }
   /* «Original plus»: round 0 of the JRC game, a UN goal first. */
   function isR0() { return S.goal === "sdg" || !!S.r0; }
@@ -9015,30 +9137,29 @@ window.GCT_DATA.facts = [
 
   /* ---------- time ----------
    * Seconds for one part of the game. Sixty minutes: arrive 2, briefing 1, choose 2, four stations of 11, debrief 8,
-   * promise 2, next game leader 1. A station: listen 20 s, three quick draws, the task as long as the card says,
-   * talking for the rest of 8:20, estimate 1, one sentence and a find 1:40. Groups above four talk a little longer;
-   * the pace stretches or shortens everything except the fixed silence.
-   * task: seconds of the task on the card (3 to 5 minutes); unknown before the card is drawn, then 4 minutes. */
+   * promise 2, next game leader 1. v1.0: a station has fixed hourglasses, the same in the app, on the board and with
+   * the paper set: listen 0:30, task 5:00, talk 3:00, estimate 1:00, one sentence and a find 1:30 = 11 minutes.
+   * Drawing the cards has no clock. The pace only stretches the parts outside the stations. */
   function durFor(kind, len, n, pace, r0, task) {
     var f = PACE[pace] || 1, sec;
     task = task || 240;
     switch (kind) {
       case "silence": return 60;
       case "arrive": sec = 60; break;
-      case "sound": return 20;
-      case "pick": return 15;
+      case "sound": return 30;
+      case "pick": return 0;
       case "walk": return 640;
       case "brief": sec = len === "exp" || len === "one" ? 60 : 30; break;
       case "choose": sec = 120 + (r0 ? 60 : 0); break;
-      case "task": sec = task; break;
-      case "talk": sec = Math.max(90, 435 - task + 20 * Math.max(0, n - 4)); break;
-      case "est": sec = 60; break;
-      case "sentence": sec = len === "five" ? clamp(12 + 12 * n, 45, 120) : 100; break;
+      case "task": return 300;
+      case "talk": return 180;
+      case "est": return 60;
+      case "sentence": return len === "five" ? 60 : 90;
       case "what": sec = 160; break;
       case "sowhat": sec = 150; break;
       case "nowwhat": sec = 170; break;
       case "debrief": sec = 120; break;
-      case "promise": sec = 120; break;
+      case "promise": sec = len === "one" ? 60 : 120; break;
       case "leader": sec = len === "exp" ? 60 : 20; break;
       case "end": sec = 60; break;
       default: return 0;
@@ -9046,7 +9167,7 @@ window.GCT_DATA.facts = [
     return Math.round(sec * f / 5) * 5;
   }
   var KIND = { card: "pick", trail: "pick", spark: "pick" };
-  var TIMED = { silence: 1, brief: 1, choose: 1, sound: 1, task: 1, talk: 1, est: 1, sentence: 1, what: 1, sowhat: 1, nowwhat: 1, debrief: 1, promise: 1, leader: 1 };
+  var TIMED = { silence: 1, brief: 1, choose: 1, sound: 1, task: 1, talk: 1, est: 1, sentence: 1, what: 1, sowhat: 1, nowwhat: 1, debrief: 1, promise: 1, leader: 1, end: 0 };
   function people() { return solo() ? 1 : Math.max(2, S.names.length); }
   function taskSec(st) { var c = st && !st.joker && G.COMP[st.comp]; return c && c.minutes ? c.minutes * 60 : 240; }
   function dur(kind, st) { return durFor(kind, S.len, people(), S.pace, isR0(), taskSec(st)); }
@@ -9054,22 +9175,26 @@ window.GCT_DATA.facts = [
   /* ---------- the plan: every step of the chosen game ----------
    * One station is the way in: silence, briefing, the station, then choose and plan in a short debrief.
    * The expedition chooses before the first station, or after it (later), when the group already knows what a card is. */
-  function planFor(who, len, later) {
+  function planFor(who, len, later, kit) {
     var p = [{ id: "who", ph: "setup" }];
     if (who === "room") return p.concat([{ id: "room", ph: "setup" }]);
     if (!who) return p;
     p.push({ id: "len", ph: "setup" });
     if (!len) return p;
+    p.push({ id: "kit", ph: "setup" });
+    if (kit === undefined) kit = "app";
+    if (!kit) return p;
+    if (kit === "cards") return p.concat([{ id: "sheet", ph: "setup" }]);
     if (who !== "solo") p.push({ id: "names", ph: "setup" });
     if (len === "walk") return p.concat([{ id: "brief", ph: "start" }, { id: "card", ph: "play", k: 0 }, { id: "walk", ph: "play", k: 0 }]);
     if (len === "five") return p.concat([{ id: "brief", ph: "start" }], ["card", "trail", "task", "sentence"].map(function (id) { return { id: id, ph: "play", k: 0 }; }), [{ id: "end", ph: "end" }]);
     p.push({ id: "silence", ph: "start" }, { id: "brief", ph: "start" });
     function station(k) { STATION.forEach(function (id) { p.push({ id: id, ph: "st" + k, k: k }); }); }
-    if (len === "one") { station(0); return p.concat([{ id: "debrief", ph: "debrief" }, { id: "leader", ph: "end" }]); }
+    if (len === "one") { station(0); return p.concat([{ id: "debrief", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]); }
     for (var k = 0; k < 4; k++) { if (k === (later ? 1 : 0)) p.push({ id: "choose", ph: "choose" }); station(k); }
     return p.concat([{ id: "what", ph: "debrief" }, { id: "sowhat", ph: "debrief" }, { id: "nowwhat", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]);
   }
-  function plan() { return planFor(S.who, S.len, S.later); }
+  function plan() { return planFor(S.who, S.len, S.later, S.kit); }
   function phLabel(ph, len) {
     len = len || S.len;
     if (ph === "setup") return T("phSetup");
@@ -9100,7 +9225,22 @@ window.GCT_DATA.facts = [
   /* What one station holds, with minutes, for the briefing: listen, task, talk, estimate, one sentence. */
   function stationLine() {
     var n = people(), f = function (k, sec) { return T(k) + " " + durLabel(sec); };
-    return [f("stListen", dur("sound")), T("stTask", { a: 3, b: 5 }), f("stTalk", Math.round(durFor("talk", S.len, n, S.pace, false, 240) / 60) * 60), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
+    return [f("stListen", dur("sound")), f("stTaskW", dur("task")), f("stTalk", dur("talk")), f("stEst", dur("est")), f("stSentence", dur("sentence"))].join(" · ");
+  }
+
+  /* v1.0: what happens at a station, step by step, each with its hourglass. Shown in the briefing and on the run sheet,
+   * so that everyone knows from the start what comes next. */
+  function stationSteps(five) {
+    function li(t, sec, sub) { return h("li", null, h("span", { class: "flow-time num" }, sec ? [G.icon("hourglass", "flow-ico"), " " + G.mmss(sec)] : "—"), h("span", null, h("b", null, t), sub ? h("small", null, sub) : null)); }
+    var out = five ? [] : [li(T("flowListen"), durFor("sound", S.len)), ];
+    out.push(li(T("flowDraw"), 0, five ? T("flowDrawSub5") : T("flowDrawSub")));
+    out.push(li(T("flowTask"), durFor("task", S.len), T("flowTaskSub")));
+    if (!five) { out.push(li(T("flowTalk"), durFor("talk", S.len), T("flowTalkSub"))); out.push(li(T("flowEst"), durFor("est", S.len), T("flowEstSub"))); }
+    out.push(li(five ? T("flowSentence5") : T("flowSentence"), durFor("sentence", S.len), five ? null : T("flowSentenceSub")));
+    return h("ol", { class: "flow-list" }, out);
+  }
+  function kitNote() {
+    return S.kit === "both" ? h("p", { class: "note" }, "🃏 " + T("kitBothNote")) : S.kit === "app" ? h("p", { class: "note" }, "📱 " + T("kitAppNote")) : null;
   }
 
   /* ---------- per-station state ---------- */
@@ -9163,7 +9303,7 @@ window.GCT_DATA.facts = [
   }
   function timer(sec, opts) {
     opts = opts || {};
-    var hg = opts.glass ? G.hourglass() : null;
+    var hg = opts.glass === false ? null : G.hourglass();
     var clock = h("p", { class: "clock" }, G.mmss(sec));
     var phase = h("p", { class: "lead", "aria-live": "polite" }, opts.label || "");
     var btn = h("button", { type: "button", class: "btn btn--sign btn--big" }, opts.start || T("startTime", { t: G.mmss(sec) }));
@@ -9308,7 +9448,7 @@ window.GCT_DATA.facts = [
         need: function () { return S.who ? null : T("needChoice"); } };
     },
     len: function (step, st, ctl) {
-      function pickLen(id) { if (S.len !== id) { S.len = id; S.st = []; S.leader = null; S.dots = {}; S.choice = null; S.final = null; S.done = false; S.later = false; } save(); ctl.go(1); }
+      function pickLen(id) { if (S.len !== id) { S.len = id; S.kit = S.kit || null; S.st = []; S.leader = null; S.dots = {}; S.choice = null; S.final = null; S.done = false; S.later = false; } save(); ctl.go(1); }
       var n = Math.max(2, S.names.length || 4);
       var opts = solo()
         ? [["five", "hourglass", T("len5", { n: totalMin("solo", "five", 1, S.pace) }), T("len5SubSolo")], ["walk", "walk", T("lenWalk"), T("lenWalkSub")]]
@@ -9318,6 +9458,33 @@ window.GCT_DATA.facts = [
       return { icon: "hourglass", title: solo() ? T("wLenTSolo") : T("wLenT"), say: solo() ? T("wLenSaySolo") : T("wLenSay"),
         body: h("div", { class: "choices" }, opts.map(function (o) { return choice(S.len === o[0], o[1], o[2], o[3], function () { pickLen(o[0]); }); })),
         need: function () { return S.len ? null : T("needChoice"); } };
+    },
+    /* v1.0: what do you play with? It changes the words on the steps, never the order. */
+    kit: function (step, st, ctl) {
+      function pick(id) { S.kit = id; save(); ctl.go(1); }
+      return { icon: "card", title: T("wKitT"), say: T("wKitSay"),
+        body: [h("div", { class: "choices" },
+          choice(S.kit === "both", "card", T("kitBoth"), solo() ? T("kitBothSubSolo") : T("kitBothSub"), function () { pick("both"); }),
+          choice(S.kit === "app", "phone", T("kitApp"), T("kitAppSub"), function () { pick("app"); }),
+          choice(S.kit === "cards", "hourglass", T("kitCards"), T("kitCardsSub"), function () { pick("cards"); })),
+          h("p", { class: "small muted" }, T("kitNote"))],
+        need: function () { return S.kit ? null : T("needChoice"); } };
+    },
+    /* Paper only: the run sheet, once, to read out or print. Then the phone goes away. */
+    sheet: function (step, st, ctl) {
+      var five = S.len === "five", walk = S.len === "walk";
+      return { icon: "hourglass", title: T("wSheetT"), say: walk ? T("wSheetSayWalk") : T("wSheetSay"), last: true,
+        body: [
+          h("section", { class: "brief-sec" }, h("h3", null, T("sheetRules")),
+            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))), solo() ? null : h("li", null, T("rulePhonesPaper")))),
+          stations() && !solo() ? h("section", { class: "brief-sec" }, h("h3", null, T("sheetBefore")), h("ol", { class: "steps-list" }, h("li", null, T("sheetBefore1")), h("li", null, T("sheetBefore2")), h("li", null, T("sheetBefore3")))) : null,
+          walk ? h("p", { class: "lead" }, T("sheetWalk")) : h("section", { class: "brief-sec" }, h("h3", null, five ? T("flowT5") : T("stEachSteps")), stationSteps(five)),
+          walk ? null : h("section", { class: "brief-sec" }, h("h3", null, T("sheetGlass")), h("p", null, T("sheetGlassP"))),
+          stations() && !solo() ? h("section", { class: "brief-sec" }, h("h3", null, T("sheetAfter")), h("ol", { class: "steps-list" }, h("li", null, T("sheetAfter1")), h("li", null, T("sheetAfter2")), h("li", null, T("sheetAfter3")))) : null,
+          h("div", { class: "row no-print" },
+            h("button", { type: "button", class: "btn btn--sign", onclick: function () { window.print(); } }, "🖨 " + T("sheetPrint")),
+            h("a", { class: "btn", href: "#loesungen" }, T("sheetAnswers")),
+            h("button", { type: "button", class: "btn btn--ghost", onclick: function () { S.kit = "both"; save(); ctl.go(1); } }, T("sheetUseApp")))] };
     },
     names: function (step, st, ctl) {
       var list = h("div", { class: "name-list" });
@@ -9362,7 +9529,10 @@ window.GCT_DATA.facts = [
         var list = solo()
           ? h("ul", { class: "checklist big-list" }, h("li", null, T("ready1S")), h("li", null, T("ready2S")), h("li", null, T("ready3S")))
           : h("ul", { class: "checklist big-list" }, h("li", null, T("ready1G")), h("li", null, T("ready2G")), h("li", null, T("rule3"))) ;
-        return { icon: "tree", title: T("wReadyT"), say: solo() ? T("wReadySaySolo") : T("wReadySay"), body: [h("p", { class: "about-line" }, L(solo() ? D.about.briefSolo : D.about.brief)), list, h("details", { class: "panel" }, h("summary", null, T("settingsT")), settings)], next: solo() ? T("imReady") : T("weAreReady"),
+        return { icon: "tree", title: T("wReadyT"), say: solo() ? T("wReadySaySolo") : T("wReadySay"), body: [h("p", { class: "about-line" }, L(solo() ? D.about.briefSolo : D.about.brief)), list,
+          S.len === "five" ? h("section", { class: "brief-sec" }, h("h3", null, T("flowT5")), stationSteps(true)) : null, kitNote(),
+          timer(dur("brief"), { hint: T("briefHint") }),
+          h("details", { class: "panel" }, h("summary", null, T("settingsT")), settings)], next: solo() ? T("imReady") : T("weAreReady"),
           read: function () { return L(solo() ? D.about.briefSolo : D.about.brief); } };
       }
       if (!S.goal) { var pg = store.get("prep", {}); if (pg.goal) S.goal = pg.goal; if (pg.e4c) S.e4c = pg.e4c; }
@@ -9382,7 +9552,7 @@ window.GCT_DATA.facts = [
         var segs = runPlan(S.who, S.len, people(), S.pace, isR0()), total = Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60);
         put(runBox, h("div", { class: "run-bar", role: "list", "aria-label": T("runT") }, segs.map(function (x) {
           return h("div", { class: "run-seg run-" + (x.ph.indexOf("st") === 0 ? "st" + (+x.ph.slice(2) + 1) : x.ph), role: "listitem", style: { flexGrow: String(Math.max(1, x.min)) } }, h("b", null, x.label), h("small", null, T("minShort", { n: x.min })));
-        })), h("p", { class: "run-station" }, h("b", null, T("stEach") + " "), stationLine()), h("p", { class: "small muted" }, T("runTotal", { n: total })));
+        })), h("div", { class: "run-station" }, h("p", null, h("b", null, T("stEachSteps"))), stationSteps(false)), h("p", { class: "small muted" }, T("runTotal", { n: total })));
         put(paceBox, radioChips(T("paceT"), ["calm", "normal", "brisk"].map(function (p) {
           return { id: p, label: T(p === "calm" ? "paceCalm" : p === "brisk" ? "paceBrisk" : "paceNormal") + " · " + T("minShort", { n: totalMin(S.who, S.len, people(), p, isR0()) }) };
         }), S.pace, function (p) { S.pace = p; save(); paintRun(); }));
@@ -9401,15 +9571,16 @@ window.GCT_DATA.facts = [
         body: [
           h("p", { class: "about-line" }, L(D.about.brief)),
           h("section", { class: "brief-sec" }, h("h3", null, "1 · " + T("goalQ")), goalBox),
-          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("runT")), runBox),
-          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rules3T")),
-            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))))),
+          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("runT")), runBox, kitNote()),
+          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rules4T")),
+            h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))), h("li", null, T("rulePhones")))),
           h("section", { class: "brief-sec" }, h("h3", null, "4 · " + T("rolesShort")), h("p", { class: "small muted" }, T("ready2G")), rolesBox),
           h("section", { class: "brief-sec" }, h("h3", null, T("placeQ")), placeBox),
+          timer(dur("brief"), { hint: T("briefHint") }),
           more],
         read: function () {
           var g = goalText(), segs = runPlan(S.who, S.len, people(), S.pace, isR0());
-          return [L(D.about.brief), g ? T("briefSayGoal", { goal: g }) : "", T("runTotal", { n: Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60) }), T("stEach") + " " + stationLine(), T("rules3T"), T("rule1"), T("rule2"), T("rule3"), T("ready2G")].filter(Boolean).join(". ");
+          return [L(D.about.brief), g ? T("briefSayGoal", { goal: g }) : "", T("runTotal", { n: Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60) }), T("stEach") + " " + stationLine(), T("rules4T"), T("rule1"), T("rule2"), T("rule3"), T("rulePhones"), T("ready2G")].filter(Boolean).join(". ");
         },
         next: T("weAreReady") };
     },
@@ -9419,7 +9590,7 @@ window.GCT_DATA.facts = [
         var si = G.pick(D.silence.filter(function (x) { return x.id !== S.sil; })); S.sil = si.id; save();
         var card = G.zoomOne(G.silenceMini(si), G.silenceBack()); if (!G.reduced) card.classList.add("dealt"); put(slot, card); Voice.speak(L(si.title) + " " + L(si.text), "narrator");
       } }, "✦ " + T("drawSilence"));
-      return { icon: "feather", title: T("wSilT"), say: T("wSilSay"),
+      return { icon: "feather", title: T("wSilT"), say: both() ? T("wSilSayBoth") : T("wSilSay"),
         body: [h("div", { class: "row" }, drawBtn), slot,
           timer(dur("silence"), { start: T("start60"), hint: T("silHint"), onEnd: function () { G.award("silence"); } })] };
     },
@@ -9503,7 +9674,7 @@ window.GCT_DATA.facts = [
         } }, "↷ " + T("chooseLater")), h("span", { class: "small muted" }, T("chooseLaterSub"))) : null;
       paintR0(); paint();
       return { icon: "compass", kicker: phLabel(step.ph), title: T("wChooseT"), say: (S.later ? T("chooseAfterOne") + " " : "") + (isR0() ? T("wChooseSayR0") : T("wChooseSay")),
-        body: [r0Box, status, grid, result, direct, later],
+        body: [r0Box, timer(dur("choose"), { hint: T("chooseHint") }), status, grid, result, direct, later],
         read: function () { return isR0() ? T("wChooseSayR0") : T("wChooseSay"); },
         need: function () { if (isR0() && !S.sdg) return T("needSdg"); return S.choice ? null : T("needChooseComp"); } };
     },
@@ -9565,9 +9736,9 @@ window.GCT_DATA.facts = [
       if (st.comp) showCard(false);
       else put(slot, h("button", { type: "button", class: "deck", onclick: function () { draw(); } }, h("span", { class: "deck-c" }), h("span", { class: "deck-c" }), h("span", { class: "deck-top" }, G.icon("card", "deck-ico"), h("b", null, "✦ " + T("drawCard")))));
       paintJoker();
-      var paper = h("details", { class: "panel" }, h("summary", null, T("paperCard")),
+      var paper = h("details", { class: "panel", open: both() && !st.comp ? true : null }, h("summary", null, T("paperCard")),
         h("div", { class: "chips paper-chips" }, pool(st, k).map(function (c) { return h("button", { type: "button", class: "chip", style: { borderColor: G.areaVar(G.AREA[c.area]) }, onclick: function () { paper.open = false; draw(c.id); } }, c.no + " " + L(c.name)); })));
-      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: solo() ? T("wCardSaySolo") : T("wCardSay") + (stations() ? " " + T("cardOfThree") : ""),
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wCardT"), say: (both() ? T(solo() ? "wCardSayBothSolo" : "wCardSayBoth") : solo() ? T("wCardSaySolo") : T("wCardSay")) + (stations() && !solo() ? " " + T("cardOfThree") : ""),
         body: [note, slot, tools, jokerBox, paper],
         read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
@@ -9595,16 +9766,17 @@ window.GCT_DATA.facts = [
           }, G.reduced ? 0 : 1000);
         } }, "✦ " + T("drawTrail"));
         put(box, f, h("div", { class: "row", style: { justifyContent: "center" } }, drawBtn),
-          h("details", { class: "panel" }, h("summary", null, T("chooseTrail")),
+          h("details", { class: "panel", open: both() ? true : null }, h("summary", null, both() ? T("chooseTrailBoth") : T("chooseTrail")),
             h("div", { class: "trail-pick" }, D.trails.map(function (t) { return h("button", { type: "button", class: "btn", onclick: function () { st.trail = t.id; save(); result(t); } }, L(t.name) + ": " + L(t.motto)); }))));
       }
       if (st.trail) result(trailById(st.trail)); else fan();
-      return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay"), body: [compSummary(st, false, true), box],
+      return { icon: "fork", kicker: phLabel(step.ph), title: T("drawTrail"), say: T("wTrailSay") + " " + (both() ? T("wTrailSayBoth") : T("wTrailSayFlick")), body: [compSummary(st, false, true), box],
         read: function () { var t = trailById(st.trail); return t ? L(t.name) + ". " + G.trailChange(t, solo()) : ""; },
         need: function () { return st.trail ? null : T("needTrail"); } };
     },
     spark: function (step, st, ctl) {
-      var must = S.len === "exp" && step.k === 3 && sparkCount() === 0 && !st.spark;
+      var lastSt = S.len === "one" || (S.len === "exp" && step.k === 3);
+      var must = lastSt && sparkCount() === 0 && !st.spark;
       var box = h("div", { class: "stack" });
       /* Two sparks change the cards themselves: «Double» adds a trail card, «Swap» exchanges the competence card. */
       function sparkAction(sp) {
@@ -9634,7 +9806,9 @@ window.GCT_DATA.facts = [
         var w = G.sparkWheel(function (sp) { st.spark = sp.id; save(); G.award("spark"); put(res, h("b", null, L(sp.name) + ": "), L(sp.text)); if (store.get("autoRead", false)) Voice.speak(L(sp.name) + ". " + L(sp.text), "narrator"); setTimeout(function () { if (box.isConnected) result(); }, 1400); });
         var spin = h("button", { type: "button", class: "btn btn--sign", onclick: function () { spin.disabled = true; if (no) no.disabled = true; w.spin(); } }, T("spinWheel"));
         var no = must ? null : h("button", { type: "button", class: "btn", onclick: function () { st.spark = "none"; save(); result(); } }, T("noSpark"));
-        put(box, must ? h("p", { class: "note warn" }, T("sparkMust")) : null, h("div", { class: "wheel-wrap" }, w.el), h("div", { class: "row", style: { justifyContent: "center" } }, spin, no), res);
+        var paperSp = h("details", { class: "panel", open: both() ? true : null }, h("summary", null, T("paperSpark")),
+          h("div", { class: "chips" }, D.sparks.map(function (sp) { return h("button", { type: "button", class: "chip", onclick: function () { st.spark = sp.id; save(); G.award("spark"); result(); } }, L(sp.name)); })));
+        put(box, must ? h("p", { class: "note warn" }, S.len === "one" ? T("sparkMustOne") : T("sparkMust")) : null, h("div", { class: "wheel-wrap" }, w.el), h("div", { class: "row", style: { justifyContent: "center" } }, spin, no), res, paperSp);
       }
       if (st.spark) result(); else wheel();
       return { icon: "spark", kicker: phLabel(step.ph), title: T("wSparkT"), say: T("sparkQ"), body: [compSummary(st, false, true), box],
@@ -9681,11 +9855,13 @@ window.GCT_DATA.facts = [
       var asker = S.names.length ? st.asker : -1;
       function paint() { put(slot, G.zoomOne(G.talkMini(c, st.talk), G.talkMini(c, st.talk, true))); }
       paint();
-      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
-        body: [h("div", { class: "row talk-row" }, slot,
+      var appQ = both() ? h("details", { class: "panel" }, h("summary", null, T("talkAppQ")), h("div", { class: "row talk-row" }, slot,
+        h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))) : null;
+      return { icon: "talk", kicker: phLabel(step.ph), title: T("wTalkT"), say: both() ? T("talkBoth") : asker >= 0 ? T("talkSayName", { name: nm(asker) }) : T("talkSayNoName"),
+        body: [both() ? null : h("div", { class: "row talk-row" }, slot,
           h("div", { class: "stack", style: { flex: "1", minWidth: "220px" } },
             h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.talk = 1 - st.talk; save(); paint(); } }, "↻ " + T("otherQuestion")))),
-          timer(dur("talk", st), { hint: T("talkHint") })],
+          timer(dur("talk", st), { hint: T("talkHint") }), appQ],
         read: function () { return L(c.talk[st.talk]); } };
     },
     est: function (step, st, ctl) {
@@ -9754,6 +9930,8 @@ window.GCT_DATA.facts = [
       if (st.revealed) { revealBtn.hidden = true; reveal(false); }
       return { icon: "target", title: e.type === "number" ? T("estimateNum") : T("estimateTF"), say: e.type === "number" ? T("wEstSay") : T("wEstSayTF"),
         body: [h("div", { class: "panel est-card" }, h("p", { class: "eyebrow" }, G.COMP[e.comp].no + " " + L(G.COMP[e.comp].name)), h("p", { class: "est-q" }, L(e.q))),
+          both() ? h("p", { class: "note" }, T("estBoth"), " ", h("a", { href: "#loesungen" }, T("sheetAnswers"))) : null,
+          timer(dur("est"), { hint: T("estHint") }),
           h("div", { class: "panel stack" }, h("h3", null, n > 1 ? T("guessesAll") : T("yourGuess")), inputs,
             h("div", { class: "row" }, revealBtn)), out],
         read: function () { return L(e.q); },
@@ -9826,7 +10004,7 @@ window.GCT_DATA.facts = [
       var ta = h("textarea", { id: "game-promise", placeholder: T("promisePh") });
       var say = D.guide.expedition.find(function (x) { return x.k === "promise"; });
       return { icon: "seed", kicker: phLabel(step.ph), title: T("tPromise"), say: L(say.d),
-        body: [cardRow(G.promiseMini(false), G.promiseMini(true), [h("p", { class: "lead" }, L(D.promise.back))]),
+        body: [timer(dur("promise"), { hint: T("promiseHint") }), cardRow(G.promiseMini(false), G.promiseMini(true), [h("p", { class: "lead" }, L(D.promise.back))]),
           (S.plan || "").trim() ? h("p", { class: "note" }, T("promiseFromPlan", { plan: S.plan.trim().replace(/[.!?]+$/, "") })) : null,
           h("div", { class: "panel" }, h("div", { class: "field" }, h("label", { for: "game-promise" }, T("promiseOwn")), ta),
             h("div", { class: "row" }, h("button", { type: "button", class: "btn btn--sign", onclick: function () { if (G.savePromise(ta.value, last.comp)) { msg.textContent = T("saved"); ta.value = ""; } } }, T("save"))), msg)] };
@@ -9852,7 +10030,7 @@ window.GCT_DATA.facts = [
       }
       paint();
       return { icon: "flag", kicker: phLabel(step.ph), title: T("wLeaderT"), say: T("wLeaderSay"), last: true,
-        body: [box, groupCard(), outsidePanel(), againRow(ctl)] };
+        body: [timer(dur("leader"), { hint: T("leaderHint") }), box, groupCard(), outsidePanel(), againRow(ctl)] };
     }
   };
 
@@ -10001,7 +10179,7 @@ window.GCT_DATA.facts = [
   G.newGame = function (who, comp, len, replace) {
     S = fresh(); S.pre = comp && G.COMP[comp] ? comp : null;
     if (who) { S.who = who; S.i = 1; if (who === "group") S.names = ["", "", ""]; }
-    if (who && len) { S.len = len; var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.ph !== "setup"; })); }
+    if (who && len) { S.len = len; S.kit = "app"; var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.ph !== "setup"; })); }
     save();
     if (replace) { history.replaceState(null, "", "#spielen"); G.route(); }
     else if (location.hash === "#spielen") G.route(); else location.hash = "spielen";
@@ -10009,14 +10187,14 @@ window.GCT_DATA.facts = [
   /* «Original plus» is no game of its own: the expedition with the goal «a UN goal», set beforehand. Starts at the names. */
   G.newOriginal = function () {
     S = fresh(); S.who = "group"; S.names = ["", "", ""]; S.len = "exp"; S.goal = "sdg"; S.r0 = true;
-    S.i = Math.max(0, plan().findIndex(function (p) { return p.id === "names"; }));
+    S.i = Math.max(0, plan().findIndex(function (p) { return p.id === "kit"; }));
     save();
     if (location.hash === "#spielen") G.route(); else location.hash = "spielen";
   };
   G.gameInProgress = function () {
     var g = store.get("game", null);
     if (!g || g.v !== 2 || g.done || !g.len || g.i < 1) return null;
-    return { i: g.i + 1, n: planFor(g.who, g.len, g.later).length };
+    return { i: g.i + 1, n: planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit).length };
   };
 
   /* ---------- «Prepare»: for the game leader, before the day ---------- */
@@ -10452,7 +10630,7 @@ window.GCT_DATA.facts = [
         put(detail, h("b", null, T("total60")));
         content = [bar, detail,
           h("h4", null, T("stationT")),
-          h("ol", { class: "station-list" }, D.guide.station.map(function (p) { return h("li", null, h("span", { class: "num" }, p.sec % 60 ? (p.sec > 60 ? G.mmss(p.sec) + " min" : T("seconds", { n: p.sec })) : T("minutes", { n: p.sec / 60 })), h("b", null, L(p.t)), h("span", null, L(p.d))); })),
+          h("ol", { class: "station-list" }, D.guide.station.map(function (p) { return h("li", null, h("span", { class: "num" }, !p.sec ? "—" : p.sec % 60 ? (p.sec > 60 ? G.mmss(p.sec) + " min" : T("seconds", { n: p.sec })) : T("minutes", { n: p.sec / 60 })), h("b", null, L(p.t)), h("span", null, L(p.d))); })),
           h("div", { class: "row" }, h("a", { class: "btn btn--sign", href: "#tafel" }, T("openBoard") + " →"))];
       } else {
         content = [h("ol", { class: "steps-list" }, m.steps.map(function (st) { return h("li", null, L(st)); })), h("p", { class: "note" }, L(m.note)),
@@ -10467,6 +10645,7 @@ window.GCT_DATA.facts = [
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("aboutT")), G.aboutTiles()),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("quickT")),
           h("ol", { class: "quick" }, D.guide.quick.map(function (q, i) { return h("li", null, h("span", { class: "quick-n" }, String(i + 1)), h("span", { class: "tile-ico" }, G.icon(q.icon)), h("b", null, L(q.t)), h("span", null, L(q.d))); }))),
+        h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("kitsT")), h("p", { class: "lead" }, T("kitsLead")), h("div", { class: "icon-grid three" }, D.guide.kits.map(iconTile))),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("rulesT")), h("div", { class: "icon-grid" }, D.guide.rules.map(iconTile))),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("modesT")), modePanel()),
         h("section", { class: "guide-sec" }, h("h2", { class: "display" }, T("rolesT")), h("div", { class: "icon-grid three" }, D.guide.roles.map(iconTile))),

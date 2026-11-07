@@ -1159,6 +1159,16 @@ button.pick-add:active { transform: scale(.98); }
   .guide-sec, .booklet-item { break-inside: avoid; }
   .panel, .tile, .quick li, .icon-tile { box-shadow: none; }
 }
+/* v1.0 · Ablauf einer Station mit Sanduhren */
+.flow-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: flow; }
+.flow-list li { counter-increment: flow; display: grid; grid-template-columns: 30px 92px 1fr; gap: 10px; align-items: start; padding: 10px 12px; border-radius: 14px; background: var(--bg-2, rgba(0,0,0,.03)); border: 1px solid var(--line); }
+.flow-list li::before { content: counter(flow); display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--sign, #f5c518); color: #14261c; font-weight: 700; font-size: 14px; }
+.flow-time { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; white-space: nowrap; }
+.flow-ico { width: 18px; height: 18px; }
+.flow-list b { display: block; }
+.flow-list small { display: block; color: var(--ink-2); margin-top: 2px; }
+.run-station .flow-list { margin-top: 6px; }
+@media print { .no-print, .play-nav, .play-top, header.site, nav, footer { display: none !important; } .flow-list li { break-inside: avoid; } }
 </style>
 </head>
 <body>

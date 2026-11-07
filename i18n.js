@@ -1094,3 +1094,104 @@
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+/* v1.0 · Klare Regeln: Spielweise (App, Karten, beides), feste Sanduhren an jeder Station, Ablauf von Anfang an sichtbar. */
+(function () {
+  var add = {
+    wKitT: { en: "What do you play with?", de: "Womit spielt ihr?" },
+    wKitSay: { en: "All three work. The order of the game stays the same.", de: "Alle drei gehen. Der Ablauf bleibt derselbe." },
+    kitBoth: { en: "Cards and app", de: "Karten und App" },
+    kitBothSub: { en: "You draw paper cards from the bag and tap them in. The app keeps time and shows the next step.", de: "Ihr zieht Papierkarten aus dem Beutel und tippt sie ein. Die App hält die Zeit und zeigt den nächsten Schritt." },
+    kitBothSubSolo: { en: "You draw a paper card and tap it in. The app keeps time and leads you.", de: "Du ziehst eine Papierkarte und tippst sie ein. Die App hält die Zeit und führt dich." },
+    kitApp: { en: "App only", de: "Nur App" },
+    kitAppSub: { en: "No card set needed. The app draws every card.", de: "Kein Kartenset nötig. Die App zieht jede Karte." },
+    kitCards: { en: "Cards only", de: "Nur Karten" },
+    kitCardsSub: { en: "No phone in the game. You get the run sheet once, with every step and every time.", de: "Kein Handy im Spiel. Ihr bekommt einmal den Ablauf mit jedem Schritt und jeder Zeit." },
+    kitNote: { en: "No card set at hand? Choose «App only». The set can also be printed: Cards → print.", de: "Kein Kartenset da? Wählt «Nur App». Das Set lässt sich auch drucken: Karten → drucken." },
+    kitBothNote: { en: "With your card set: draw each card from the bag, then tap it in here.", de: "Mit eurem Kartenset: Jede Karte aus dem Beutel ziehen, dann hier eintippen." },
+    kitAppNote: { en: "The app draws the cards. Everything else you do for real.", de: "Die App zieht die Karten. Alles andere macht ihr echt." },
+    wSheetT: { en: "Your run sheet", de: "Euer Ablauf" },
+    wSheetSay: { en: "Read it out once, or print it. Then the phones go away, and the hourglass leads.", de: "Einmal vorlesen oder ausdrucken. Dann kommen die Handys weg, und die Sanduhr führt." },
+    wSheetSayWalk: { en: "Without a phone, your skill card leads you.", de: "Ohne Handy führt dich deine Fähigkeitskarte." },
+    sheetRules: { en: "The rules", de: "Die Regeln" },
+    sheetWalk: { en: "Draw a skill card and turn it over. «Alone» on the back is your task. Go outside, take your time, and say one word at the end. At home, write your promise on a promise card.", de: "Zieh eine Fähigkeitskarte und dreh sie um. «Allein» auf der Rückseite ist deine Aufgabe. Geh hinaus, lass dir Zeit und sag am Ende ein Wort. Zu Hause schreibst du dein Versprechen auf eine Versprechen-Karte." },
+    sheetGlass: { en: "The hourglasses", de: "Die Sanduhren" },
+    sheetGlassP: { en: "The bag holds a 5-minute and a 1-minute hourglass. Task: the 5-minute one. Talk: the 1-minute one, three times. Estimate: once. One sentence and a find: one and a half. Listen: half of the 1-minute one. When the sand has run through, time is up, even mid-sentence.", de: "Im Beutel liegen eine 5-Minuten- und eine 1-Minuten-Sanduhr. Aufgabe: die 5-Minuten-Uhr. Reden: die 1-Minuten-Uhr dreimal. Schätzen: einmal. Ein Satz und ein Fundstück: anderthalbmal. Zuhören: die halbe 1-Minuten-Uhr. Wenn der Sand durch ist, ist Schluss, auch mitten im Satz." },
+    sheetAfter: { en: "After the stations", de: "Nach den Stationen" },
+    sheetAfter1: { en: "Debrief: What happened? What does it mean for us? What do we do now? Agree on one small plan.", de: "Nachbesprechung: Was ist passiert? Was heisst das für uns? Was machen wir damit? Einigt euch auf ein kleines Vorhaben." },
+    sheetAfter2: { en: "Promise: everyone writes one action for the next seven days on a promise card.", de: "Versprechen: Jede Person schreibt eine Handlung für die nächsten sieben Tage auf eine Versprechen-Karte." },
+    sheetAfter3: { en: "Count to three, and everyone points at the next game leader.", de: "Bis drei zählen, und alle zeigen auf die nächste Spielleitung." },
+    sheetPrint: { en: "Print", de: "Drucken" },
+    sheetAnswers: { en: "Answer booklet", de: "Lösungsheft" },
+    sheetUseApp: { en: "Use the app after all", de: "Doch mit der App spielen" },
+    flowT5: { en: "How it goes", de: "So läuft es" },
+    stEachSteps: { en: "At every station, step by step:", de: "An jeder Station, Schritt für Schritt:" },
+    stTaskW: { en: "task", de: "Aufgabe" },
+    flowListen: { en: "Listen, eyes closed", de: "Zuhören, Augen zu" },
+    flowDraw: { en: "Draw the cards", de: "Karten ziehen" },
+    flowDrawSub: { en: "Skill card, then trail card (or flick the coaster: whoever catches it chooses the trail), then a spark. No clock.", de: "Fähigkeitskarte, dann Spurkarte (oder den Deckel schnipsen: Wer ihn fängt, wählt die Spur), dann ein Funke. Ohne Uhr." },
+    flowDrawSub5: { en: "Skill card and trail card (or flick the coaster). No clock.", de: "Fähigkeitskarte und Spurkarte (oder den Deckel schnipsen). Ohne Uhr." },
+    flowTask: { en: "Make it real", de: "Mach es echt" },
+    flowTaskSub: { en: "Three steps, outside, one after another. One hourglass for all three.", de: "Drei Schritte, draussen, einer nach dem anderen. Eine Sanduhr für alle drei." },
+    flowTalk: { en: "Talk", de: "Reden" },
+    flowTalkSub: { en: "A round card asks. Whoever asks answers first.", de: "Eine runde Karte fragt. Wer fragt, antwortet zuerst." },
+    flowEst: { en: "Estimate", de: "Schätzen" },
+    flowEstSub: { en: "Everyone guesses, then the answer.", de: "Alle schätzen, dann die Auflösung." },
+    flowSentence: { en: "One sentence and a find", de: "Ein Satz und ein Fundstück" },
+    flowSentenceSub: { en: "What do I take with me? Then a leaf or a stone for your area card.", de: "Was nehme ich mit? Dann ein Blatt oder ein Stein für eure Bereichskarte." },
+    flowSentence5: { en: "One sentence each", de: "Ein Satz pro Person" },
+    rulePhones: { en: "Phones in the middle, screens down. Only the game leader picks up the leading phone, between two steps.", de: "Handys in die Mitte, Bildschirm nach unten. Nur die Spielleitung nimmt das führende Handy in die Hand, zwischen zwei Schritten." },
+    rulePhonesPaper: { en: "Phones stay away. Nobody needs one.", de: "Die Handys bleiben weg. Niemand braucht eines." },
+    roleLead: { en: "leads: reads out loud, keeps time, holds the leading phone", de: "leitet: liest vor, hält die Zeit, hat das führende Handy" },
+    ready2G: { en: "All phones in the middle, screens down, this one too. Only the game leader picks it up, between two steps. It chimes when the sand has run through.", de: "Alle Handys in die Mitte, Bildschirm nach unten, auch dieses. Nur die Spielleitung nimmt es in die Hand, zwischen zwei Schritten. Es klingt, wenn der Sand durch ist." },
+    wSilSayBoth: { en: "All phones in the middle, screens down. Draw a silence card from the bag and do what it says. Then one minute without a word.", de: "Alle Handys in die Mitte, Bildschirm nach unten. Zieht eine Stille-Karte aus dem Beutel und tut, was darauf steht. Dann eine Minute ohne Worte." },
+    wCardSayBoth: { en: "Draw a skill card from the bag and tap it in below. Whoever leads reads the question out loud.", de: "Zieht eine Fähigkeitskarte aus dem Beutel und tippt sie unten ein. Wer leitet, liest die Frage laut vor." },
+    wCardSayBothSolo: { en: "Draw a skill card from your set and tap it in below. Read the question out loud, just for yourself.", de: "Zieh eine Fähigkeitskarte aus deinem Set und tipp sie unten ein. Lies die Frage laut vor, nur für dich." },
+    chooseTrailBoth: { en: "Paper trail card, or flicked the coaster? Tap the trail:", de: "Papier-Spurkarte oder Deckel geschnipst? Spur antippen:" },
+    wTrailSayBoth: { en: "Draw a trail card from the bag, or flick the coaster off the table edge: whoever catches it chooses.", de: "Zieht eine Spurkarte aus dem Beutel, oder schnipst den Deckel von der Tischkante: Wer ihn fängt, wählt." },
+    wTrailSayFlick: { en: "Or flick the coaster: whoever catches it chooses.", de: "Oder schnipst den Deckel: Wer ihn fängt, wählt." },
+    paperSpark: { en: "Drew a spark card? Tap it here:", de: "Eine Funkenkarte gezogen? Hier antippen:" },
+    sparkMustOne: { en: "Only one station today: the spark is a must.", de: "Heute nur eine Station: Der Funke ist Pflicht." },
+    talkAppQ: { en: "No round card at hand? A question from the app", de: "Keine runde Karte zur Hand? Eine Frage aus der App" },
+    talkBoth: { en: "Draw a round card from the bag. Whoever reads it out answers first, then the others. Nobody has to.", de: "Zieht eine runde Karte aus dem Beutel. Wer sie vorliest, antwortet zuerst, dann die anderen. Niemand muss." },
+    estHint: { en: "One minute: guess, say it out loud, type it in.", de: "Eine Minute: schätzen, laut sagen, eintippen." },
+    estBoth: { en: "With your own estimate card: the answer is on the board or in the answer booklet.", de: "Mit eurer eigenen Schätzkarte: Die Antwort steht auf der Tafel oder im Lösungsheft." },
+    listen20: { en: "Listen: 0:30", de: "Zuhören: 0:30" },
+    phListen: { en: "Listen", de: "Zuhören" }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    kitsT: { en: "Cards, app, or both", de: "Karten, App oder beides" },
+    kitsLead: { en: "Choose at the start of the game. The order of the steps and the hourglasses stay the same.", de: "Ihr wählt zu Beginn des Spiels. Die Reihenfolge der Schritte und die Sanduhren bleiben gleich." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = { briefHint: { en: "Read it out together, then off to the station.", de: "Gemeinsam vorlesen, dann los zur Station." } };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    chooseHint: { en: "Count to three, everyone points at one skill at the same time.", de: "Bis drei zählen, alle zeigen gleichzeitig auf eine Fähigkeit." },
+    promiseHint: { en: "Write it on your promise card, put it in your pocket.", de: "Schreibt es auf eure Versprechen-Karte und steckt sie ein." },
+    leaderHint: { en: "Count to three, everyone points at the next game leader.", de: "Bis drei zählen, alle zeigen auf die nächste Spielleitung." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    sheetBefore: { en: "Before the first station", de: "Vor der ersten Station" },
+    sheetBefore1: { en: "Arrive in silence: phones away, draw a silence card and do it. Then one minute without a word (the 1-minute hourglass).", de: "Ankommen in Stille: Handys weg, eine Stille-Karte ziehen und tun. Dann eine Minute ohne Worte (die 1-Minuten-Uhr)." },
+    sheetBefore2: { en: "Why are you playing today? Say it out loud. Then the four rules.", de: "Wozu spielt ihr heute? Laut sagen. Dann die vier Regeln." },
+    sheetBefore3: { en: "Three roles, passed on at every station: the game leader reads out and turns the hourglass, the silence keeper guards the phones, the tracker checks the trail.", de: "Drei Rollen, die an jeder Station weiterwandern: Die Spielleitung liest vor und dreht die Sanduhr. Wer die Stille hütet, passt auf die Handys auf. Wer die Spur liest, achtet darauf, dass die Aufgabe der Spurkarte folgt." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  var add = {
+    rules4T: { en: "Four rules for today", de: "Vier Regeln für heute" },
+    rulesT: { en: "Five rules", de: "Fünf Grundregeln" }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();

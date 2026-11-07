@@ -5,7 +5,7 @@
  * Card texts follow the language rules in SPRACHE.md: one idea per sentence, three steps per task, a clear end.
  */
 window.GCT_DATA = {
-  version: "0.9 · 2026-10-18",
+  version: "1.0 · 2026-11-07",
 
   areas: [
     {
@@ -70,7 +70,7 @@ window.GCT_DATA = {
         { en: "Then talk: where did you agree? Where not? One sentence each.", de: "Dann redet: Wo wart ihr euch einig? Wo nicht? Jede Person ein Satz." }
       ],
       done: { en: "Done when everyone has spoken.", de: "Fertig, wenn alle gesprochen haben." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 1, en: "For example: phone, keys, chewing gum, headphones, wallet.", de: "Zum Beispiel: Handy, Schlüssel, Kaugummi, Kopfhörer, Portemonnaie." },
       solo: { en: "Hold one thing from your pocket while you walk. Ask yourself: could I live without it?", de: "Halte beim Gehen einen Gegenstand aus deiner Tasche in der Hand. Frag dich: Könnte ich darauf verzichten?" },
       access: { en: "Without sight: pass the things from hand to hand. Whoever holds one says «I need it» or «it could go».", de: "Ohne Sehen: Die Gegenstände gehen von Hand zu Hand. Wer einen hält, sagt «brauche ich» oder «könnte weg»." },
@@ -107,7 +107,7 @@ window.GCT_DATA = {
         { en: "Everyone says: what was different the second time?", de: "Jede Person sagt: Was war beim zweiten Mal anders?" }
       ],
       done: { en: "Done when everyone has spoken.", de: "Fertig, wenn alle gesprochen haben." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 1, en: "Food or drink only if everyone can have it. Otherwise stones, coins or leaves.", de: "Essen oder Trinken nur, wenn alle es vertragen. Sonst Steine, Münzen oder Blätter." },
       solo: { en: "Eat or drink something on your way. First set a part aside for someone still to come. How does that feel?", de: "Iss oder trink etwas unterwegs. Leg vorher einen Teil beiseite für jemanden, der noch kommt. Wie fühlt sich das an?" },
       access: { en: "Without sight: share by touch, piece by piece. Seated: share on a bench or on your lap.", de: "Ohne Sehen: Teilt über die Hände, Stück für Stück. Sitzend: Teilt auf einer Bank oder auf dem Schoss." },
@@ -144,7 +144,7 @@ window.GCT_DATA = {
         { en: "Everyone says exactly one word for what they felt.", de: "Jede Person sagt genau ein Wort für das, was sie gespürt hat." }
       ],
       done: { en: "Done after the last word.", de: "Fertig nach dem letzten Wort." },
-      minutes: 3,
+      minutes: 5,
       solo: { en: "Touch something alive. Stay silent for one minute. Then say one word.", de: "Berühre etwas Lebendiges. Bleib eine Minute still. Sag dann ein Wort." },
       access: { en: "Seated: someone brings a leaf or a little soil. Without sight: touch and smell.", de: "Sitzend: Jemand bringt ein Blatt oder etwas Erde. Ohne Sehen: tasten und riechen." },
       windowText: {
@@ -291,7 +291,7 @@ window.GCT_DATA = {
         { en: "Open your eyes. Everyone says: which part of it do I want?", de: "Augen auf. Jede Person sagt: Was davon wünsche ich mir?" }
       ],
       done: { en: "Done when everyone has said what they want.", de: "Fertig, wenn alle gesagt haben, was sie sich wünschen." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 2, en: "For example: do you hear cars or birds? Does it smell of tarmac or soil? Is the ground hot or cool?", de: "Zum Beispiel: Hört ihr Autos oder Vögel? Riecht es nach Asphalt oder Erde? Ist der Boden heiss oder kühl?" },
       solo: { en: "Close your eyes for a moment. Picture this place in 2046: what do you hear and smell? Which part of it do you want?", de: "Schliess kurz die Augen. Stell dir diesen Ort im Jahr 2046 vor: Was hörst du, was riechst du? Was davon wünschst du dir?" },
       access: { en: "Without hearing: the person draws the future on the ground or on paper.", de: "Ohne Hören: Die Person zeichnet die Zukunft auf den Boden oder auf Papier." },
@@ -362,7 +362,7 @@ window.GCT_DATA = {
         { en: "Find three links between the two.", de: "Findet drei Verbindungen zwischen den beiden." }
       ],
       done: { en: "Done when you have three links.", de: "Fertig bei drei Verbindungen." },
-      minutes: 4,
+      minutes: 5,
       examples: { at: 3, en: "For example, a leaf and a shoe: both have lines. Both turn brown with time. Both protect something.", de: "Zum Beispiel Blatt und Schuh: Beide haben Linien. Beide werden mit der Zeit braun. Beide schützen etwas." },
       solo: { en: "Find two things that don’t fit together, for example a leaf and a shoe. Find three links between them.", de: "Such dir zwei Dinge, die nicht zusammenpassen, zum Beispiel ein Blatt und einen Schuh. Finde drei Verbindungen." },
       access: { en: "Without sight: name things you can hear or touch.", de: "Ohne Sehen: Nennt Dinge, die ihr hört oder ertastet." },
@@ -435,7 +435,7 @@ window.GCT_DATA = {
         { en: "Afterwards, everyone says: what helped us?", de: "Danach sagt jede Person: Was hat uns geholfen?" }
       ],
       done: { en: "Done at 20. After two minutes, 10 counts too.", de: "Fertig bei 20. Nach zwei Minuten gilt auch 10." },
-      minutes: 4,
+      minutes: 5,
       solo: { en: "Think of something you only managed with others. Whom could you ask this week to do something together?", de: "Denk an etwas, das du nur mit anderen geschafft hast. Wen könntest du diese Woche für etwas Gemeinsames fragen?" },
       access: { en: "Without hearing: instead of numbers, everyone raises one hand in turn. Nobody agrees who goes next.", de: "Ohne Hören: Statt Zahlen hebt jede Person nacheinander eine Hand. Niemand macht ab, wer als Nächstes dran ist." },
       windowText: {
@@ -469,7 +469,7 @@ window.GCT_DATA = {
         { en: "Everyone names a first step for tomorrow.", de: "Jede Person nennt einen ersten Schritt für morgen." }
       ],
       done: { en: "Done when everyone has a first step.", de: "Fertig, wenn jede Person einen ersten Schritt hat." },
-      minutes: 4,
+      minutes: 5,
       solo: { en: "Think of something you are good at. Where could it help nature or the climate? What is a first step for tomorrow?", de: "Denk an etwas, das du gut kannst. Wo könnte es der Natur oder dem Klima nützen? Was ist ein erster Schritt für morgen?" },
       access: { en: "Without hearing: write it down or show it.", de: "Ohne Hören: aufschreiben oder zeigen." },
       windowText: {
