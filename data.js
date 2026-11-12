@@ -5,7 +5,7 @@
  * Card texts follow the language rules in SPRACHE.md: one idea per sentence, three steps per task, a clear end.
  */
 window.GCT_DATA = {
-  version: "1.1 · 2026-11-12",
+  version: "1.2 · 2026-11-12",
 
   areas: [
     {

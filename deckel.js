@@ -104,7 +104,7 @@
     var id = "cst" + (++uid), area = c.area, col = AREA_HEX[area];
     var vb = opts.print ? "0 0 113 113" : (C - CUT) + " " + (C - CUT) + " " + (2 * CUT) + " " + (2 * CUT);
     var svg = s("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: vb, class: "coaster-svg", role: "img",
-      "aria-label": side === "task" ? L(c.name) + ": " + L(c.plain) : side === "back" ? T("coasterBackLabel") : T("coasterFrontLabel", { q: L(c.question) }) });
+      "aria-label": side === "task" ? T("coasterTry") + ": " + L(c.solo) : side === "back" ? T("coasterBackLabel") : T("coasterFrontLabel", { q: L(c.question) }) });
     if (opts.print) { svg.setAttribute("width", "113mm"); svg.setAttribute("height", "113mm"); }
     var defs = s("defs", null, s("clipPath", { id: id + "-cut" }, s("circle", { cx: C, cy: C, r: CUT })),
       arcPath(id + "-top", 43, false), arcPath(id + "-bot", 46.6, true));
@@ -146,36 +146,47 @@
       art.appendChild(ringText(id + "-top", T("appTitleRing"), 43, false, WHITE));
       art.appendChild(ringText(id + "-bot", T("coasterTurn"), 46.6, true, WHITE, 3.1));
     } else if (side === "task") {
-      /* ---- v1.1, screen only: the other side on the home page. The front asks, this side says what the skill is,
-       * the same mountains at night. The printed back (signpost and QR code) stays as it is. ---- */
-      defs.appendChild(s("linearGradient", { id: id + "-nsky", x1: 0, y1: 0, x2: 0, y2: 1 },
-        s("stop", { offset: "0", "stop-color": "#070d1a" }), s("stop", { offset: "0.5", "stop-color": "#152a44" }), s("stop", { offset: "0.78", "stop-color": mix("#2d4a66", col, 0.35) })));
-      defs.appendChild(s("radialGradient", { id: id + "-moon", cx: 0.5, cy: 0.5, r: 0.5 },
-        s("stop", { offset: "0", "stop-color": "#dfe9ff", "stop-opacity": "0.5" }), s("stop", { offset: "1", "stop-color": "#dfe9ff", "stop-opacity": "0" })));
-      art.appendChild(s("rect", { x: 0, y: 0, width: SIZE, height: SIZE, fill: "url(#" + id + "-nsky)" }));
-      [[20, 30], [28, 19], [37, 12.5], [52, 9], [66, 13], [91, 27], [97, 38], [14, 44], [44, 21], [74, 9.5], [100, 50], [10, 56]].forEach(function (p, i) { art.appendChild(s("circle", { cx: p[0], cy: p[1], r: i % 3 ? 0.34 : 0.52, fill: WHITE, opacity: i % 2 ? 0.55 : 0.9 })); });
-      art.appendChild(s("circle", { cx: 87, cy: 62, r: 12, fill: "url(#" + id + "-moon)" }));
-      art.appendChild(s("circle", { cx: 87, cy: 62, r: 4.2, fill: "#f2f5ff" }));
-      art.appendChild(s("circle", { cx: 85.4, cy: 60.9, r: 3.9, fill: "#1a2f4a" }));
-      art.appendChild(s("path", { d: "M-2 80 L9 74 L19 78 L30 71 L40 76.5 L48 72.5 L58 77 L68 70.5 L80 76.5 L90 72 L100 77 L115 73 V115 H-2Z", fill: "#1b2f44" }));
-      art.appendChild(s("path", { d: "M-2 86 C 14 80.5, 28 82, 40 85 S 70 80, 85 83 S 104 86.5, 115 82 V115 H-2Z", fill: mix(col, "#0b1420", 0.62) }));
-      art.appendChild(s("path", { d: "M-2 93 C 18 88.5, 38 91.5, 56 89.5 S 94 88.5, 115 92.5 V115 H-2Z", fill: mix(col, "#070d14", 0.82) }));
-      /* a small signpost on the hill, as in the picture above the page */
-      art.appendChild(s("rect", { x: 26.6, y: 76, width: 0.9, height: 9.5, fill: "#cfd8d2" }));
-      art.appendChild(s("path", { d: "M25.8 76.6 h6.4 l2.2 1.6 l-2.2 1.6 h-6.4 z", fill: SIGN }));
-      /* which skill, then what it means in everyday words */
-      var nm = c.no + " · " + L(c.name).toUpperCase(), nsz = fit(nm, 700, F_SIGN, 4.3, 60);
-      var nw = width(nm, 700, F_SIGN, nsz) + nm.length * 0.4, nx = C - (nw + 6.2) / 2;
-      art.appendChild(areaSign(area, nx, 26.2, 5, SIGN));
-      art.appendChild(s("text", { x: nx + 6.4, y: 30.3, "font-family": F_SIGN, "font-weight": 700, "font-size": nsz, "letter-spacing": 0.4, fill: SIGN, text: nm }));
-      var pl = L(c.plain), psz, pls, PS = [6.1, 5.5, 5, 4.5];
-      if (!PS.some(function (sz) { psz = sz; pls = wrap(pl, 700, F_TEXT, sz, 70); return pls.length <= 4; })) { psz = 4.1; pls = wrap(pl, 700, F_TEXT, psz, 72); }
-      var plh = psz * 1.2, ptop = 52.5 - pls.length * plh / 2;
-      var pt = s("text", { "font-family": F_TEXT, "font-weight": 700, "font-size": psz, fill: WHITE, "text-anchor": "middle" });
+      /* ---- v1.2, screen only: the other side on the home page. The front asks at dawn; this side is broad daylight and gives
+       * something to do right now: the card's task for one person, under the same yellow sign as on the printed back.
+       * Light on purpose: dark ink on a bright sky, so the turned coaster does not look gloomy.
+       * The printed back (signpost and QR code) stays as it is. ---- */
+      defs.appendChild(s("linearGradient", { id: id + "-dsky", x1: 0, y1: 0, x2: 0, y2: 1 },
+        s("stop", { offset: "0", "stop-color": "#bfe1f0" }), s("stop", { offset: "0.5", "stop-color": "#e6f3f1" }), s("stop", { offset: "0.76", "stop-color": "#fdf3d2" })));
+      defs.appendChild(s("radialGradient", { id: id + "-dsun", cx: 0.5, cy: 0.5, r: 0.5 },
+        s("stop", { offset: "0", "stop-color": "#fff6cf", "stop-opacity": "0.95" }), s("stop", { offset: "1", "stop-color": "#fff6cf", "stop-opacity": "0" })));
+      art.appendChild(s("rect", { x: 0, y: 0, width: SIZE, height: SIZE, fill: "url(#" + id + "-dsky)" }));
+      art.appendChild(s("circle", { cx: 80, cy: 80, r: 20, fill: "url(#" + id + "-dsun)" }));
+      art.appendChild(s("circle", { cx: 80, cy: 80, r: 6.4, fill: "#ffe08a" }));
+      [[14, 41, 9], [99, 33, 7], [103, 61, 6]].forEach(function (cl) { art.appendChild(s("ellipse", { cx: cl[0], cy: cl[1], rx: cl[2], ry: cl[2] * 0.3, fill: WHITE, opacity: 0.75 })); });
+      art.appendChild(s("path", { d: "M17 30 q1.6 -1.6 3.2 0 q1.6 -1.6 3.2 0 M88 26 q1.3 -1.3 2.6 0 q1.3 -1.3 2.6 0", fill: "none", stroke: INK, "stroke-width": 0.45, "stroke-linecap": "round", opacity: 0.5 }));
+      art.appendChild(s("path", { d: "M-2 86 L9 80.5 L19 83.5 L30 77.5 L40 82 L48 78.5 L58 82.5 L68 76.5 L80 82 L90 78 L100 82.5 L115 79 V115 H-2Z", fill: "#b9cfd6" }));
+      art.appendChild(s("path", { d: "M68 76.5 L65.4 79.1 L67 78.8 L68.2 79.7 L69.6 78.7 L71.2 79.2 Z M30 77.5 L28 79.6 L29.3 79.3 L30.3 80 L31.5 79.2 Z", fill: WHITE, opacity: 0.95 }));
+      art.appendChild(s("path", { d: "M-2 90 C 14 85.5, 28 87, 40 89.5 S 70 85, 85 88 S 104 90.5, 115 87 V115 H-2Z", fill: mix(col, WHITE, 0.42) }));
+      art.appendChild(s("path", { d: "M-2 95 C 18 91.5, 38 94, 56 92.5 S 94 91.5, 115 94.5 V115 H-2Z", fill: mix(col, INK, 0.22) }));
+      /* the yellow sign, as on the printed back, cut to the length of its words */
+      var tryT = T("coasterTry").toUpperCase(), tsz = 5.6, tw = width(tryT, 700, F_SIGN, tsz) + tryT.length * 0.2;
+      var th = 10.4, tipW = 10.5, sw = Math.min(58, tw + 6 + tipW), tx = C - sw / 2, tTip = tx + sw, ty = 19.4;
+      if (tw + 6 + tipW > 58) { tsz = tsz * (58 - 6 - tipW) / tw; }
+      defs.appendChild(s("clipPath", { id: id + "-tsign" }, s("path", { d: "M" + (tx + 1) + " " + ty + " H" + (tTip - 5.2) + " L" + tTip + " " + (ty + th / 2) + " L" + (tTip - 5.2) + " " + (ty + th) + " H" + (tx + 1) + " Q" + tx + " " + (ty + th) + " " + tx + " " + (ty + th - 1) + " V" + (ty + 1) + " Q" + tx + " " + ty + " " + (tx + 1) + " " + ty + " Z" })));
+      art.appendChild(s("ellipse", { cx: C, cy: ty + th + 1.4, rx: sw * 0.46, ry: 1.3, fill: INK, opacity: 0.12 }));
+      art.appendChild(s("g", { "clip-path": "url(#" + id + "-tsign)" },
+        s("rect", { x: tx, y: ty, width: sw, height: th, fill: SIGN }),
+        s("rect", { x: tTip - tipW, y: ty, width: tipW, height: th, fill: WHITE }),
+        s("rect", { x: tTip - tipW, y: ty + th / 3, width: tipW, height: th / 3, fill: BLAZE })));
+      art.appendChild(s("text", { x: tx + 3, y: ty + th / 2 + tsz * 0.35, "font-family": F_SIGN, "font-weight": 700, "font-size": tsz, "letter-spacing": 0.2, fill: INK, text: tryT }));
+      /* the task for one person: at most three short sentences, as large as it fits */
+      var pl = L(c.solo), psz, pls, PS = [5.6, 5.2, 4.8, 4.5, 4.2, 3.9];
+      if (!PS.some(function (sz) { psz = sz; pls = wrap(pl, 700, F_TEXT, sz, sz > 4.6 ? 70 : 74); return pls.length * sz * 1.22 <= 40; })) { psz = 3.7; pls = wrap(pl, 700, F_TEXT, psz, 76); }
+      var plh = psz * 1.22, ptop = 54.5 - pls.length * plh / 2;
+      var pt = s("text", { "font-family": F_TEXT, "font-weight": 700, "font-size": psz, fill: INK, "text-anchor": "middle" });
       pls.forEach(function (line, i) { pt.appendChild(s("tspan", { x: C, y: (ptop + psz * 0.82 + i * plh).toFixed(2), text: line })); });
       art.appendChild(pt);
-      art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: WHITE, "stroke-width": 0.3, opacity: 0.4 }));
-      art.appendChild(ringText(id + "-top", T("coasterSkillRing"), 43, false, WHITE));
+      /* which of the twelve, as on the front */
+      var nm = c.no + " " + L(c.name).toUpperCase(), nsz = fit(nm, 600, F_SIGN, 3.3, 58), nw = width(nm, 600, F_SIGN, nsz) + nm.length * 0.35, nx = C - (nw + 5.4) / 2;
+      art.appendChild(areaSign(area, nx, 93.6, 4.4, WHITE));
+      art.appendChild(s("text", { x: nx + 5.6, y: 97.1, "font-family": F_SIGN, "font-weight": 600, "font-size": nsz, "letter-spacing": 0.35, fill: WHITE, text: nm }));
+      art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: INK, "stroke-width": 0.3, opacity: 0.22 }));
+      /* no ring text at the top here: the sign is the title */
       art.appendChild(ringText(id + "-bot", T("coasterTurnBack"), 46.6, true, WHITE, 3.1));
     } else {
       /* ---- back: the signpost and the code ---- */
