@@ -115,7 +115,7 @@
     if (side !== "back" && side !== "task") {
       /* ---- front: dawn over the mountains and the question ---- */
       defs.appendChild(s("linearGradient", { id: id + "-sky", x1: 0, y1: 0, x2: 0, y2: 1 },
-        s("stop", { offset: "0", "stop-color": "#152b3f" }), s("stop", { offset: "0.34", "stop-color": "#2d4a66" }),
+        s("stop", { offset: "0", "stop-color": "#27476a" }), s("stop", { offset: "0.34", "stop-color": "#3f6688" }),
         s("stop", { offset: "0.6", "stop-color": "#b9805f" }), s("stop", { offset: "0.74", "stop-color": "#efc895" })));
       defs.appendChild(s("radialGradient", { id: id + "-glow", cx: 0.53, cy: 0.58, r: 0.3 },
         s("stop", { offset: "0", "stop-color": "#fff1c9", "stop-opacity": "0.95" }), s("stop", { offset: "1", "stop-color": "#fff1c9", "stop-opacity": "0" })));
@@ -126,8 +126,8 @@
       art.appendChild(s("path", { d: "M-2 74 L7 68 L15 71 L25 62.5 L33 67 L41 60.5 L49 66 L57 63.5 L65 68.5 L76 58.5 L86 66 L95 62 L105 68.5 L115 64.5 V115 H-2Z", fill: "#9cb0bf" }));
       art.appendChild(s("path", { d: "M76 58.5 L72.6 61.9 L74.6 61.5 L76 62.6 L77.7 61.4 L79.6 62 Z M41 60.5 L38.6 63 L40.2 62.7 L41.4 63.5 L42.8 62.6 Z", fill: WHITE, opacity: 0.9 }));
       art.appendChild(s("path", { d: "M-2 80 L9 74 L19 78 L30 71 L40 76.5 L48 72.5 L58 77 L68 70.5 L80 76.5 L90 72 L100 77 L115 73 V115 H-2Z", fill: mix("#5d7d84", col, 0.1) }));
-      art.appendChild(s("path", { d: "M-2 86 C 14 80.5, 28 82, 40 85 S 70 80, 85 83 S 104 86.5, 115 82 V115 H-2Z", fill: mix(col, INK, 0.35) }));
-      art.appendChild(s("path", { d: "M-2 93 C 18 88.5, 38 91.5, 56 89.5 S 94 88.5, 115 92.5 V115 H-2Z", fill: mix(col, INK, 0.72) }));
+      art.appendChild(s("path", { d: "M-2 86 C 14 80.5, 28 82, 40 85 S 70 80, 85 83 S 104 86.5, 115 82 V115 H-2Z", fill: mix(col, WHITE, 0.18) }));
+      art.appendChild(s("path", { d: "M-2 93 C 18 88.5, 38 91.5, 56 89.5 S 94 88.5, 115 92.5 V115 H-2Z", fill: mix(col, INK, 0.3) }));
       /* the question, as large as it fits */
       var q = L(c.question), size, ls, SZ = [6.9, 6.3, 5.7, 5.1];
       if (!SZ.some(function (sz) { size = sz; ls = wrap(q, 700, F_TEXT, sz, 68); return ls.length <= 3; }))
@@ -189,34 +189,40 @@
       /* no ring text at the top here: the sign is the title */
       art.appendChild(ringText(id + "-bot", T("coasterTurnBack"), 46.6, true, WHITE, 3.1));
     } else {
-      /* ---- back: the signpost and the code ---- */
-      defs.appendChild(s("radialGradient", { id: id + "-bg", cx: 0.5, cy: 0.4, r: 0.62 },
-        s("stop", { offset: "0", "stop-color": "#22392d" }), s("stop", { offset: "1", "stop-color": "#0d1611" })));
+      /* ---- back: the signpost and the code, in daylight (v1.3). Before, the back was almost black: heavy on a table and
+       * darker still on absorbent coaster board. Dawn on the front, day on the back. ---- */
+      defs.appendChild(s("linearGradient", { id: id + "-bg", x1: 0, y1: 0, x2: 0, y2: 1 },
+        s("stop", { offset: "0", "stop-color": "#c4e3f1" }), s("stop", { offset: "0.55", "stop-color": "#e9f4f0" }), s("stop", { offset: "0.84", "stop-color": "#fdf3d2" })));
       art.appendChild(s("rect", { x: 0, y: 0, width: SIZE, height: SIZE, fill: "url(#" + id + "-bg)" }));
-      /* the same mountains as on the front, quietly, so both sides belong together */
-      art.appendChild(s("path", { d: "M-2 98 L9 93 L19 96 L30 90.5 L40 94.5 L48 91.5 L58 95 L68 89.5 L80 94.5 L90 91 L100 95 L115 92 V115 H-2Z", fill: "#2a4535", opacity: 0.85 }));
-      art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: WHITE, "stroke-width": 0.3, opacity: 0.3 }));
-      /* the yellow mountain-path sign with its white-red-white tip */
-      var sy = 19.6, sh = 12, sx = 25.5, tipX = 75.5, tipEnd = 88.5;
-      defs.appendChild(s("clipPath", { id: id + "-sign" }, s("path", { d: "M" + (sx + 1) + " " + sy + " H" + (tipEnd - 6) + " L" + tipEnd + " " + (sy + sh / 2) + " L" + (tipEnd - 6) + " " + (sy + sh) + " H" + (sx + 1) + " Q" + sx + " " + (sy + sh) + " " + sx + " " + (sy + sh - 1) + " V" + (sy + 1) + " Q" + sx + " " + sy + " " + (sx + 1) + " " + sy + " Z" })));
+      /* the same mountains as on the front, so both sides belong together */
+      art.appendChild(s("path", { d: "M-2 97 L9 92 L19 95 L30 89.5 L40 93.5 L48 90.5 L58 94 L68 88.5 L80 93.5 L90 90 L100 94 L115 91 V115 H-2Z", fill: "#b9cfd6" }));
+      art.appendChild(s("path", { d: "M-2 90 C 26 98.5, 44 96, 58 97.2 S 92 97.5, 115 89 V115 H-2Z", fill: mix(col, WHITE, 0.3) }));
+      /* the nearest hill is a shallow valley: high at the sides, so the ring text below always stands on the dark hill */
+      art.appendChild(s("path", { d: "M-2 86 C 26 101, 87 101, 115 86 V115 H-2Z", fill: mix(col, INK, 0.25) }));
+      art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: INK, "stroke-width": 0.3, opacity: 0.22 }));
+      /* the yellow mountain-path sign with its white-red-white tip. It sits clear of the ring text above it. */
+      var sy = 24, sh = 11, sx = 30, tipX = 72, tipEnd = 83;
+      defs.appendChild(s("clipPath", { id: id + "-sign" }, s("path", { d: "M" + (sx + 1) + " " + sy + " H" + (tipEnd - 5.5) + " L" + tipEnd + " " + (sy + sh / 2) + " L" + (tipEnd - 5.5) + " " + (sy + sh) + " H" + (sx + 1) + " Q" + sx + " " + (sy + sh) + " " + sx + " " + (sy + sh - 1) + " V" + (sy + 1) + " Q" + sx + " " + sy + " " + (sx + 1) + " " + sy + " Z" })));
+      art.appendChild(s("ellipse", { cx: C, cy: sy + sh + 1.3, rx: 24, ry: 1.2, fill: INK, opacity: 0.12 }));
       var sign = s("g", { "clip-path": "url(#" + id + "-sign)" },
         s("rect", { x: sx, y: sy, width: tipEnd - sx, height: sh, fill: SIGN }),
         s("rect", { x: tipX, y: sy, width: tipEnd - tipX, height: sh, fill: WHITE }),
         s("rect", { x: tipX, y: sy + sh / 3, width: tipEnd - tipX, height: sh / 3, fill: BLAZE }));
       art.appendChild(sign);
-      var go = T("coasterGo").toUpperCase(), mins = "5 MIN", msz = 3.6;
-      var gsz = fit(go, 700, F_SIGN, 6.4, tipX - 2 - width(mins, 600, F_SIGN, msz) - 4 - (sx + 3));
-      art.appendChild(s("text", { x: sx + 3, y: sy + sh / 2 + gsz * 0.35, "font-family": F_SIGN, "font-weight": 700, "font-size": gsz, "letter-spacing": 0.2, fill: INK, text: go }));
-      art.appendChild(s("text", { x: tipX - 2, y: sy + sh / 2 + msz * 0.36, "font-family": F_SIGN, "font-weight": 600, "font-size": msz, fill: INK, "text-anchor": "end", text: mins }));
-      /* the white field with the code */
-      var px = 35, py = 34.6, ps = 43;
+      var go = T("coasterGo").toUpperCase(), mins = "5 MIN", msz = 3;
+      var gsz = fit(go, 700, F_SIGN, 6, tipX - 1.6 - width(mins, 600, F_SIGN, msz) - 5.5 - (sx + 2.6));
+      art.appendChild(s("text", { x: sx + 2.6, y: sy + sh / 2 + gsz * 0.35, "font-family": F_SIGN, "font-weight": 700, "font-size": gsz, "letter-spacing": 0.2, fill: INK, text: go }));
+      art.appendChild(s("text", { x: tipX - 1.6, y: sy + sh / 2 + msz * 0.36, "font-family": F_SIGN, "font-weight": 600, "font-size": msz, fill: INK, "text-anchor": "end", text: mins }));
+      /* the white field with the code: still its own field, so the quiet zone stays pure white on any paper */
+      var ps = 43, px = C - ps / 2, py = 37.2;
+      art.appendChild(s("rect", { x: px + 0.5, y: py + 0.9, width: ps, height: ps, rx: 2.6, fill: INK, opacity: 0.1 }));
       art.appendChild(s("rect", { x: px, y: py, width: ps, height: ps, rx: 2.6, fill: WHITE }));
       art.appendChild(qrGroup(G.coasterLink(c), px, py, ps));
-      var addr = G.coasterAddr(), asz = fit(addr, 600, F_SIGN, 4.4, 62);
-      art.appendChild(s("text", { x: C, y: 83.4, "font-family": F_SIGN, "font-weight": 600, "font-size": asz, "letter-spacing": 0.25, fill: WHITE, "text-anchor": "middle", text: addr }));
+      var addr = G.coasterAddr(), asz = fit(addr, 600, F_SIGN, 4.2, 56);
+      art.appendChild(s("text", { x: C, y: 85.6, "font-family": F_SIGN, "font-weight": 600, "font-size": asz, "letter-spacing": 0.25, fill: INK, "text-anchor": "middle", text: addr }));
       var hint = T("coasterHint");
-      art.appendChild(s("text", { x: C, y: 89, "font-family": F_TEXT, "font-weight": 400, "font-size": fit(hint, 400, F_TEXT, 3, 54), fill: WHITE, opacity: 0.82, "text-anchor": "middle", text: hint }));
-      art.appendChild(ringText(id + "-top", T("appTitleRing"), 43, false, SIGN));
+      art.appendChild(s("text", { x: C, y: 89.9, "font-family": F_TEXT, "font-weight": 400, "font-size": fit(hint, 400, F_TEXT, 2.8, 50), fill: INK, opacity: 0.85, "text-anchor": "middle", text: hint }));
+      art.appendChild(ringText(id + "-top", T("appTitleRing"), 43, false, INK));
       art.appendChild(ringText(id + "-bot", T("coasterFree"), 46.6, true, WHITE, 3.1));
     }
     if (!opts.print) {

@@ -69,6 +69,14 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - **Ein Wort pro Publikum**: Für alles, was Spielende lesen, heisst es «Fähigkeit» (Fähigkeitskarte), auf Englisch «skill».
   «Kompetenz» steht nur in der Definitionszeile des JRC auf der Kartenrückseite und gegenüber dem JRC.
 
+## Neu in v1.3 (12. November 2026) · Heller Deckel, eine Adresse für alle Codes
+
+- **Deckel hell statt dunkel**: Die Rückseite (Wegweiser und QR-Code) ist jetzt Tageslicht statt Schwarzgrün, die Vorderseite
+  hat einen helleren Himmel und hellere Hügel. Der Wegweiser überdeckt die Ringschrift nicht mehr. Das betrifft auch die
+  Druckdaten. Der Code selbst und die Adressen `#d1` bis `#d12` sind unverändert. Begründung in `DECKEL.md`.
+- **Eine Adresse für alle QR-Codes**: neu `qrBase` oben in `data.js`. Reihenfolge: Eingabe in der Werkstatt (nur dieses Gerät),
+  sonst `qrBase`, sonst die Adresse der Seite. Die Werkstatt zeigt, welche Adresse gilt und woher sie kommt. `sw.js` auf `gct-v17`.
+
 ## Neu in v1.2 (12. November 2026) · Bierdeckel mit Mini-Aufgabe
 
 - **Bierdeckel auf der Startseite**: Die Rückseite gibt jetzt etwas zu tun. Unter dem gelben Wegweiser «Jetzt ausprobieren» steht

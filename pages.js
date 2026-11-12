@@ -574,7 +574,11 @@
     var abc = store.get("abc", null) || { "promoting-nature": { senses: "A" }, "critical-thinking": { beauty: "B" } };
     var addr = h("input", { type: "url", id: "ws-addr", placeholder: location.href.replace(/#.*$/, ""), value: store.get("baseUrl", "") });
     var preview = h("div", { style: { width: "120px" } }, G.qr(G.linkTo("k-promoting-nature")));
-    addr.addEventListener("change", function () { store.set("baseUrl", addr.value.trim()); put(preview, G.qr(G.linkTo("k-promoting-nature"))); });
+    /* v1.3: say which address is in force and where it comes from, so nobody prints codes for the wrong place */
+    var active = h("p", { class: "about-line", "aria-live": "polite" });
+    function paintActive() { var src = G.qrBaseSource(); put(active, h("b", null, T("qrActive") + " "), h("span", { style: { overflowWrap: "anywhere" } }, G.baseUrl()), h("br"), h("span", { class: "small muted" }, T(src === "device" ? "qrSrcDevice" : src === "data" ? "qrSrcData" : "qrSrcHere"))); }
+    paintActive();
+    addr.addEventListener("change", function () { store.set("baseUrl", addr.value.trim()); put(preview, G.qr(G.linkTo("k-promoting-nature"))); paintActive(); });
     var table = h("table", null,
       h("thead", null, h("tr", null, h("th", null, T("tComp")), D.trails.map(function (t) { return h("th", null, L(t.name)); }))),
       h("tbody", null, D.competences.map(function (c) {
@@ -603,7 +607,7 @@
       h("section", { class: "wrap page-head" }, h("p", { class: "eyebrow" }, "v" + D.version), h("h1", null, T("wsTitle")), h("p", { class: "lead" }, T("wsLead"))),
       h("section", { class: "wrap stack", style: { paddingBottom: "48px", gap: "22px" } },
         h("div", { class: "panel" }, h("h3", null, T("checkT")), h("ol", null, window.GCT_CHECKS.map(function (x) { return h("li", null, L(x)); }))),
-        h("div", { class: "panel" }, h("h3", null, T("qrAddr")), h("p", { class: "muted" }, T("qrAddrP")), h("div", { class: "row", style: { alignItems: "flex-start" } }, h("div", { class: "field", style: { flex: "1", minWidth: "240px" } }, h("label", { for: "ws-addr" }, T("qrAddr")), addr), preview),
+        h("div", { class: "panel" }, h("h3", null, T("qrAddr")), h("p", { class: "muted" }, T("qrAddrP")), h("div", { class: "row", style: { alignItems: "flex-start" } }, h("div", { class: "field", style: { flex: "1", minWidth: "240px" } }, h("label", { for: "ws-addr" }, T("qrAddr")), addr), preview), active, h("p", { class: "small muted" }, T("qrScope")),
           h("p", null, h("a", { class: "btn btn--small", href: "#deckel" }, T("coasterTitle") + " · " + T("cpT") + " →"))),
         h("div", { class: "panel" }, h("h3", null, T("abcT")), h("p", { class: "muted" }, T("abcP")), h("div", { class: "tbl-wrap" }, table),
           h("div", { class: "row" }, h("button", { type: "button", class: "btn btn--small", onclick: function () { G.copyText(abcCsv(), status, area); } }, T("copyCsv"))), status, area),
