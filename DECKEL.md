@@ -18,6 +18,26 @@ Diese fünf Dinge bleiben auf jedem Deckel gleich:
 
 Dieselben Zeichen tragen die App, das Symbol auf dem Startbildschirm (dunkel, Wegmarkierung, gelber Wegweiser) und der «Spielen»-Knopf.
 
+## Hell statt dunkel (seit v1.3)
+
+Die Rückseite war fast schwarzgrün. Auf saugfähigem Bierdeckelkarton werden dunkle Flächen noch dunkler und stumpfer als am
+Bildschirm; der Deckel wirkte düster. Jetzt gilt: **vorne Morgendämmerung, hinten Tag.** Die Rückseite hat einen hellen Himmel,
+dunkle Schrift und dieselben Berge am unteren Rand. Die Vorderseite hat einen helleren Himmel und hellere Hügel in der
+Bereichsfarbe. Der gelbe Wegweiser sitzt frei unter der Ringschrift (vorher überdeckte er sie). Der Code steht weiter in einem
+eigenen weissen Feld, damit die Ruhezone auf jedem Karton rein weiss bleibt.
+
+## Eine Adresse für alle Codes
+
+Alle QR-Codes (zwölf Deckel, Fähigkeitskarten, Fakten, Stationskarten, Joker) nehmen dieselbe Adresse. Sie wird an **einer**
+Stelle gesetzt:
+
+1. **Für alle:** oben in `data.js` bei `qrBase`, zum Beispiel `qrBase: "https://greencomp.li/"`. Danach `python3 einzeldatei.py`.
+2. **Nur auf einem Gerät, zum Ausprobieren:** in der App unter Werkstatt → «Adresse auf gedruckten Karten und Deckeln».
+3. **Nichts gesetzt:** Die Codes zeigen dorthin, von wo die App geöffnet ist.
+
+Die Werkstatt zeigt an, welche Adresse gerade gilt und woher sie kommt. **Vor dem Druck** eine kurze eigene Adresse eintragen,
+die weiterleitet: Ein gedruckter Code lässt sich nicht mehr ändern, eine Weiterleitung schon.
+
 ## Die zwölf Deckel
 
 Jeder Deckel hat seine eigene Frage und seine eigene Adresse. Der Code führt auf genau diesen Deckel.
@@ -65,6 +85,12 @@ Jeder Deckel hat seine eigene Frage und seine eigene Adresse. Der Code führt au
 - «Probedruck auf A4» legt zwei Deckel auf eine A4-Seite, mit Schnittlinie (magenta) und Sicherheitslinie (blau).
 
 **Vor dem Druck:** die Vorlage der Druckerei holen und Beschnitt und Sicherheitsabstand vergleichen. Die Werte schwanken je nach Anbieter. Nach einem nachhaltigen Karton fragen (Recycling oder FSC), das passt zum Thema.
+
+## Geprüft (12. November 2026, helle Fassung v1.3)
+
+- Alle 12 Codes aus der neuen Druckzeichnung gelesen (Decoder jsQR), grob (3,8 Pixel pro Millimeter) und fein (11 Pixel pro
+  Millimeter), mit kurzer Adresse (`greencomp.li`) und mit langer Adresse (GitHub Pages): 48 von 48 gelesen.
+- Nicht geprüft: ein echter Probedruck auf Bierdeckelkarton. Der bleibt vor einer Auflage nötig.
 
 ## Geprüft (16. Oktober 2026)
 

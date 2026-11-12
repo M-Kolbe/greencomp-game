@@ -81,7 +81,12 @@
   G.runCleanups = function () { var c = cleanups; cleanups = []; c.forEach(function (f) { try { f(); } catch (e) { console.error(e); } }); };
 
   /* ---------- QR ---------- */
-  G.baseUrl = function () { var saved = store.get("baseUrl", ""); return (saved || location.href).replace(/#.*$/, ""); };
+  /* The address every QR code points to (cards, coasters, facts, stations). One place to change it:
+   * 1. on this device: Workshop → «Address for the QR codes» (kept in this browser only);
+   * 2. for everyone: `qrBase` at the top of data.js;
+   * 3. if both are empty: the address the app is opened from. */
+  G.qrBaseSource = function () { return store.get("baseUrl", "") ? "device" : (D.qrBase || "").trim() ? "data" : "here"; };
+  G.baseUrl = function () { var saved = store.get("baseUrl", "") || (D.qrBase || "").trim(); return (saved || location.href).replace(/#.*$/, ""); };
   G.linkTo = function (hash) { return G.baseUrl() + (hash ? "#" + hash : ""); };
   G.qr = function (text, label) {
     var box = h("div", { class: "qr" });

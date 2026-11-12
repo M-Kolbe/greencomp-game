@@ -1209,3 +1209,14 @@
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+(function () {
+  /* v1.3: one address for all QR codes, shown in the workshop */
+  var add = {
+    qrActive: { en: "All QR codes point to:", de: "Alle QR-Codes zeigen auf:" },
+    qrSrcDevice: { en: "Set in the field above, on this device only. Clear the field to go back.", de: "Im Feld oben gesetzt, nur auf diesem Gerät. Feld leeren, um zurückzugehen." },
+    qrSrcData: { en: "Set for everyone in data.js (qrBase).", de: "Für alle gesetzt in data.js (qrBase)." },
+    qrSrcHere: { en: "Nothing is set, so the codes use the address this page is opened from.", de: "Nichts gesetzt: Die Codes nehmen die Adresse, von der diese Seite geöffnet ist." },
+    qrScope: { en: "This one address is used by every code: the twelve coasters, the skill cards, the facts, the station cards and the joker. To set it for everyone, write it into qrBase at the top of data.js.", de: "Diese eine Adresse gilt für jeden Code: die zwölf Deckel, die Fähigkeitskarten, die Fakten, die Stationskarten und den Joker. Für alle setzen: oben in data.js bei qrBase eintragen." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
