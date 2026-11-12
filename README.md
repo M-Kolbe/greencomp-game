@@ -69,6 +69,18 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - **Ein Wort pro Publikum**: Für alles, was Spielende lesen, heisst es «Fähigkeit» (Fähigkeitskarte), auf Englisch «skill».
   «Kompetenz» steht nur in der Definitionszeile des JRC auf der Kartenrückseite und gegenüber dem JRC.
 
+## Neu in v1.4 (12. November 2026) · Drei Karten auf einem Bildschirm
+
+- **Karten ziehen ist ein Schritt**: Zieht die App die Karten («Nur App», auch bei «Gleich los»), liegen Fähigkeitskarte, Spurkarte
+  und Funke nach einem Tipp zusammen da: «Was ihr tut», «Wie ihr es tut», «Eine kleine Überraschung». Jede Karte lässt sich einzeln
+  neu ziehen. Vorher waren es drei Bildschirme hintereinander, bevor die erste Aufgabe kam. «Gleich los» hat jetzt 11 statt 13
+  Schritte, das kurze Spiel 5 statt 6.
+- Die Regeln bleiben: Ist der Funke Pflicht (eine Station, oder letzte Station ohne Funken), gibt es kein «Diesmal kein Funke».
+  «Doppelt» zieht die zweite Spur gleich mit, «Tausch» bietet die anderen Karten an. Eine gewählte oder mitgebrachte Karte bleibt.
+- **Einzeln ziehen bleibt möglich**: «Lieber selbst wählen oder den Joker spielen?» schaltet auf die drei bisherigen Schritte um.
+  Mit Papierkarten («Karten und App») bleibt es bei den drei Schritten, weil dort jede Karte eingetippt wird.
+- Startseite: Die Höhenlinien im Hintergrund sind wieder weg. `sw.js` auf `gct-v18`.
+
 ## Neu in v1.3 (12. November 2026) · Heller Deckel, eine Adresse für alle Codes
 
 - **Deckel hell statt dunkel**: Die Rückseite (Wegweiser und QR-Code) ist jetzt Tageslicht statt Schwarzgrün, die Vorderseite
