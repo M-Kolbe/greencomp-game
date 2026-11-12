@@ -73,6 +73,8 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 
 - **Bierdeckel auf der Startseite**: Die Rückseite gibt jetzt etwas zu tun. Unter dem gelben Wegweiser «Jetzt ausprobieren» steht
   die Aufgabe der Karte für eine Person (der Text «Allein», höchstens drei kurze Sätze). Vorne die Frage, hinten das Tun.
+  Die Rückseite ist bewusst hell: Tageslicht über denselben Bergen, dunkle Schrift auf hellem Himmel. Vorne Morgendämmerung,
+  hinten Tag. Das Schild ist auf die Länge seiner Wörter zugeschnitten.
   Die gedruckte Rückseite (Wegweiser und QR-Code) bleibt unverändert. `sw.js` auf `gct-v16`.
 
 ## Neu in v1.1 (12. November 2026) · Startseite und weniger Stolperstellen
