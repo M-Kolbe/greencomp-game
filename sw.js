@@ -1,7 +1,7 @@
 /* Spuren: offline after the first visit. Stores nothing about the user.
    The app's own files: network first, so a new version shows at once; the cache only when there is no network.
    Fonts and the QR library: from the cache, refreshed in the background. */
-var CACHE = "gct-v14";
+var CACHE = "gct-v15";
 var SHELL = ["./", "index.html", "data.js", "pieces.js", "guide.js", "i18n.js", "audio.js", "core.js", "cards.js", "joker.js", "deckel.js", "viz.js", "scenes.js", "play.js", "tafel.js", "spielen.js", "pages.js", "app.js", "manifest.webmanifest", "icon.svg"];
 
 self.addEventListener("install", function (e) {

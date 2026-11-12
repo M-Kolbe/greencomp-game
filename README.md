@@ -69,6 +69,23 @@ Sprachen: Englisch und Deutsch, Schalter oben. Deutsch im Liechtensteiner Stil (
 - **Ein Wort pro Publikum**: Für alles, was Spielende lesen, heisst es «Fähigkeit» (Fähigkeitskarte), auf Englisch «skill».
   «Kompetenz» steht nur in der Definitionszeile des JRC auf der Kartenrückseite und gegenüber dem JRC.
 
+## Neu in v1.1 (12. November 2026) · Startseite und weniger Stolperstellen
+
+- **Startseite**: Die Landschaft im Kopf hat Tannen, Nebel, einen markierten Weg mit gelbem Wegweiser, tagsüber Bienen und nachts
+  Glühwürmchen. Der Kopf endet in einer Hügellinie. Darunter: Höhenlinien wie auf einer Wanderkarte, die Wegmarkierung vor den
+  Überschriften, Kacheln mit eigener Farbe und einem kleinen Wegweiser als Pfeil, «Zum Staunen» als Abendhimmel, die vier Bereiche
+  als Wegweiser in einer Wiese.
+- **Bierdeckel**: Beim Umdrehen erschien die Vorderseite spiegelverkehrt (ein Filter auf dem drehenden Element machte die Rückseite
+  unsichtbar). Behoben. Auf der Startseite zeigt die Rückseite jetzt die Fähigkeit hinter der Frage in Alltagssprache, dieselben
+  Berge bei Nacht; darunter «Diese Karte jetzt spielen». Die gedruckte Rückseite (Wegweiser und QR-Code) bleibt unverändert.
+- **Eine Minute vor dem Start** ist kürzer: offen bleiben Ablauf, vier Regeln, Rollen und die Sanduhr. Die sechs Schritte einer
+  Station sowie Ziel und Ort sind eingeklappt. Rund 180 statt 370 Wörter.
+- **Schrittzähler**: zählt nur noch die Schritte des Spiels. Die Fragen davor heissen «Vor dem Spiel». «Gleich los» beginnt bei
+  Schritt 1 von 13 statt bei 5 von 17.
+- **Wählen mit Punkten**: Ist der letzte Punkt vergeben, wertet die App sofort aus und zeigt das Ergebnis. Vorher blieb «Weiter»
+  grau, bis jemand weit unten «Auswerten» fand.
+- **Fusszeile**: Link zum GreenComp TCA Planner. `sw.js` auf `gct-v15`.
+
 ## Neu in v1.0 (7. November 2026) · Klare Regeln
 
 - **Womit spielt ihr?** Neuer Schritt nach der Spieldauer: **Karten und App** (Papierkarten aus dem Beutel ziehen und eintippen,

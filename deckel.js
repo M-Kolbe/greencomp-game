@@ -104,7 +104,7 @@
     var id = "cst" + (++uid), area = c.area, col = AREA_HEX[area];
     var vb = opts.print ? "0 0 113 113" : (C - CUT) + " " + (C - CUT) + " " + (2 * CUT) + " " + (2 * CUT);
     var svg = s("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: vb, class: "coaster-svg", role: "img",
-      "aria-label": side === "back" ? T("coasterBackLabel") : T("coasterFrontLabel", { q: L(c.question) }) });
+      "aria-label": side === "task" ? L(c.name) + ": " + L(c.plain) : side === "back" ? T("coasterBackLabel") : T("coasterFrontLabel", { q: L(c.question) }) });
     if (opts.print) { svg.setAttribute("width", "113mm"); svg.setAttribute("height", "113mm"); }
     var defs = s("defs", null, s("clipPath", { id: id + "-cut" }, s("circle", { cx: C, cy: C, r: CUT })),
       arcPath(id + "-top", 43, false), arcPath(id + "-bot", 46.6, true));
@@ -112,7 +112,7 @@
     var art = s("g", opts.print ? null : { "clip-path": "url(#" + id + "-cut)" });
     svg.appendChild(art);
 
-    if (side !== "back") {
+    if (side !== "back" && side !== "task") {
       /* ---- front: dawn over the mountains and the question ---- */
       defs.appendChild(s("linearGradient", { id: id + "-sky", x1: 0, y1: 0, x2: 0, y2: 1 },
         s("stop", { offset: "0", "stop-color": "#152b3f" }), s("stop", { offset: "0.34", "stop-color": "#2d4a66" }),
@@ -145,6 +145,38 @@
       art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: WHITE, "stroke-width": 0.3, opacity: 0.45 }));
       art.appendChild(ringText(id + "-top", T("appTitleRing"), 43, false, WHITE));
       art.appendChild(ringText(id + "-bot", T("coasterTurn"), 46.6, true, WHITE, 3.1));
+    } else if (side === "task") {
+      /* ---- v1.1, screen only: the other side on the home page. The front asks, this side says what the skill is,
+       * the same mountains at night. The printed back (signpost and QR code) stays as it is. ---- */
+      defs.appendChild(s("linearGradient", { id: id + "-nsky", x1: 0, y1: 0, x2: 0, y2: 1 },
+        s("stop", { offset: "0", "stop-color": "#070d1a" }), s("stop", { offset: "0.5", "stop-color": "#152a44" }), s("stop", { offset: "0.78", "stop-color": mix("#2d4a66", col, 0.35) })));
+      defs.appendChild(s("radialGradient", { id: id + "-moon", cx: 0.5, cy: 0.5, r: 0.5 },
+        s("stop", { offset: "0", "stop-color": "#dfe9ff", "stop-opacity": "0.5" }), s("stop", { offset: "1", "stop-color": "#dfe9ff", "stop-opacity": "0" })));
+      art.appendChild(s("rect", { x: 0, y: 0, width: SIZE, height: SIZE, fill: "url(#" + id + "-nsky)" }));
+      [[20, 30], [28, 19], [37, 12.5], [52, 9], [66, 13], [91, 27], [97, 38], [14, 44], [44, 21], [74, 9.5], [100, 50], [10, 56]].forEach(function (p, i) { art.appendChild(s("circle", { cx: p[0], cy: p[1], r: i % 3 ? 0.34 : 0.52, fill: WHITE, opacity: i % 2 ? 0.55 : 0.9 })); });
+      art.appendChild(s("circle", { cx: 87, cy: 62, r: 12, fill: "url(#" + id + "-moon)" }));
+      art.appendChild(s("circle", { cx: 87, cy: 62, r: 4.2, fill: "#f2f5ff" }));
+      art.appendChild(s("circle", { cx: 85.4, cy: 60.9, r: 3.9, fill: "#1a2f4a" }));
+      art.appendChild(s("path", { d: "M-2 80 L9 74 L19 78 L30 71 L40 76.5 L48 72.5 L58 77 L68 70.5 L80 76.5 L90 72 L100 77 L115 73 V115 H-2Z", fill: "#1b2f44" }));
+      art.appendChild(s("path", { d: "M-2 86 C 14 80.5, 28 82, 40 85 S 70 80, 85 83 S 104 86.5, 115 82 V115 H-2Z", fill: mix(col, "#0b1420", 0.62) }));
+      art.appendChild(s("path", { d: "M-2 93 C 18 88.5, 38 91.5, 56 89.5 S 94 88.5, 115 92.5 V115 H-2Z", fill: mix(col, "#070d14", 0.82) }));
+      /* a small signpost on the hill, as in the picture above the page */
+      art.appendChild(s("rect", { x: 26.6, y: 76, width: 0.9, height: 9.5, fill: "#cfd8d2" }));
+      art.appendChild(s("path", { d: "M25.8 76.6 h6.4 l2.2 1.6 l-2.2 1.6 h-6.4 z", fill: SIGN }));
+      /* which skill, then what it means in everyday words */
+      var nm = c.no + " · " + L(c.name).toUpperCase(), nsz = fit(nm, 700, F_SIGN, 4.3, 60);
+      var nw = width(nm, 700, F_SIGN, nsz) + nm.length * 0.4, nx = C - (nw + 6.2) / 2;
+      art.appendChild(areaSign(area, nx, 26.2, 5, SIGN));
+      art.appendChild(s("text", { x: nx + 6.4, y: 30.3, "font-family": F_SIGN, "font-weight": 700, "font-size": nsz, "letter-spacing": 0.4, fill: SIGN, text: nm }));
+      var pl = L(c.plain), psz, pls, PS = [6.1, 5.5, 5, 4.5];
+      if (!PS.some(function (sz) { psz = sz; pls = wrap(pl, 700, F_TEXT, sz, 70); return pls.length <= 4; })) { psz = 4.1; pls = wrap(pl, 700, F_TEXT, psz, 72); }
+      var plh = psz * 1.2, ptop = 52.5 - pls.length * plh / 2;
+      var pt = s("text", { "font-family": F_TEXT, "font-weight": 700, "font-size": psz, fill: WHITE, "text-anchor": "middle" });
+      pls.forEach(function (line, i) { pt.appendChild(s("tspan", { x: C, y: (ptop + psz * 0.82 + i * plh).toFixed(2), text: line })); });
+      art.appendChild(pt);
+      art.appendChild(s("circle", { cx: C, cy: C, r: 47.9, fill: "none", stroke: WHITE, "stroke-width": 0.3, opacity: 0.4 }));
+      art.appendChild(ringText(id + "-top", T("coasterSkillRing"), 43, false, WHITE));
+      art.appendChild(ringText(id + "-bot", T("coasterTurnBack"), 46.6, true, WHITE, 3.1));
     } else {
       /* ---- back: the signpost and the code ---- */
       defs.appendChild(s("radialGradient", { id: id + "-bg", cx: 0.5, cy: 0.4, r: 0.62 },
@@ -189,12 +221,13 @@
     return svg;
   };
   /* A coaster to flip: back first after a scan, front on the home page. */
-  G.coasterFlip = function (c, startBack) {
+  G.coasterFlip = function (c, startBack, opts) {
+    opts = opts || {};
     var btn = h("button", { type: "button", class: "coaster" + (startBack ? " flip" : ""), "aria-pressed": String(!!startBack) });
     var front = h("div", { class: "coaster-face" }), back = h("div", { class: "coaster-face coaster-back" });
     btn.append(front, back);
-    function paint() { put(front, G.coaster(c, "front")); put(back, G.coaster(c, "back")); btn.setAttribute("aria-label", T("coasterLabel") + " " + L(c.question)); }
-    btn.addEventListener("click", function () { var on = !btn.classList.contains("flip"); btn.classList.toggle("flip", on); btn.setAttribute("aria-pressed", String(on)); });
+    function paint() { put(front, G.coaster(c, "front")); put(back, G.coaster(c, opts.task ? "task" : "back")); btn.setAttribute("aria-label", T("coasterLabel") + " " + L(c.question)); }
+    btn.addEventListener("click", function () { var on = !btn.classList.contains("flip"); btn.classList.toggle("flip", on); btn.setAttribute("aria-pressed", String(on)); if (opts.onFlip) opts.onFlip(on); });
     paint();
     /* fonts decide the line breaks: draw again once they are there */
     if (document.fonts && document.fonts.status !== "loaded") document.fonts.ready.then(function () { if (btn.isConnected) paint(); });

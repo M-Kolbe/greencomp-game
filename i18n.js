@@ -1195,3 +1195,17 @@
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+(function () {
+  /* v1.1: a shorter one-minute briefing and a step count that starts with the game */
+  var add = {
+    briefStepsFold: { en: "Show the six steps of a station", de: "Die sechs Schritte einer Station zeigen" },
+    briefGoalFold: { en: "If you like: choose a goal and the place", de: "Wer mag: Ziel und Ort wählen" },
+    setupStep: { en: "Before the game", de: "Vor dem Spiel" },
+    footFamily: { en: "Part of the GreenComp toolkit:", de: "Teil des GreenComp-Werkzeugkastens:" },
+    footPlanner: { en: "GreenComp TCA Planner", de: "GreenComp TCA Planner" },
+    needCountDots: { en: "Give all the dots, or tap «Count the dots» below the list.", de: "Vergebt alle Punkte, oder tippt unter der Liste auf «Auswerten»." },
+    coasterSkillRing: { en: "The skill behind the question", de: "Die Fähigkeit hinter der Frage" },
+    coasterTurnBack: { en: "Turn me back", de: "Dreh mich zurück" }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();

@@ -469,7 +469,9 @@
         var segs = runPlan(S.who, S.len, people(), S.pace, isR0()), total = Math.round(segs.reduce(function (a, x) { return a + x.sec; }, 0) / 60);
         put(runBox, h("div", { class: "run-bar", role: "list", "aria-label": T("runT") }, segs.map(function (x) {
           return h("div", { class: "run-seg run-" + (x.ph.indexOf("st") === 0 ? "st" + (+x.ph.slice(2) + 1) : x.ph), role: "listitem", style: { flexGrow: String(Math.max(1, x.min)) } }, h("b", null, x.label), h("small", null, T("minShort", { n: x.min })));
-        })), h("div", { class: "run-station" }, h("p", null, h("b", null, T("stEachSteps"))), stationSteps(false)), h("p", { class: "small muted" }, T("runTotal", { n: total })));
+        })), h("p", { class: "small muted" }, T("runTotal", { n: total })),
+          /* v1.1: the six station steps fold away; the app shows each one when it is its turn */
+          h("details", { class: "brief-fold" }, h("summary", null, T("briefStepsFold")), h("div", { class: "run-station" }, stationSteps(false))));
         put(paceBox, radioChips(T("paceT"), ["calm", "normal", "brisk"].map(function (p) {
           return { id: p, label: T(p === "calm" ? "paceCalm" : p === "brisk" ? "paceBrisk" : "paceNormal") + " · " + T("minShort", { n: totalMin(S.who, S.len, people(), p, isR0()) }) };
         }), S.pace, function (p) { S.pace = p; save(); paintRun(); }));
@@ -487,13 +489,13 @@
       return { icon: "tree", title: T("wBriefT"), say: T("wBriefSay"),
         body: [
           h("p", { class: "about-line" }, L(D.about.brief)),
-          h("section", { class: "brief-sec" }, h("h3", null, "1 · " + T("goalQ")), goalBox),
-          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("runT")), runBox, kitNote()),
-          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rules4T")),
+          /* v1.1: one minute means one screen. Open: how it goes, the four rules, who leads. Folded: goal, station steps, place. */
+          h("section", { class: "brief-sec" }, h("h3", null, "1 · " + T("runT")), runBox, kitNote()),
+          h("section", { class: "brief-sec" }, h("h3", null, "2 · " + T("rules4T")),
             h("ol", { class: "rules3" }, h("li", null, T("rule1")), h("li", null, T("rule2")), h("li", null, h("b", null, T("rule3"))), h("li", null, T("rulePhones")))),
-          h("section", { class: "brief-sec" }, h("h3", null, "4 · " + T("rolesShort")), h("p", { class: "small muted" }, T("ready2G")), rolesBox),
-          h("section", { class: "brief-sec" }, h("h3", null, T("placeQ")), placeBox),
+          h("section", { class: "brief-sec" }, h("h3", null, "3 · " + T("rolesShort")), rolesBox),
           timer(dur("brief"), { hint: T("briefHint") }),
+          h("details", { class: "panel brief-more", open: S.goal === "sdg" }, h("summary", null, T("briefGoalFold")), h("div", { class: "stack", style: { marginTop: "10px" } }, goalBox, placeBox)),
           more],
         read: function () {
           var g = goalText(), segs = runPlan(S.who, S.len, people(), S.pace, isR0());
@@ -542,6 +544,8 @@
                 h("button", { type: "button", class: "pick-add", "aria-label": T("dotAdd", { name: L(c.name), n: d }), onclick: function () {
                   if (given() >= n) { ctl.hint(T("dotsAllGiven")); return; }
                   S.dots[c.id] = d + 1; S.choice = null; save(); paint();
+                  /* v1.1: when the last dot is given, count at once and show the result. Before, «Next» stayed grey until someone found «Count the dots» far below. */
+                  if (given() >= n) { evaluate(); if (result.scrollIntoView) result.scrollIntoView({ behavior: G.reduced ? "auto" : "smooth", block: "center" }); }
                 } }, h("b", null, L(c.name)), h("span", null, L(c.plain)),
                   h("span", { class: "pick-dots", "aria-hidden": "true" }, Array.apply(null, Array(d)).map(function () { return h("i"); }))),
                 d ? h("button", { type: "button", class: "pick-minus", "aria-label": T("dotRemove", { name: L(c.name) }), onclick: function () { S.dots[c.id] = d - 1; if (!S.dots[c.id]) delete S.dots[c.id]; S.choice = null; save(); paint(); } }, "−") : null);
@@ -593,7 +597,7 @@
       return { icon: "compass", kicker: phLabel(step.ph), title: T("wChooseT"), say: (S.later ? T("chooseAfterOne") + " " : "") + (isR0() ? T("wChooseSayR0") : T("wChooseSay")),
         body: [r0Box, timer(dur("choose"), { hint: T("chooseHint") }), status, grid, result, direct, later],
         read: function () { return isR0() ? T("wChooseSayR0") : T("wChooseSay"); },
-        need: function () { if (isR0() && !S.sdg) return T("needSdg"); return S.choice ? null : T("needChooseComp"); } };
+        need: function () { if (isR0() && !S.sdg) return T("needSdg"); return S.choice ? null : given() ? T("needCountDots") : T("needChooseComp"); } };
     },
     /* Outdoors the place is the sound: a phone speaker is lost in the wind, and a recording would beat the real thing.
      * So outdoors the group listens for twenty seconds with the hourglass; indoors the app plays the station sound. */
@@ -1043,6 +1047,10 @@
       def = STEPS[step.id](step, st, ctl);
       save();
       var known = !!S.len || S.who === "room";
+      /* v1.1: count the steps of the game itself. The questions before it (who, how long, with what, names) are set-up,
+       * so «Just start» begins at step 1 and not at step 5. */
+      var nSetup = P.filter(function (p) { return p.ph === "setup"; }).length, inSetup = step.ph === "setup";
+      var stepNo = S.i - nSetup + 1, stepN = P.length - nSetup;
       var phs = [];
       P.forEach(function (p, k) { var last = phs[phs.length - 1]; if (!last || last.ph !== p.ph) phs.push(last = { ph: p.ph, from: k, n: 0 }); last.n++; });
       var confirm = h("div", { class: "row" });
@@ -1052,7 +1060,7 @@
           h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { confirm.replaceChildren(); } }, T("cancel"))));
       }, "aria-label": T("restart") }, "↺", h("span", { class: "hide-xs" }, " " + T("restart"))) : null;
       var top = h("div", { class: "play-top" },
-        h("div", { class: "play-meta" }, h("p", { class: "eyebrow" }, "▶ " + T("playNowBig")), known ? h("p", { class: "muted small num" }, T("stepOf", { i: S.i + 1, n: P.length })) : null, restart),
+        h("div", { class: "play-meta" }, h("p", { class: "eyebrow" }, "▶ " + T("playNowBig")), known ? h("p", { class: "muted small num" }, inSetup || stepN < 1 ? T("setupStep") : T("stepOf", { i: stepNo, n: stepN })) : null, restart),
         confirm,
         h("div", { class: "play-prog", "aria-hidden": "true" }, phs.map(function (x) {
           var done = Math.max(0, Math.min(x.n, S.i - x.from + 1)), state = S.i >= x.from + x.n ? "done" : S.i >= x.from ? "now" : "";
@@ -1066,7 +1074,7 @@
       var area = st && st.comp ? G.AREA[G.COMP[st.comp].area] : st && st.area ? G.AREA[st.area] : null;
       var card = h("article", { class: "play-step" + (moved && !G.reduced ? " in" : ""), style: area ? { "--area": G.areaVar(area) } : null },
         h("header", { class: "play-head" },
-          h("span", { class: "play-num", "aria-hidden": "true" }, known ? String(S.i + 1) : G.icon(def.icon)),
+          h("span", { class: "play-num", "aria-hidden": "true" }, known && !inSetup && stepN > 0 ? String(stepNo) : G.icon(def.icon)),
           h("div", { class: "stack", style: { gap: "4px" } }, h("p", { class: "eyebrow" }, kicker), title),
           readBtn = Voice.ok ? G.speakButton(stepText, T("readOut"), "btn btn--small btn--ghost play-read") : null),
         def.say ? h("p", { class: "play-say" }, def.say) : null,
