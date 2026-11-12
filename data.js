@@ -5,7 +5,7 @@
  * Card texts follow the language rules in SPRACHE.md: one idea per sentence, three steps per task, a clear end.
  */
 window.GCT_DATA = {
-  version: "1.3 · 2026-11-12",
+  version: "1.4 · 2026-11-12",
 
   /* The address ALL QR codes point to: skill cards, the twelve coasters, facts, station cards, joker.
    * Leave empty and the codes point to wherever the app is opened from.

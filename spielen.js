@@ -111,7 +111,19 @@
     for (var k = 0; k < 4; k++) { if (k === (later ? 1 : 0)) p.push({ id: "choose", ph: "choose" }); station(k); }
     return p.concat([{ id: "what", ph: "debrief" }, { id: "sowhat", ph: "debrief" }, { id: "nowwhat", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]);
   }
-  function plan() { return planFor(S.who, S.len, S.later, S.kit); }
+  /* v1.4: when the app draws the cards («Only app»), skill card, trail card and spark come on ONE screen (step «draw»).
+   * With paper cards, and when a group asks for it (S.oneByOne), the three steps stay separate. */
+  function collapseDraw(p) {
+    var out = [];
+    p.forEach(function (x) {
+      var last = out[out.length - 1];
+      if (x.id === "card") { var nx = p[p.indexOf(x) + 1]; if (nx && nx.id === "trail") out.push({ id: "draw", ph: x.ph, k: x.k }); else out.push(x); }
+      else if ((x.id === "trail" || x.id === "spark") && last && last.id === "draw" && last.k === x.k) { if (x.id === "spark") last.spark = true; }
+      else out.push(x);
+    });
+    return out;
+  }
+  function plan() { var p = planFor(S.who, S.len, S.later, S.kit); return S.kit === "app" && !S.oneByOne ? collapseDraw(p) : p; }
   function phLabel(ph, len) {
     len = len || S.len;
     if (ph === "setup") return T("phSetup");
@@ -664,6 +676,74 @@
         read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
     },
+    /* v1.4: one tap deals what the group does (skill card), how it does it (trail card) and a small surprise (spark).
+     * Every card can be drawn again on its own. Whoever wants to choose by hand or play the joker switches to one by one. */
+    draw: function (step, st, ctl) {
+      var k = step.k, withSpark = !!step.spark, box = h("div", { class: "stack draw3" });
+      var lastSt = S.len === "one" || (S.len === "exp" && k === 3);
+      function must() { return withSpark && lastSt && !S.st.some(function (x, j) { return x && j !== k && x.spark && x.spark !== "none"; }); }
+      function setComp(id) { st.comp = id; st.est = estFor(st, k); st.joker = null; st.pts = null; st.guess = null; st.revealed = false; }
+      function newComp() { var list = pool(st, k).filter(function (c) { return c.id !== st.comp; }); setComp(G.pick(list.length ? list : D.competences).id); st.swapped = false; }
+      function secondTrail() { st.trail2 = st.spark === "double" ? G.pick(D.trails.filter(function (t) { return t.id !== st.trail; })).id : null; }
+      function newTrail() { st.trail = G.pick(D.trails.filter(function (t) { return t.id !== st.trail; })).id; secondTrail(); }
+      function newSpark() { st.spark = G.pick(D.sparks.filter(function (sp) { return sp.id !== st.spark; })).id; st.swapped = false; secondTrail(); G.award("spark"); }
+      function deal() {
+        if (!st.comp) newComp();
+        if (!st.trail) newTrail();
+        if (withSpark && !st.spark) newSpark();
+        save(); paint(true);
+        if (store.get("autoRead", false)) Voice.speak(readAll(), "narrator");
+      }
+      function readAll() {
+        if (!st.comp) return "";
+        var t = trailById(st.trail), sp = sparkById(st.spark);
+        return [G.compQ(G.COMP[st.comp], solo()), t ? L(t.name) + ". " + G.trailChange(t, solo()) : "", sp ? L(sp.name) + ". " + L(sp.text) : ""].filter(Boolean).join(" ");
+      }
+      function again(label, fn) { return h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { fn(); save(); paint(false); } }, "↻ " + label); }
+      function row(n, label, anim, kids) { return h("section", { class: "draw3-row" + (anim && !G.reduced ? " dealt" : "") }, h("p", { class: "draw3-label" }, h("i", null, String(n)), label), kids); }
+      /* a card in short: kind and name on a coloured edge, the instruction in reading size. Three of them fit one phone screen. */
+      function mini(kind, label, name, text) { return h("div", { class: "draw3-card draw3-" + kind }, h("p", { class: "eyebrow" }, label + " · " + name), h("p", { class: "draw3-text" }, text)); }
+      function byHand() {
+        return h("details", { class: "panel" }, h("summary", null, T(solo() ? "drawByHandSolo" : "drawByHand")),
+          h("div", { class: "row", style: { marginTop: "10px" } }, h("button", { type: "button", class: "btn btn--small", onclick: function () {
+            S.oneByOne = true; save(); var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.id === "card" && p.k === k; })); save(); ctl.repaint(true);
+          } }, T("drawOneByOne"))));
+      }
+      function paint(anim) {
+        var done = st.comp && st.trail && (!withSpark || st.spark);
+        if (!done) {
+          put(box, h("button", { type: "button", class: "deck", onclick: deal }, h("span", { class: "deck-c" }), h("span", { class: "deck-c" }), h("span", { class: "deck-top" }, G.icon("card", "deck-ico"), h("b", null, "✦ " + T("wDrawT")))), byHand());
+          ctl.refresh(); return;
+        }
+        var t = trailById(st.trail), t2 = trailById(st.trail2), sp = sparkById(st.spark);
+        var swapBox = sp && sp.id === "swap" ? (st.swapped ? h("p", { class: "note" }, T("swapDone", { name: L(G.COMP[st.comp].name) }))
+          : (function () {
+            var others = pool(st, k).filter(function (c) { return c.id !== st.comp; });
+            if (!others.length) others = D.competences.filter(function (c) { return c.id !== st.comp; });
+            return h("div", { class: "stack" }, h("p", null, T("swapSay")), radioChips(T("swapSay"), others.map(function (c) { return { id: c.id, label: c.no + " " + L(c.name) }; }), null, function (id) { setComp(id); st.swapped = true; save(); paint(false); }));
+          })()) : null;
+        put(box,
+          row(1, T(solo() ? "draw1Solo" : "draw1"), anim, [
+            S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null,
+            compSummary(st, false, true), again(T("drawAgain"), newComp)]),
+          row(2, T(solo() ? "draw2Solo" : "draw2"), anim, [
+            mini("trail", T("tTrail"), L(t.name), G.trailChange(t, solo())),
+            t2 ? mini("trail", T("secondTrailIs"), L(t2.name), G.trailChange(t2, solo())) : null,
+            again(T("drawOtherTrail"), newTrail)]),
+          withSpark ? row(3, T("draw3"), anim, [
+            sp ? mini("spark", T("tSpark"), L(sp.name), L(sp.text)) : h("p", { class: "lead" }, T("noSparkThis")),
+            swapBox,
+            h("div", { class: "row" }, again(T(sp ? "drawOtherSpark" : "drawSparkAfterAll"), newSpark),
+              sp && !must() ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.spark = "none"; st.trail2 = null; st.swapped = false; save(); paint(false); } }, T("noSpark")) : null),
+            sp && must() ? h("p", { class: "small muted" }, S.len === "one" ? T("sparkMustOne") : T("sparkMust")) : null]) : null,
+          byHand());
+        ctl.refresh();
+      }
+      paint(false);
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wDrawT"), say: T(withSpark ? (solo() ? "wDrawSaySolo" : "wDrawSay") : (solo() ? "wDrawSay2Solo" : "wDrawSay2")),
+        body: [box], read: readAll,
+        need: function () { return st.comp && st.trail && (!withSpark || st.spark) ? null : T("needDraw3"); } };
+    },
     trail: function (step, st, ctl) {
       var box = h("div", { class: "stack" });
       function result(t) {
@@ -1002,7 +1082,7 @@
       h("button", { type: "button", class: "btn btn--sign", onclick: function () {
         S.st = []; S.leader = null; S.out = null; S.done = false; S.pre = null; S.sil = null; S.dots = {}; S.choice = null; S.final = null; S.changed = false; S.plan = ""; S.thumbs = {}; S.picks = null;
         S.roles = (S.roles + 1) % Math.max(1, S.names.length);
-        var P = plan(); S.i = P.findIndex(function (p) { return p.id === "card" || p.id === "silence"; }); save(); ctl.repaint(true);
+        var P = plan(); S.i = P.findIndex(function (p) { return p.id === "card" || p.id === "draw" || p.id === "silence"; }); save(); ctl.repaint(true);
       } }, "↻ " + T("playAgain")),
       h("a", { class: "btn", href: "#spuren" }, T("toMyTrail")));
   }
@@ -1043,7 +1123,7 @@
         if (ci >= 0 && ci < S.i) { S.i = ci; save(); return paint(moved); }
       }
       var st = step.k != null ? stn(step.k) : null;
-      if (st && step.id !== "sound" && step.id !== "card" && !st.comp) { S.i = P.findIndex(function (p) { return p.id === "card" && p.k === step.k; }); save(); return paint(moved); }
+      if (st && step.id !== "sound" && step.id !== "card" && step.id !== "draw" && !st.comp) { S.i = P.findIndex(function (p) { return (p.id === "card" || p.id === "draw") && p.k === step.k; }); save(); return paint(moved); }
       def = STEPS[step.id](step, st, ctl);
       save();
       var known = !!S.len || S.who === "room";
@@ -1119,7 +1199,8 @@
   G.gameInProgress = function () {
     var g = store.get("game", null);
     if (!g || g.v !== 2 || g.done || !g.len || g.i < 1) return null;
-    return { i: g.i + 1, n: planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit).length };
+    var gp = planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit);
+    return { i: g.i + 1, n: ((g.kit === undefined || g.kit === "app") && !g.oneByOne ? collapseDraw(gp) : gp).length };
   };
 
   /* ---------- «Prepare»: for the game leader, before the day ---------- */

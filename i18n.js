@@ -1220,3 +1220,24 @@
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
+(function () {
+  /* v1.4: skill card, trail card and spark on one screen */
+  var add = {
+    wDrawT: { en: "Draw the cards", de: "Karten ziehen" },
+    wDrawSay: { en: "One tap and your three cards are on the table: what you do, how you do it, and a small surprise. Whoever leads reads them out.", de: "Ein Tipp, und eure drei Karten liegen da: was ihr tut, wie ihr es tut, und eine kleine Überraschung. Wer leitet, liest sie vor." },
+    wDrawSaySolo: { en: "One tap and your three cards are on the table: what you do, how you do it, and a small surprise.", de: "Ein Tipp, und deine drei Karten liegen da: was du tust, wie du es tust, und eine kleine Überraschung." },
+    wDrawSay2: { en: "One tap and your two cards are on the table: what you do and how you do it. Whoever leads reads them out.", de: "Ein Tipp, und eure zwei Karten liegen da: was ihr tut und wie ihr es tut. Wer leitet, liest sie vor." },
+    wDrawSay2Solo: { en: "One tap and your two cards are on the table: what you do and how you do it.", de: "Ein Tipp, und deine zwei Karten liegen da: was du tust und wie du es tust." },
+    draw1: { en: "What you do", de: "Was ihr tut" }, draw1Solo: { en: "What you do", de: "Was du tust" },
+    draw2: { en: "How you do it", de: "Wie ihr es tut" }, draw2Solo: { en: "How you do it", de: "Wie du es tust" },
+    draw3: { en: "A small surprise", de: "Eine kleine Überraschung" },
+    drawOtherTrail: { en: "Draw another trail", de: "Andere Spur ziehen" },
+    drawOtherSpark: { en: "Draw another spark", de: "Anderen Funken ziehen" },
+    drawSparkAfterAll: { en: "Draw a spark after all", de: "Doch einen Funken ziehen" },
+    drawByHand: { en: "Rather choose the cards yourselves, or play the joker?", de: "Lieber selbst wählen oder den Joker spielen?" },
+    drawByHandSolo: { en: "Rather choose the cards yourself?", de: "Lieber selbst wählen?" },
+    drawOneByOne: { en: "Draw the cards one by one", de: "Karten einzeln ziehen" },
+    needDraw3: { en: "First draw the cards.", de: "Zuerst die Karten ziehen." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();

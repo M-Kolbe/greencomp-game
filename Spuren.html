@@ -1174,10 +1174,6 @@ button.pick-add:active { transform: scale(.98); }
 .hero-band::before { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: clamp(28px, 4.2vw, 60px); z-index: 0; pointer-events: none; background: var(--bg);
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 56' preserveAspectRatio='none'%3E%3Cpath d='M0 56V30C180 6 320 44 520 28S860 2 1080 26s250 6 360-10V56Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 56' preserveAspectRatio='none'%3E%3Cpath d='M0 56V30C180 6 320 44 520 28S860 2 1080 26s250 6 360-10V56Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat; }
 .hero { padding-bottom: 116px; }
-/* contour lines, as on a hiking map */
-#app:has(> .hero-band) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%2313201a' stroke-opacity='.055' stroke-width='1.4'%3E%3Cpath d='M300 70c70-30 170 0 190 70s-30 140-110 150-170-20-190-90 40-100 110-130z'/%3E%3Cpath d='M312 110c50-20 120 0 135 48s-22 96-78 104-120-14-134-62 28-70 77-90z'/%3E%3Cpath d='M326 150c30-12 72 0 80 28s-12 56-46 60-70-8-78-36 16-40 44-52z'/%3E%3Cpath d='M40 380c60-40 150-20 170 40s-10 120-80 130-150-10-160-70 20-70 70-100z'/%3E%3Cpath d='M62 412c40-26 100-12 112 26s-6 78-52 84-98-6-104-46 14-46 44-64z'/%3E%3Cpath d='M420 420c50-20 130-10 150 40s0 100-60 110-120 0-130-50 0-80 40-100z'/%3E%3Cpath d='M-40 120c50-30 120-20 140 30s-10 100-70 110'/%3E%3Cpath d='M560 240c40 10 70 40 60 80'/%3E%3C/g%3E%3C/svg%3E"); background-size: 600px 600px; }
-:root[data-theme="dark"] #app:has(> .hero-band) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%23e7eee5' stroke-opacity='.05' stroke-width='1.4'%3E%3Cpath d='M300 70c70-30 170 0 190 70s-30 140-110 150-170-20-190-90 40-100 110-130z'/%3E%3Cpath d='M312 110c50-20 120 0 135 48s-22 96-78 104-120-14-134-62 28-70 77-90z'/%3E%3Cpath d='M326 150c30-12 72 0 80 28s-12 56-46 60-70-8-78-36 16-40 44-52z'/%3E%3Cpath d='M40 380c60-40 150-20 170 40s-10 120-80 130-150-10-160-70 20-70 70-100z'/%3E%3Cpath d='M62 412c40-26 100-12 112 26s-6 78-52 84-98-6-104-46 14-46 44-64z'/%3E%3Cpath d='M420 420c50-20 130-10 150 40s0 100-60 110-120 0-130-50 0-80 40-100z'/%3E%3Cpath d='M-40 120c50-30 120-20 140 30s-10 100-70 110'/%3E%3Cpath d='M560 240c40 10 70 40 60 80'/%3E%3C/g%3E%3C/svg%3E"); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #app:has(> .hero-band) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='none' stroke='%23e7eee5' stroke-opacity='.05' stroke-width='1.4'%3E%3Cpath d='M300 70c70-30 170 0 190 70s-30 140-110 150-170-20-190-90 40-100 110-130z'/%3E%3Cpath d='M312 110c50-20 120 0 135 48s-22 96-78 104-120-14-134-62 28-70 77-90z'/%3E%3Cpath d='M326 150c30-12 72 0 80 28s-12 56-46 60-70-8-78-36 16-40 44-52z'/%3E%3Cpath d='M40 380c60-40 150-20 170 40s-10 120-80 130-150-10-160-70 20-70 70-100z'/%3E%3Cpath d='M62 412c40-26 100-12 112 26s-6 78-52 84-98-6-104-46 14-46 44-64z'/%3E%3Cpath d='M420 420c50-20 130-10 150 40s0 100-60 110-120 0-130-50 0-80 40-100z'/%3E%3Cpath d='M-40 120c50-30 120-20 140 30s-10 100-70 110'/%3E%3Cpath d='M560 240c40 10 70 40 60 80'/%3E%3C/g%3E%3C/svg%3E"); } }
 .home-about .section-head h2, .home-trails .section-head h2 { display: flex; align-items: center; gap: 14px; }
 .home-about .section-head h2::before, .home-trails .section-head h2::before { content: ""; flex: none; width: 34px; height: 22px; border-radius: 3px;
   background: linear-gradient(#fff 0 33%, var(--blaze) 33% 67%, #fff 67%); box-shadow: 0 0 0 1px var(--line); }
@@ -1218,6 +1214,19 @@ button.pick-add:active { transform: scale(.98); }
 .brief-fold[open] > summary { margin-bottom: 8px; }
 .coaster-play { gap: 8px; box-shadow: 0 8px 18px -8px rgba(0, 0, 0, .6); }
 .coaster-play-ico { width: 18px; height: 18px; fill: currentColor; }
+/* v1.4: skill, trail and spark on one screen */
+.draw3 { gap: 16px; }
+.draw3-row { display: grid; gap: 8px; }
+.draw3-label { display: flex; align-items: center; gap: 10px; font-family: var(--f-sign); font-weight: 700; font-size: 1.25rem; line-height: 1.1; }
+.draw3-label i { font-style: normal; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--sign); color: var(--sign-ink); font-size: 1.05rem; flex: none; }
+.draw3-row .btn--ghost { justify-self: start; }
+.draw3-row.dealt { animation: deal .5s cubic-bezier(.2, .8, .3, 1) backwards; }
+.draw3-row.dealt:nth-of-type(2) { animation-delay: .18s; } .draw3-row.dealt:nth-of-type(3) { animation-delay: .36s; }
+.draw3-card { padding: 14px 16px; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); border-left: 8px solid var(--sign); box-shadow: var(--shadow); }
+.draw3-card.draw3-spark { border-left-color: var(--blaze); }
+.draw3-card .eyebrow { margin: 0 0 4px; }
+.draw3-text { margin: 0; font-size: var(--s-3); line-height: 1.35; font-weight: 700; }
+.draw3 .five-card { margin: 0; }
 </style>
 </head>
 <body>
@@ -3534,7 +3543,7 @@ var qrcode = function() {
  * Card texts follow the language rules in SPRACHE.md: one idea per sentence, three steps per task, a clear end.
  */
 window.GCT_DATA = {
-  version: "1.3 · 2026-11-12",
+  version: "1.4 · 2026-11-12",
 
   /* The address ALL QR codes point to: skill cards, the twelve coasters, facts, station cards, joker.
    * Leave empty and the codes point to wherever the app is opened from.
@@ -6095,6 +6104,27 @@ window.GCT_DATA.facts = [
     qrSrcData: { en: "Set for everyone in data.js (qrBase).", de: "Für alle gesetzt in data.js (qrBase)." },
     qrSrcHere: { en: "Nothing is set, so the codes use the address this page is opened from.", de: "Nichts gesetzt: Die Codes nehmen die Adresse, von der diese Seite geöffnet ist." },
     qrScope: { en: "This one address is used by every code: the twelve coasters, the skill cards, the facts, the station cards and the joker. To set it for everyone, write it into qrBase at the top of data.js.", de: "Diese eine Adresse gilt für jeden Code: die zwölf Deckel, die Fähigkeitskarten, die Fakten, die Stationskarten und den Joker. Für alle setzen: oben in data.js bei qrBase eintragen." }
+  };
+  Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
+})();
+(function () {
+  /* v1.4: skill card, trail card and spark on one screen */
+  var add = {
+    wDrawT: { en: "Draw the cards", de: "Karten ziehen" },
+    wDrawSay: { en: "One tap and your three cards are on the table: what you do, how you do it, and a small surprise. Whoever leads reads them out.", de: "Ein Tipp, und eure drei Karten liegen da: was ihr tut, wie ihr es tut, und eine kleine Überraschung. Wer leitet, liest sie vor." },
+    wDrawSaySolo: { en: "One tap and your three cards are on the table: what you do, how you do it, and a small surprise.", de: "Ein Tipp, und deine drei Karten liegen da: was du tust, wie du es tust, und eine kleine Überraschung." },
+    wDrawSay2: { en: "One tap and your two cards are on the table: what you do and how you do it. Whoever leads reads them out.", de: "Ein Tipp, und eure zwei Karten liegen da: was ihr tut und wie ihr es tut. Wer leitet, liest sie vor." },
+    wDrawSay2Solo: { en: "One tap and your two cards are on the table: what you do and how you do it.", de: "Ein Tipp, und deine zwei Karten liegen da: was du tust und wie du es tust." },
+    draw1: { en: "What you do", de: "Was ihr tut" }, draw1Solo: { en: "What you do", de: "Was du tust" },
+    draw2: { en: "How you do it", de: "Wie ihr es tut" }, draw2Solo: { en: "How you do it", de: "Wie du es tust" },
+    draw3: { en: "A small surprise", de: "Eine kleine Überraschung" },
+    drawOtherTrail: { en: "Draw another trail", de: "Andere Spur ziehen" },
+    drawOtherSpark: { en: "Draw another spark", de: "Anderen Funken ziehen" },
+    drawSparkAfterAll: { en: "Draw a spark after all", de: "Doch einen Funken ziehen" },
+    drawByHand: { en: "Rather choose the cards yourselves, or play the joker?", de: "Lieber selbst wählen oder den Joker spielen?" },
+    drawByHandSolo: { en: "Rather choose the cards yourself?", de: "Lieber selbst wählen?" },
+    drawOneByOne: { en: "Draw the cards one by one", de: "Karten einzeln ziehen" },
+    needDraw3: { en: "First draw the cards.", de: "Zuerst die Karten ziehen." }
   };
   Object.keys(add).forEach(function (k) { window.GCT_I18N[k] = add[k]; });
 })();
@@ -9331,7 +9361,19 @@ window.GCT_DATA.facts = [
     for (var k = 0; k < 4; k++) { if (k === (later ? 1 : 0)) p.push({ id: "choose", ph: "choose" }); station(k); }
     return p.concat([{ id: "what", ph: "debrief" }, { id: "sowhat", ph: "debrief" }, { id: "nowwhat", ph: "debrief" }, { id: "promise", ph: "end" }, { id: "leader", ph: "end" }]);
   }
-  function plan() { return planFor(S.who, S.len, S.later, S.kit); }
+  /* v1.4: when the app draws the cards («Only app»), skill card, trail card and spark come on ONE screen (step «draw»).
+   * With paper cards, and when a group asks for it (S.oneByOne), the three steps stay separate. */
+  function collapseDraw(p) {
+    var out = [];
+    p.forEach(function (x) {
+      var last = out[out.length - 1];
+      if (x.id === "card") { var nx = p[p.indexOf(x) + 1]; if (nx && nx.id === "trail") out.push({ id: "draw", ph: x.ph, k: x.k }); else out.push(x); }
+      else if ((x.id === "trail" || x.id === "spark") && last && last.id === "draw" && last.k === x.k) { if (x.id === "spark") last.spark = true; }
+      else out.push(x);
+    });
+    return out;
+  }
+  function plan() { var p = planFor(S.who, S.len, S.later, S.kit); return S.kit === "app" && !S.oneByOne ? collapseDraw(p) : p; }
   function phLabel(ph, len) {
     len = len || S.len;
     if (ph === "setup") return T("phSetup");
@@ -9884,6 +9926,74 @@ window.GCT_DATA.facts = [
         read: function () { return st.joker ? st.joker.q : st.comp ? G.compQ(G.COMP[st.comp], solo()) : ""; },
         need: function () { return st.comp ? null : T("needCard"); } };
     },
+    /* v1.4: one tap deals what the group does (skill card), how it does it (trail card) and a small surprise (spark).
+     * Every card can be drawn again on its own. Whoever wants to choose by hand or play the joker switches to one by one. */
+    draw: function (step, st, ctl) {
+      var k = step.k, withSpark = !!step.spark, box = h("div", { class: "stack draw3" });
+      var lastSt = S.len === "one" || (S.len === "exp" && k === 3);
+      function must() { return withSpark && lastSt && !S.st.some(function (x, j) { return x && j !== k && x.spark && x.spark !== "none"; }); }
+      function setComp(id) { st.comp = id; st.est = estFor(st, k); st.joker = null; st.pts = null; st.guess = null; st.revealed = false; }
+      function newComp() { var list = pool(st, k).filter(function (c) { return c.id !== st.comp; }); setComp(G.pick(list.length ? list : D.competences).id); st.swapped = false; }
+      function secondTrail() { st.trail2 = st.spark === "double" ? G.pick(D.trails.filter(function (t) { return t.id !== st.trail; })).id : null; }
+      function newTrail() { st.trail = G.pick(D.trails.filter(function (t) { return t.id !== st.trail; })).id; secondTrail(); }
+      function newSpark() { st.spark = G.pick(D.sparks.filter(function (sp) { return sp.id !== st.spark; })).id; st.swapped = false; secondTrail(); G.award("spark"); }
+      function deal() {
+        if (!st.comp) newComp();
+        if (!st.trail) newTrail();
+        if (withSpark && !st.spark) newSpark();
+        save(); paint(true);
+        if (store.get("autoRead", false)) Voice.speak(readAll(), "narrator");
+      }
+      function readAll() {
+        if (!st.comp) return "";
+        var t = trailById(st.trail), sp = sparkById(st.spark);
+        return [G.compQ(G.COMP[st.comp], solo()), t ? L(t.name) + ". " + G.trailChange(t, solo()) : "", sp ? L(sp.name) + ". " + L(sp.text) : ""].filter(Boolean).join(" ");
+      }
+      function again(label, fn) { return h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { fn(); save(); paint(false); } }, "↻ " + label); }
+      function row(n, label, anim, kids) { return h("section", { class: "draw3-row" + (anim && !G.reduced ? " dealt" : "") }, h("p", { class: "draw3-label" }, h("i", null, String(n)), label), kids); }
+      /* a card in short: kind and name on a coloured edge, the instruction in reading size. Three of them fit one phone screen. */
+      function mini(kind, label, name, text) { return h("div", { class: "draw3-card draw3-" + kind }, h("p", { class: "eyebrow" }, label + " · " + name), h("p", { class: "draw3-text" }, text)); }
+      function byHand() {
+        return h("details", { class: "panel" }, h("summary", null, T(solo() ? "drawByHandSolo" : "drawByHand")),
+          h("div", { class: "row", style: { marginTop: "10px" } }, h("button", { type: "button", class: "btn btn--small", onclick: function () {
+            S.oneByOne = true; save(); var P = plan(); S.i = Math.max(0, P.findIndex(function (p) { return p.id === "card" && p.k === k; })); save(); ctl.repaint(true);
+          } }, T("drawOneByOne"))));
+      }
+      function paint(anim) {
+        var done = st.comp && st.trail && (!withSpark || st.spark);
+        if (!done) {
+          put(box, h("button", { type: "button", class: "deck", onclick: deal }, h("span", { class: "deck-c" }), h("span", { class: "deck-c" }), h("span", { class: "deck-top" }, G.icon("card", "deck-ico"), h("b", null, "✦ " + T("wDrawT")))), byHand());
+          ctl.refresh(); return;
+        }
+        var t = trailById(st.trail), t2 = trailById(st.trail2), sp = sparkById(st.spark);
+        var swapBox = sp && sp.id === "swap" ? (st.swapped ? h("p", { class: "note" }, T("swapDone", { name: L(G.COMP[st.comp].name) }))
+          : (function () {
+            var others = pool(st, k).filter(function (c) { return c.id !== st.comp; });
+            if (!others.length) others = D.competences.filter(function (c) { return c.id !== st.comp; });
+            return h("div", { class: "stack" }, h("p", null, T("swapSay")), radioChips(T("swapSay"), others.map(function (c) { return { id: c.id, label: c.no + " " + L(c.name) }; }), null, function (id) { setComp(id); st.swapped = true; save(); paint(false); }));
+          })()) : null;
+        put(box,
+          row(1, T(solo() ? "draw1Solo" : "draw1"), anim, [
+            S.choice === st.comp ? h("p", { class: "note" }, "⭐ " + T("chosenCardNote")) : null,
+            compSummary(st, false, true), again(T("drawAgain"), newComp)]),
+          row(2, T(solo() ? "draw2Solo" : "draw2"), anim, [
+            mini("trail", T("tTrail"), L(t.name), G.trailChange(t, solo())),
+            t2 ? mini("trail", T("secondTrailIs"), L(t2.name), G.trailChange(t2, solo())) : null,
+            again(T("drawOtherTrail"), newTrail)]),
+          withSpark ? row(3, T("draw3"), anim, [
+            sp ? mini("spark", T("tSpark"), L(sp.name), L(sp.text)) : h("p", { class: "lead" }, T("noSparkThis")),
+            swapBox,
+            h("div", { class: "row" }, again(T(sp ? "drawOtherSpark" : "drawSparkAfterAll"), newSpark),
+              sp && !must() ? h("button", { type: "button", class: "btn btn--small btn--ghost", onclick: function () { st.spark = "none"; st.trail2 = null; st.swapped = false; save(); paint(false); } }, T("noSpark")) : null),
+            sp && must() ? h("p", { class: "small muted" }, S.len === "one" ? T("sparkMustOne") : T("sparkMust")) : null]) : null,
+          byHand());
+        ctl.refresh();
+      }
+      paint(false);
+      return { icon: "card", kicker: phLabel(step.ph), title: T("wDrawT"), say: T(withSpark ? (solo() ? "wDrawSaySolo" : "wDrawSay") : (solo() ? "wDrawSay2Solo" : "wDrawSay2")),
+        body: [box], read: readAll,
+        need: function () { return st.comp && st.trail && (!withSpark || st.spark) ? null : T("needDraw3"); } };
+    },
     trail: function (step, st, ctl) {
       var box = h("div", { class: "stack" });
       function result(t) {
@@ -10222,7 +10332,7 @@ window.GCT_DATA.facts = [
       h("button", { type: "button", class: "btn btn--sign", onclick: function () {
         S.st = []; S.leader = null; S.out = null; S.done = false; S.pre = null; S.sil = null; S.dots = {}; S.choice = null; S.final = null; S.changed = false; S.plan = ""; S.thumbs = {}; S.picks = null;
         S.roles = (S.roles + 1) % Math.max(1, S.names.length);
-        var P = plan(); S.i = P.findIndex(function (p) { return p.id === "card" || p.id === "silence"; }); save(); ctl.repaint(true);
+        var P = plan(); S.i = P.findIndex(function (p) { return p.id === "card" || p.id === "draw" || p.id === "silence"; }); save(); ctl.repaint(true);
       } }, "↻ " + T("playAgain")),
       h("a", { class: "btn", href: "#spuren" }, T("toMyTrail")));
   }
@@ -10263,7 +10373,7 @@ window.GCT_DATA.facts = [
         if (ci >= 0 && ci < S.i) { S.i = ci; save(); return paint(moved); }
       }
       var st = step.k != null ? stn(step.k) : null;
-      if (st && step.id !== "sound" && step.id !== "card" && !st.comp) { S.i = P.findIndex(function (p) { return p.id === "card" && p.k === step.k; }); save(); return paint(moved); }
+      if (st && step.id !== "sound" && step.id !== "card" && step.id !== "draw" && !st.comp) { S.i = P.findIndex(function (p) { return (p.id === "card" || p.id === "draw") && p.k === step.k; }); save(); return paint(moved); }
       def = STEPS[step.id](step, st, ctl);
       save();
       var known = !!S.len || S.who === "room";
@@ -10339,7 +10449,8 @@ window.GCT_DATA.facts = [
   G.gameInProgress = function () {
     var g = store.get("game", null);
     if (!g || g.v !== 2 || g.done || !g.len || g.i < 1) return null;
-    return { i: g.i + 1, n: planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit).length };
+    var gp = planFor(g.who, g.len, g.later, g.kit === undefined ? "app" : g.kit);
+    return { i: g.i + 1, n: ((g.kit === undefined || g.kit === "app") && !g.oneByOne ? collapseDraw(gp) : gp).length };
   };
 
   /* ---------- «Prepare»: for the game leader, before the day ---------- */
