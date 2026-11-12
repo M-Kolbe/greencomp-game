@@ -26,6 +26,10 @@
     }
     var birds = []; for (var b = 0; b < 6; b++) birds.push({ x: rnd(b + 100), y: 0.18 + rnd(b + 110) * 0.16, v: 0.006 + rnd(b + 120) * 0.006, ph: rnd(b + 130) * 6 });
     var stars = []; for (var st = 0; st < 90; st++) stars.push([rnd(st + 300), rnd(st + 400) * 0.55, rnd(st + 500)]);
+    /* v1.1: pines on the three nearest ridges, a marked trail with a signpost, mist in the valleys, fireflies at night */
+    var trees = []; for (var tr = 0; tr < 46; tr++) trees.push({ r: 2 + Math.floor(rnd(tr + 600) * 3), u: rnd(tr + 700), s: 0.6 + rnd(tr + 800) * 0.8 });
+    var flies = []; for (var ff = 0; ff < 16; ff++) flies.push([rnd(ff + 900), 0.62 + rnd(ff + 950) * 0.3, rnd(ff + 990) * 6]);
+    function ridgeY(rg, u) { var y = rg.base; rg.waves.forEach(function (wv) { y -= Math.abs(Math.sin(u * wv.f + wv.p + px * 0.02 * rg.depth)) * wv.a; }); return y; }
     var px = 0, tx = 0, raf = 0, t0 = performance.now(), visible = true;
     function col(name) { return G.cssVar(name, cv); }
     function draw() {
@@ -42,6 +46,8 @@
       glow.addColorStop(0, col("--hero-sun-glow")); glow.addColorStop(1, "rgba(0,0,0,0)");
       x.fillStyle = glow; x.fillRect(0, 0, W, H);
       x.fillStyle = col("--hero-sun"); x.beginPath(); x.arc(sx, sy, sr, 0, 7); x.fill();
+      x.strokeStyle = "rgba(255,255,255," + (night ? 0.07 : 0.16) + ")"; x.lineWidth = 1.2 * dpr;
+      for (var hr = 1; hr <= 2; hr++) { x.beginPath(); x.arc(sx, sy, sr * (1.55 + hr * 0.75 + 0.06 * Math.sin(t * 0.4 + hr)), 0, 7); x.stroke(); }
       for (var c = 0; c < 3; c++) { x.fillStyle = "rgba(255,255,255," + (night ? 0.04 : 0.18) + ")"; var cx = ((t * 0.008 * (c + 1) + c * 0.37) % 1.3 - 0.15) * W; x.beginPath(); x.ellipse(cx, H * (0.2 + c * 0.07), W * 0.12, H * 0.025, 0, 0, 7); x.fill(); }
       ridges.forEach(function (rg, i) {
         x.fillStyle = col("--hero-m" + (i + 1));
@@ -52,8 +58,44 @@
           x.lineTo(u * W + px * rg.depth * 18 * dpr, y * H);
         }
         x.lineTo(W + 40 * dpr, H); x.closePath(); x.fill();
-        if (i === 0) { x.fillStyle = "rgba(255,255,255," + (night ? 0.18 : 0.55) + ")"; }
+        trees.forEach(function (tt) {
+          if (tt.r !== i) return;
+          var tx2 = tt.u * W + px * rg.depth * 18 * dpr, ty = ridgeY(rg, tt.u) * H + 2 * dpr, th = H * 0.022 * (0.5 + rg.depth) * tt.s, tw = th * 0.42;
+          x.beginPath(); x.moveTo(tx2, ty - th); x.lineTo(tx2 + tw, ty - th * 0.38); x.lineTo(tx2 + tw * 0.5, ty - th * 0.38); x.lineTo(tx2 + tw * 1.25, ty + 2 * dpr);
+          x.lineTo(tx2 - tw * 1.25, ty + 2 * dpr); x.lineTo(tx2 - tw * 0.5, ty - th * 0.38); x.lineTo(tx2 - tw, ty - th * 0.38); x.closePath(); x.fill();
+        });
+        if (i === 1 || i === 3) {
+          var my = (rg.base + 0.03) * H, mh = H * 0.11, mist = x.createLinearGradient(0, my - mh, 0, my + mh), ma = (night ? 0.05 : 0.2) * (0.75 + 0.25 * Math.sin(t * 0.12 + i));
+          mist.addColorStop(0, "rgba(255,255,255,0)"); mist.addColorStop(0.5, "rgba(255,255,255," + ma + ")"); mist.addColorStop(1, "rgba(255,255,255,0)");
+          x.fillStyle = mist; x.fillRect(0, my - mh, W, mh * 2);
+        }
       });
+      /* the trail up the nearest ridge and its signpost: the same yellow sign that leads through the app */
+      var wide = cv.clientWidth >= 760;
+      var front = ridges[4], su = 0.6, spx = su * W + px * front.depth * 18 * dpr, spy = ridgeY(front, su) * H, ph = Math.max(34 * dpr, H * 0.085);
+      if (wide) {
+      x.save(); x.lineCap = "round"; x.strokeStyle = "rgba(255,255,255," + (night ? 0.2 : 0.42) + ")"; x.lineWidth = 2.6 * dpr; x.setLineDash([1, 9 * dpr]);
+      x.beginPath(); x.moveTo(spx - W * 0.2, H); x.bezierCurveTo(spx - W * 0.02, H * 0.97, spx - W * 0.16, spy + (H - spy) * 0.42, spx - 5 * dpr, spy + 6 * dpr); x.stroke(); x.restore();
+      x.fillStyle = night ? "#3a463f" : "#e9eee6"; x.fillRect(spx - 2 * dpr, spy - ph, 4 * dpr, ph + 6 * dpr);
+      x.fillStyle = col("--blaze"); x.fillRect(spx - 2 * dpr, spy - ph * 0.3, 4 * dpr, ph * 0.1);
+      var sw = ph * 0.82, sh = ph * 0.26, sy0 = spy - ph * 0.96;
+      x.fillStyle = col("--sign"); x.globalAlpha = night ? 0.8 : 1;
+      x.beginPath(); x.moveTo(spx - sw * 0.14, sy0); x.lineTo(spx + sw * 0.72, sy0); x.lineTo(spx + sw, sy0 + sh / 2); x.lineTo(spx + sw * 0.72, sy0 + sh); x.lineTo(spx - sw * 0.14, sy0 + sh); x.closePath(); x.fill();
+      x.beginPath(); x.moveTo(spx + sw * 0.14, sy0 + sh * 1.3); x.lineTo(spx - sw * 0.6, sy0 + sh * 1.3); x.lineTo(spx - sw * 0.84, sy0 + sh * 1.75); x.lineTo(spx - sw * 0.6, sy0 + sh * 2.2); x.lineTo(spx + sw * 0.14, sy0 + sh * 2.2); x.closePath(); x.fill();
+      x.globalAlpha = 1;
+      }
+      /* bees over the meadow by day: the same bees as in the GreenComp TCA Planner, so both tools belong together */
+      if (!night) for (var bi = 0; bi < 3; bi++) {
+        var bt = t * (0.16 + bi * 0.05) + bi * 2.1, bxx = (0.5 + 0.34 * Math.sin(bt) + bi * 0.06) * W, byy = (0.8 + 0.05 * Math.sin(bt * 2.3 + bi) + bi * 0.035) * H, bs = (5 + bi) * dpr, dir = Math.cos(bt) >= 0 ? 1 : -1;
+        x.save(); x.translate(bxx, byy); x.scale(dir, 1);
+        x.fillStyle = "rgba(255,255,255," + (0.55 + 0.3 * Math.abs(Math.sin(t * 30 + bi))) + ")";
+        x.beginPath(); x.ellipse(-bs * 0.1, -bs * 0.75, bs * 0.42, bs * 0.7, -0.5, 0, 7); x.fill();
+        x.fillStyle = "#f6c600"; x.beginPath(); x.ellipse(0, 0, bs, bs * 0.62, 0, 0, 7); x.fill();
+        x.fillStyle = "#2a1f0c"; x.fillRect(-bs * 0.42, -bs * 0.58, bs * 0.24, bs * 1.16); x.fillRect(bs * 0.08, -bs * 0.6, bs * 0.24, bs * 1.2);
+        x.beginPath(); x.arc(bs * 0.92, 0, bs * 0.4, 0, 7); x.fill();
+        x.restore();
+      }
+      if (night) flies.forEach(function (fl2) { var fa = Math.max(0, Math.sin(t * 1.3 + fl2[2])); x.fillStyle = "rgba(246,214,90," + (0.75 * fa) + ")"; x.beginPath(); x.arc((fl2[0] + 0.01 * Math.sin(t * 0.5 + fl2[2])) * W, (fl2[1] + 0.012 * Math.cos(t * 0.4 + fl2[2])) * H, 1.7 * dpr, 0, 7); x.fill(); });
       x.strokeStyle = col("--hero-bird"); x.lineWidth = 1.6 * dpr;
       birds.forEach(function (bd) {
         var bx = ((bd.x + t * bd.v) % 1.2 - 0.1) * W, by = bd.y * H + Math.sin(t * 0.8 + bd.ph) * 6 * dpr, fl = Math.sin(t * 6 + bd.ph) * 3 * dpr;
@@ -101,7 +143,9 @@
       h("p", { class: "small hero-play-hint" }, T("heroPlayHint"), " · ", h("a", { href: "#anleitung" }, T("howToPlay")), " · ", birdsToggle()));
 
     /* the same coaster that lies on the tables: front with the question, back with the signpost and the code */
-    var flipC = G.coasterFlip(cc, false), coaster = flipC.el;
+    /* v1.1: the other side says what the skill is, and a sign under the coaster starts exactly this card */
+    var playCard = h("button", { type: "button", class: "btn btn--sign coaster-play", onclick: function () { G.newGame(null, coasterId); } }, G.icon("play", "coaster-play-ico"), h("span", null, T("doorPlay")));
+    var flipC = G.coasterFlip(cc, false, { task: true }), coaster = flipC.el;
     var flickMsg = h("p", { class: "small hero-note", "aria-live": "polite" });
     var flick = h("button", { type: "button", class: "btn btn--small btn--glass", onclick: function () {
       coaster.classList.remove("flick"); void coaster.offsetWidth; if (!G.reduced) coaster.classList.add("flick");
@@ -125,12 +169,12 @@
             h("h1", null, T("heroTitle")),
             h("p", { class: "lead" }, T("heroLead2")),
             playBox),
-          h("div", { class: "coaster-wrap" }, coaster, flick, flickMsg))),
-      h("section", { class: "wrap", style: { paddingBlock: "28px 8px" } },
+          h("div", { class: "coaster-wrap" }, coaster, playCard, flick, flickMsg))),
+      h("section", { class: "wrap home-about", style: { paddingBlock: "28px 8px" } },
         h("div", { class: "section-head" }, h("h2", null, T("aboutT"))), G.aboutTiles(true),
         /* a fact in plain sight, not folded away */
         (D.facts || []).length ? h("div", { style: { marginTop: "18px" } }, G.factItem(null, true)) : null),
-      h("section", { class: "wrap", style: { paddingBlock: "20px 44px" } },
+      h("section", { class: "wrap home-ways", style: { paddingBlock: "20px 44px" } },
         h("div", { class: "bento" },
           tile("tile--hero tile--facts", "#fakten", "spark", T("tileFactsT"), T("tileFactsP", { n: (D.facts || []).length }), h("span", { class: "tile-tags" }, h("i", null, T("factWow")), h("i", null, T("factThink")), h("i", null, T("factSource")))),
           tile("tile--way", "#spuren", "way", T("tileWayT"), T("tileWayP", { n: walks }), ring),
@@ -141,7 +185,7 @@
           (function () { var t = tile("tile--wide tile--wide3", "#spielen", "globe", T("tileR0T"), T("tileR0P")); t.addEventListener("click", function (ev) { ev.preventDefault(); G.newOriginal(); }); return t; })(),
           tile("tile--finds", "#spuren", "crown", T("tileFindsT"), T("findsCount", { n: nFinds, m: D.badges.length }),
             h("span", { class: "mini-finds" }, D.badges.slice(0, 8).map(function (b) { return h("i", { class: have[b.id] ? "got" : "", style: { "--fc": "var(" + b.color + ")" } }); }))))),
-      h("section", { class: "band" }, h("div", { class: "wrap" },
+      h("section", { class: "band home-trails" }, h("div", { class: "wrap" },
         h("div", { class: "section-head" }, h("h2", null, T("mapTitle")), h("p", { class: "muted" }, T("mapSub"))),
         trailMap())),
       h("section", { class: "wrap", style: { paddingBlock: "36px 40px" } },

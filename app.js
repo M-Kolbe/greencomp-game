@@ -71,6 +71,7 @@
       h("div", { class: "foot-links" },
         h("a", { href: "#anleitung" }, T("navGuide")), h("a", { href: "#fakten" }, T("navFacts")), h("a", { href: "#vorbereiten" }, T("prepT")), h("a", { href: "#schaetzen" }, T("trainTitle")), h("a", { href: "#joker" }, T("tJoker")), h("a", { href: "#deckel" }, T("coasterTitle")), h("a", { href: "#loesungen" }, T("solTitle")),
         h("a", { href: "#messung" }, T("navMeasure")), h("a", { href: "#werkstatt" }, T("wsTitle"))),
+      h("p", { class: "foot-family" }, T("footFamily"), " ", h("a", { href: "https://m-kolbe.github.io/GreenComp/", rel: "noopener" }, T("footPlanner") + " →")),
       h("p", null, T("footPrivacy")),
       h("p", null, T("footLicense")),
       h("details", null, h("summary", null, T("sourcesT")), h("ul", null, D.sources.map(function (x) { return h("li", null, h("b", null, x.short), ": ", x.text); }))),
